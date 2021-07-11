@@ -17,12 +17,11 @@ public class WebConfig implements WebMvcConfigurer {
      * 添加视图控制器
      */
 
-//    @Override
-//    public void addViewControllers(ViewControllerRegistry registry) {
-//        registry.addViewController("/").setViewName("index");
-//        registry.addViewController("/index.html").setViewName("index");
-////        registry.addViewController("/main.html").setViewName("dashboard");
-//    }
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("index");
+//        registry.addViewController("/main.html").setViewName("dashboard");
+    }
 
 
     /**
