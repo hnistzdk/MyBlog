@@ -1,0 +1,20 @@
+10:07:52.514 INFO  -> Starting MyBlogApplication using Java 1.8.0_282 on DESKTOP-7KN75LJ with PID 22500 (F:\project\my\MyBlog\target\classes started by zdk in F:\project\my\MyBlog)
+10:07:52.517 DEBUG -> Running with Spring Boot v2.4.5, Spring v5.3.6
+10:07:52.517 INFO  -> No active profile set, falling back to default profiles: default
+10:07:54.184 INFO  -> Started MyBlogApplication in 1.973 seconds (JVM running for 2.44)
+10:12:30.270 INFO  -> Starting MyBlogApplication using Java 1.8.0_282 on DESKTOP-7KN75LJ with PID 24856 (F:\project\my\MyBlog\target\classes started by zdk in F:\project\my\MyBlog)
+10:12:30.272 DEBUG -> Running with Spring Boot v2.4.5, Spring v5.3.6
+10:12:30.272 INFO  -> No active profile set, falling back to default profiles: default
+10:12:31.943 INFO  -> Started MyBlogApplication in 1.979 seconds (JVM running for 2.469)
+10:17:00.312 INFO  -> Starting MyBlogApplication using Java 1.8.0_282 on DESKTOP-7KN75LJ with PID 17108 (F:\project\my\MyBlog\target\classes started by zdk in F:\project\my\MyBlog)
+10:17:00.314 DEBUG -> Running with Spring Boot v2.4.5, Spring v5.3.6
+10:17:00.314 INFO  -> No active profile set, falling back to default profiles: default
+10:17:02.003 INFO  -> Started MyBlogApplication in 2.026 seconds (JVM running for 2.49)
+10:19:16.260 INFO  -> Starting MyBlogApplication using Java 1.8.0_282 on DESKTOP-7KN75LJ with PID 2712 (F:\project\my\MyBlog\target\classes started by zdk in F:\project\my\MyBlog)
+10:19:16.262 DEBUG -> Running with Spring Boot v2.4.5, Spring v5.3.6
+10:19:16.262 INFO  -> No active profile set, falling back to default profiles: default
+10:19:17.915 INFO  -> Started MyBlogApplication in 1.962 seconds (JVM running for 2.429)
+10:22:53.427 INFO  -> Starting MyBlogApplication using Java 1.8.0_282 on DESKTOP-7KN75LJ with PID 16732 (F:\project\my\MyBlog\target\classes started by zdk in F:\project\my\MyBlog)
+10:22:53.429 DEBUG -> Running with Spring Boot v2.4.5, Spring v5.3.6
+10:22:53.429 INFO  -> No active profile set, falling back to default profiles: default
+10:22:55.090 INFO  -> Started MyBlogApplication in 1.975 seconds (JVM running for 2.434)
