@@ -22,7 +22,7 @@
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <Pattern>${CONSOLE_LOG_PATTERN}</Pattern>
-            <charset>${ENCODING}</charset>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
 
@@ -51,13 +51,17 @@
         <appender-ref ref="FILE"/>
     </appender>
     <!--输出等级和需要输出在哪些地方(ref的内容是上方配置的节点的name)-->
-    <logger name="com.test.newdemo" level="DEBUG">
+    <logger name="com.zdk.MyBlog" level="DEBUG">
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>
     </logger>
-    <!--    <root level="ERROR">-->
+<!--    <logger name="com.zdk.MyBlog.MyBlogApplicationTests" level="DEBUG">-->
+<!--        <appender-ref ref="FILE"/>-->
+<!--        <appender-ref ref="CONSOLE"/>-->
+<!--    </logger>-->
+        <root level="info">
+<!--            <appender-ref ref="FILE"/>-->
     <!--        <appender-ref ref="FILE"/>-->
-    <!--&lt;!&ndash;        <appender-ref ref="FILE"/>&ndash;&gt;-->
-    <!--        <appender-ref ref="CONSOLE"/>-->
-    <!--    </root>-->
+<!--            <appender-ref ref="CONSOLE"/>-->
+        </root>
 </configuration>
