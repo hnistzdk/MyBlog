@@ -38,6 +38,7 @@ public class LoginController extends BaseController {
 
     @GetMapping(value = "/toIndex")
     public String toIndex(){
+        System.out.println("==========>进入toIndex方法");
         return "index";
     }
 
@@ -50,8 +51,10 @@ public class LoginController extends BaseController {
         String ip=IpKit.getIpAddrByRequest(request);
         //构造登录错误次数唯一缓存key
         String userCountKey=WebConst.LOGIN_ERROR_COUNT+ip+username;
+        System.out.println("userCountKey = " + userCountKey);
         //构造登录成功后用户信息唯一缓存key
         String userInfoKey=WebConst.USERINFO+ip+username;
+        System.out.println("userInfoKey = " + userInfoKey);
 
         String loginErrorCount = redisUtil.get(userCountKey);
         if(loginErrorCount!=null&&Integer.parseInt(loginErrorCount)>=3){
@@ -60,7 +63,7 @@ public class LoginController extends BaseController {
         User user = userService.login(username, password);
         if(user!=null){
             redisUtil.del(userCountKey);
-            redisUtil.hset(WebConst.USERINFO,userInfoKey, user, 6000);
+            redisUtil.hset(WebConst.USERINFO,WebConst.LOGIN_SESSION_KEY, user, 6000);
             return ApiResponse.success();
         }else{
             loginErrorCount = redisUtil.get(userCountKey);
