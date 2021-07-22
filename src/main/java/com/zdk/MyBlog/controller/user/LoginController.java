@@ -10,6 +10,7 @@ import com.zdk.MyBlog.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +47,8 @@ public class LoginController extends BaseController {
     @PostMapping(value = "/userLogin")
     @ResponseBody
     public ApiResponse login(@RequestParam(name = "username") String username,
-                             @RequestParam(name = "password") String password, HttpServletRequest request) {
+                             @RequestParam(name = "password") String password,
+                             @RequestParam(name = "rememberMe") @Nullable String remember, HttpServletRequest request) {
 
         String ip=IpKit.getIpAddrByRequest(request);
         //构造登录错误次数唯一缓存key
@@ -56,26 +58,36 @@ public class LoginController extends BaseController {
         String userInfoKey=WebConst.USERINFO+ip+username;
         System.out.println("userInfoKey = " + userInfoKey);
 
-        String loginErrorCount = redisUtil.get(userCountKey);
-        if(loginErrorCount!=null&&Integer.parseInt(loginErrorCount)>=3){
+        Long loginErrorCount = redisUtil.getNumber(userCountKey);
+        if(loginErrorCount!=null&&loginErrorCount>=3){
             return ApiResponse.fail("您输入密码已经错误超过3次，请10分钟后尝试");
         }
         User user = userService.login(username, password);
         if(user!=null){
             redisUtil.del(userCountKey);
-            redisUtil.hset(WebConst.USERINFO,WebConst.LOGIN_SESSION_KEY, user, 6000);
+            if(remember!=null){
+                redisUtil.hset(WebConst.USERINFO,WebConst.LOGIN_SESSION_KEY, user, 3600);
+            }else{
+                redisUtil.hset(WebConst.USERINFO,WebConst.LOGIN_SESSION_KEY, user, -1);
+            }
             return ApiResponse.success();
         }else{
-            loginErrorCount = redisUtil.get(userCountKey);
+            loginErrorCount = redisUtil.getNumber(userCountKey);
             if(loginErrorCount==null){
-                redisUtil.set(userCountKey,"1");
+                redisUtil.setNumber(userCountKey,1,600);
             }else{
                 redisUtil.incr(userCountKey, 1);
-                if(Integer.parseInt(redisUtil.get(userCountKey))>=3){
+                if(redisUtil.getNumber(userCountKey)>=3){
                     redisUtil.expire(userCountKey,600);
                 }
             }
-            return ApiResponse.fail("账号或密码错误,您还有"+(3-Integer.parseInt(redisUtil.get(userCountKey)))+"次机会");
+            return ApiResponse.fail("账号或密码错误,您还有"+(3-redisUtil.getNumber(userCountKey))+"次机会");
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(){
+        redisUtil.hdel(WebConst.USERINFO,WebConst.LOGIN_SESSION_KEY);
+        return "/login";
     }
 }

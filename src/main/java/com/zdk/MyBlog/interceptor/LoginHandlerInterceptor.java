@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.geom.RectangularShape;
 
 /**
  * @author zdk
@@ -26,15 +27,11 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         log.info("===========>进入拦截器");
-        boolean hHasKey = redisUtil.hHasKey(WebConst.USERINFO, WebConst.LOGIN_SESSION_KEY);
-        System.out.println("hHasKey = " + hHasKey);
-        Object loginUser = redisUtil.hget(WebConst.USERINFO,WebConst.LOGIN_SESSION_KEY);
-        System.out.println("loginUser=" + loginUser == null);
-        User user = JSONUtil.toBean(JSONUtil.parseObj(loginUser), User.class);
+        Object user = redisUtil.hget(WebConst.USERINFO,WebConst.LOGIN_SESSION_KEY);
         System.out.println("user = " + user);
         if(user==null){
             request.setAttribute("msg", "请先登录");
-            request.getRequestDispatcher("/index.html").forward(request, response);
+            request.getRequestDispatcher("/user/toLogin").forward(request, response);
             return false;
         }
         return true;

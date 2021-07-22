@@ -45,7 +45,7 @@
         body{
             /*background: url("");*/
             background-size: 100% 100%;
-            background-image: url("static/admin/images/bg/4.png");
+            /*background-image: url("static/admin/images/bg/4.png");*/
             width: 100%;
             height: 935px;
 
@@ -57,7 +57,7 @@
     </style>
 <!--    padding-top: 20%;-->
 </head>
-<body>
+<body th:style="'background:url(/admin/images/bg/4.png)'">
 <div style="margin: 0 auto; padding-bottom: 0%; padding-top: 0%;  height: 800px; width: 380px;">
     <div class="panel panel-color panel-danger panel-pages panel-shadow" style="margin-top:0;position: absolute;top: 25%;width: 25%" >
         <div class="panel-heading bg-img">
@@ -65,6 +65,7 @@
         </div>
         <div class="panel-body">
             <form class="form-horizontal m-t-20" method="post" id="loginForm" onsubmit="return false">
+                <div><span style="color: red" th:text="${msg}"></span></div>
                 <div class="form-group">
                     <div class="col-xs-12">
                         <input class=" input-lg input-border" name="username" type="text" required=""
@@ -81,7 +82,7 @@
                 <div class="form-group">
                     <div class="col-xs-12">
                         <div class="checkbox checkbox-danger">
-                            <input id="checkbox-signup" name="remeber_me" type="checkbox"/>
+                            <input id="checkbox-signup" name="rememberMe" type="checkbox"/>
                             <label for="checkbox-signup">记住我</label>
                         </div>
                     </div>
