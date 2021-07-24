@@ -21,10 +21,7 @@
         select * from blog_article
         <where>
             <if test="id!=null">
-                id=#{username}
-            </if>
-            <if test="id!=null">
-                user_id=#{username}
+                id=#{id}
             </if>
         </where>
     </select>
