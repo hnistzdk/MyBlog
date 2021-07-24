@@ -17,4 +17,11 @@ public interface UserMapper {
      * @return
      */
     User getUserInfoByCond(@Param("username") String username, @Param("password") String password);
+
+    /**
+     * 更新用户信息
+     * @param user
+     * @return
+     */
+    int updateUserInfo(User user);
 }

@@ -17,4 +17,11 @@ public interface UserService {
      * @return
      */
     User login(@Param("username") String username, @Param("password") String password);
+
+    /**
+     * 更新用户信息
+     * @param user
+     * @return
+     */
+    Boolean updateUserInfo(User user);
 }

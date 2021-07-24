@@ -22,4 +22,8 @@ class MyBlogApplicationTests {
 		User user = JSONUtil.toBean(JSONUtil.parseObj(loginUser), User.class);
 		System.out.println("user = " + user);
 	}
+
+	@Test
+	void test(){
+	}
 }

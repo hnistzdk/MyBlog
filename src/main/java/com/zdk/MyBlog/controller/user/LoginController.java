@@ -1,11 +1,16 @@
 package com.zdk.MyBlog.controller.user;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.json.JSONUtil;
 import com.zdk.MyBlog.constant.WebConst;
 import com.zdk.MyBlog.controller.BaseController;
+import com.zdk.MyBlog.model.pojo.Article;
 import com.zdk.MyBlog.model.pojo.User;
+import com.zdk.MyBlog.service.article.ArticleService;
 import com.zdk.MyBlog.service.user.UserService;
 import com.zdk.MyBlog.utils.ApiResponse;
 import com.zdk.MyBlog.utils.IpKit;
+import com.zdk.MyBlog.utils.MyBeanUtil;
 import com.zdk.MyBlog.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +19,10 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author zdk
@@ -28,9 +35,10 @@ public class LoginController extends BaseController {
 
     @Autowired
     RedisUtil redisUtil;
-
     @Autowired
     UserService userService;
+    @Autowired
+    ArticleService articleService;
 
     @GetMapping(value ="/toLogin")
     public String toLogin(){
@@ -38,8 +46,11 @@ public class LoginController extends BaseController {
     }
 
     @GetMapping(value = "/toIndex")
-    public String toIndex(){
-        System.out.println("==========>进入toIndex方法");
+    public String toIndex(Model model){
+        Object user = redisUtil.hget(WebConst.USERINFO,WebConst.LOGIN_SESSION_KEY);
+        model.addAttribute("user", MyBeanUtil.objectToBean(user, User.class));
+        List<Article> articles = articleService.getAllArticle();
+        model.addAttribute("articles",articles);
         return "index";
     }
 
@@ -58,14 +69,17 @@ public class LoginController extends BaseController {
         String userInfoKey=WebConst.USERINFO+ip+username;
         System.out.println("userInfoKey = " + userInfoKey);
 
-        Long loginErrorCount = redisUtil.getNumber(userCountKey);
-        if(loginErrorCount!=null&&loginErrorCount>=3){
+        Integer loginErrorCount = redisUtil.getNumber(userCountKey);
+        log.debug("isOk:"+isOk(loginErrorCount));
+        if(isOk(loginErrorCount)&&loginErrorCount>=3){
             return ApiResponse.fail("您输入密码已经错误超过3次，请10分钟后尝试");
         }
         User user = userService.login(username, password);
         if(user!=null){
+            user.setLoginDate(DateUtil.now());
+            userService.updateUserInfo(user);
             redisUtil.del(userCountKey);
-            if(remember!=null){
+            if(isOk(remember)){
                 redisUtil.hset(WebConst.USERINFO,WebConst.LOGIN_SESSION_KEY, user, 3600);
             }else{
                 redisUtil.hset(WebConst.USERINFO,WebConst.LOGIN_SESSION_KEY, user, -1);
@@ -73,7 +87,7 @@ public class LoginController extends BaseController {
             return ApiResponse.success();
         }else{
             loginErrorCount = redisUtil.getNumber(userCountKey);
-            if(loginErrorCount==null){
+            if(isOk(loginErrorCount)){
                 redisUtil.setNumber(userCountKey,1,600);
             }else{
                 redisUtil.incr(userCountKey, 1);

@@ -13,6 +13,9 @@ spring:
   mvc:
     format:
       date: yyyy-MM-dd
+    hiddenmethod:
+      filter:
+        enabled: true
   servlet:
     multipart:
       max-file-size: 50MB
@@ -82,10 +85,10 @@ pagehelper:
   supportMethodsArguments: true
   params: count=countSql
 
-
 qiniu:
   accesskey: ""
   serectkey: ""
   bucket: ""
   cdn:
     url: ""
+

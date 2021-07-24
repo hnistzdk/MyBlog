@@ -28,7 +28,6 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         log.info("===========>进入拦截器");
         Object user = redisUtil.hget(WebConst.USERINFO,WebConst.LOGIN_SESSION_KEY);
-        System.out.println("user = " + user);
         if(user==null){
             request.setAttribute("msg", "请先登录");
             request.getRequestDispatcher("/user/toLogin").forward(request, response);

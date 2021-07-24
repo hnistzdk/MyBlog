@@ -40,6 +40,11 @@ public class ApiResponse <T> {
         return new ApiResponse(CODE_SUCCESS, data);
     }
 
+    public static ApiResponse successMsg(String msg){
+        return new ApiResponse(CODE_SUCCESS, msg);
+    }
+
+
     public static ApiResponse fail(String msg){
         return new ApiResponse(CODE_FAIL, msg);
     }

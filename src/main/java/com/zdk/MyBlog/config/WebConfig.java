@@ -22,6 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("login");
+        registry.addViewController("/toSuccess").setViewName("success");
     }
 
 
@@ -48,5 +49,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/static/");
+        registry.addResourceHandler("/editormd/**").addResourceLocations("classpath:/editormd/");
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:" + "E:/upload");
     }
 }

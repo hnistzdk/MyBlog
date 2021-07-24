@@ -16,9 +16,12 @@ import java.io.Serializable;
 public class User implements Serializable {
     private Integer id;
     private String username;
+    private String nickname;
     private String password;
     private String gender;
     private String trueName;
     private String loginDate;
     private Integer loginTimes;
+    private String email;
+    private String briefIntroduction;
 }

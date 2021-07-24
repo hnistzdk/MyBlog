@@ -10,6 +10,33 @@
             flushInterval="60000"
             size="512"
             readOnly="true"/>
+    <update id="updateUserInfo" parameterType="com.zdk.MyBlog.model.pojo.User">
+        update blog_user
+        <set>
+            <if test="nickname!=null">
+                nickname=#{nickname},
+            </if>
+            <if test="gender!=null">
+                gender=#{gender},
+            </if>
+            <if test="trueName!=null">
+                true_name=#{trueName},
+            </if>
+            <if test="loginDate!=null">
+                login_date=#{loginDate},
+            </if>
+            <if test="1!=2">
+                login_times=login_times+1,
+            </if>
+            <if test="email!=null">
+                email=#{email},
+            </if>
+            <if test="briefIntroduction!=null">
+                brief_introduction=#{briefIntroduction}
+            </if>
+        </set>
+        where username=#{username}
+    </update>
 
 
     <select id="getUserInfoByCond" resultType="com.zdk.MyBlog.model.pojo.User">
