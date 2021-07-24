@@ -975,11 +975,13 @@ SELECT|sys.sys_config
       <Position>8</Position>
       <Comment>阅读数</Comment>
       <DataType>int|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <column id="303" parent="292" name="comment">
       <Position>9</Position>
       <Comment>评论数</Comment>
       <DataType>int|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <key id="304" parent="292" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
