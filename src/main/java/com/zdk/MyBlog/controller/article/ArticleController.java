@@ -66,9 +66,7 @@ public class ArticleController extends BaseController {
     public ApiResponse addArticle(Article article){
         System.out.println("article = " + article);
         User loginUser = getLoginUser();
-        article.setUserId(loginUser.getUsername());
-        article.setAuthorName(loginUser.getNickname());
-        article.setTime(DateUtil.now());
+        article.setUserId(loginUser.getUsername()).setAuthorName(loginUser.getNickname()).setTime(DateUtil.now());
         if(articleService.addArticle(article)){
             return ApiResponse.successMsg("成功");
         }
