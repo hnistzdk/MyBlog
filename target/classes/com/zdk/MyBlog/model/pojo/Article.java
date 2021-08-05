@@ -3,6 +3,9 @@ package com.zdk.MyBlog.model.pojo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * @author zdk
@@ -11,7 +14,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Article {
+@Accessors(chain = true)
+public class Article implements Serializable {
     private Integer id;
     private String userId;
     private String authorName;

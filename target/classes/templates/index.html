@@ -87,7 +87,7 @@
 				    <div class="media">
 					    <img class="mr-3 img-fluid post-thumb d-none d-md-flex" th:src="@{/assets/images/blog/blog-post-thumb-1.jpg}" alt="image">
 					    <div class="media-body">
-						    <h3 class="title mb-1"><a th:href="@{/article/toPost}" th:text="${article.getTitle()}"></a></h3>
+						    <h3 class="title mb-1"><a th:href="@{/article/toPost(id=${article.getId()})}" th:text="${article.getTitle()}"></a></h3>
 						    <div class="meta mb-1">
 								<span class="date" th:text="'Published '+${article.getTime()}+' days ago'"></span>
 								<span class="time" th:text="${article.getRead()+' read'}"></span>

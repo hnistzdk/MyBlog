@@ -4,7 +4,7 @@ package com.zdk.MyBlog.utils;
  * @author zdk
  * @date 2021/7/20 18:40
  */
-public class ApiResponse <T> {
+public class ApiResponse<T>{
 
     private static final Integer CODE_SUCCESS = 200;
 

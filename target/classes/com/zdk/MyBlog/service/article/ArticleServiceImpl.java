@@ -4,6 +4,7 @@ import com.zdk.MyBlog.mapper.ArticleMapper;
 import com.zdk.MyBlog.model.pojo.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,6 +28,12 @@ public class ArticleServiceImpl implements ArticleService{
         return articleMapper.getArticleById(id);
     }
 
+    @Override
+    public Article getArticleByUserId(String username) {
+        return articleMapper.getArticleByUserId(username);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public Boolean addArticle(Article article) {
         return articleMapper.addArticle(article)>0;

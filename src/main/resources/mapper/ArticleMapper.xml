@@ -14,9 +14,11 @@
         insert into blog_article (user_id, author_name, title, content, time)
         values (#{userId},#{authorName},#{title},#{content},#{time});
     </insert>
+
     <select id="getAllArticle" resultType="com.zdk.MyBlog.model.pojo.Article">
         select * from blog_article;
     </select>
+
     <select id="getArticleById" resultType="com.zdk.MyBlog.model.pojo.Article">
         select * from blog_article
         <where>
@@ -25,6 +27,7 @@
             </if>
         </where>
     </select>
+
     <select id="getArticleByUserId" resultType="com.zdk.MyBlog.model.pojo.Article">
         select * from blog_article
         <where>
@@ -33,4 +36,5 @@
             </if>
         </where>
     </select>
+
 </mapper>

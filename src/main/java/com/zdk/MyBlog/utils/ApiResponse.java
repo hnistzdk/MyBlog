@@ -15,7 +15,6 @@ public class ApiResponse<T>{
     private String msg;
 
     public ApiResponse(){
-
     }
 
     public ApiResponse(Integer code){
@@ -32,25 +31,25 @@ public class ApiResponse<T>{
         this.msg = msg;
     }
 
-    public static ApiResponse success(){
-        return new ApiResponse(CODE_SUCCESS);
+    public static <T> ApiResponse <T> success(){
+        return new ApiResponse<>(CODE_SUCCESS);
     }
 
-    public static ApiResponse success(Object data){
-        return new ApiResponse(CODE_SUCCESS, data);
+    public static <T> ApiResponse <T> success(T data){
+        return new ApiResponse<>(CODE_SUCCESS, data);
     }
 
-    public static ApiResponse successMsg(String msg){
-        return new ApiResponse(CODE_SUCCESS, msg);
+    public static <T> ApiResponse <T> successMsg(T msg){
+        return new ApiResponse<>(CODE_SUCCESS, msg);
     }
 
 
-    public static ApiResponse fail(String msg){
-        return new ApiResponse(CODE_FAIL, msg);
+    public static <T> ApiResponse <T> fail(String msg){
+        return new ApiResponse<>(CODE_FAIL, msg);
     }
 
-    public static ApiResponse widthCode(Integer errorCode) {
-        return new ApiResponse(errorCode);
+    public static <T> ApiResponse <T> widthCode(Integer errorCode) {
+        return new ApiResponse<>(errorCode);
     }
 
     public String getMsg() {

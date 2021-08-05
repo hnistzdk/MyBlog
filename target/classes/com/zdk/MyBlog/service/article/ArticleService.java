@@ -25,6 +25,13 @@ public interface ArticleService {
     Article getArticleById(Integer id);
 
     /**
+     * 根据username获取文章信息
+     * @param username
+     * @return
+     */
+    Article getArticleByUserId(String username);
+
+    /**
      * 添加文章
      * @param article
      * @return

@@ -13,9 +13,9 @@
 
     var factory = function (exports) {
 
-        var pluginName   = "image-dialog";
+		var pluginName   = "image-dialog";
 
-        exports.fn.imageDialog = function() {
+		exports.fn.imageDialog = function() {
 
             var _this       = this;
             var cm          = this.cm;
@@ -27,9 +27,9 @@
             var imageLang   = lang.dialog.image;
             var classPrefix = this.classPrefix;
             var iframeName  = classPrefix + "image-iframe";
-            var dialogName  = classPrefix + pluginName, dialog;
+			var dialogName  = classPrefix + pluginName, dialog;
 
-            cm.focus();
+			cm.focus();
 
             var loading = function(show) {
                 var _loading = dialog.find("." + classPrefix + "dialog-mask");
@@ -46,45 +46,24 @@
                     action += "&callback=" + settings.uploadCallbackURL + "&dialog_id=editormd-image-dialog-" + guid;
                 }
 
-                /*  var dialogContent = ( (settings.imageUpload) ? "<form action=\"" + action +"\" target=\"" + iframeName + "\" method=\"post\" enctype=\"multipart/form-data\" class=\"" + classPrefix + "form\">" : "<div class=\"" + classPrefix + "form\">" ) +
-                                          ( (settings.imageUpload) ? "<iframe name=\"" + iframeName + "\" id=\"" + iframeName + "\" guid=\"" + guid + "\"></iframe>" : "" ) +
-                                          "<label>" + imageLang.url + "</label>" +
-                                          "<input type=\"text\" data-url />" + (function(){
-                                              return (settings.imageUpload) ? "<div class=\"" + classPrefix + "file-input\">" +
-                                                                                  "<input type=\"file\" name=\"" + classPrefix + "image-file\" accept=\"image/!*\" />" +
-                                                                                  "<input type=\"submit\" value=\"" + imageLang.uploadButton + "\" />" +
-                                                                              "</div>" : "";
-                                          })() +
-                                          "<br/>" +
-                                          "<label>" + imageLang.alt + "</label>" +
-                                          "<input type=\"text\" value=\"" + selection + "\" data-alt />" +
-                                          "<br/>" +
-                                          "<label>" + imageLang.link + "</label>" +
-                                          "<input type=\"text\" value=\"http://\" data-link />" +
-                                          "<br/>" +
-                                      ( (settings.imageUpload) ? "</form>" : "</div>");*/
-                //这是我个人写法
-                var dialogContent = ( (settings.imageUpload) ? "<form action=\"#\" target=\"" + iframeName + "\" method=\"post\" onsubmit=\"return false\" enctype=\"multipart/form-data\" class=\"" + classPrefix + "form\">" : "<div class=\"" + classPrefix + "form\">" ) +
-                    ( (settings.imageUpload) ? "<iframe name=\"" + iframeName + "\" id=\"" + iframeName + "\" guid=\"" + guid + "\"></iframe>" : "" ) +
-                    "<label>" + imageLang.url + "</label>" +
-                    "<input type=\"text\" data-url />" + (function(){
-                        return (settings.imageUpload) ? "<div class=\"" + classPrefix + "file-input\">" +
-                            "<input type=\"file\" name=\"" + classPrefix + "image-file\" id=\"" + classPrefix + "image-file\" accept=\"image/!*\" />" +
-                            "<input type=\"submit\" value=\"" + imageLang.uploadButton + "\" />" +
-                            "</div>" : "";
-                    })() +
-                    "<br/>" +
-                    "<label>" + imageLang.alt + "</label>" +
-                    "<input type=\"text\" value=\"" + selection + "\" data-alt />" +
-                    "<br/>" +
-                    "<label>" + imageLang.link + "</label>" +
-                    "<input type=\"text\" value=\"http://\" data-link />" +
-                    "<br/>" +
-                    ( (settings.imageUpload) ? "</form>" : "</div>");
+                var dialogContent = ( (settings.imageUpload) ? "<form action=\"" + action +"\" target=\"" + iframeName + "\" method=\"post\" enctype=\"multipart/form-data\" class=\"" + classPrefix + "form\">" : "<div class=\"" + classPrefix + "form\">" ) +
+                                        ( (settings.imageUpload) ? "<iframe name=\"" + iframeName + "\" id=\"" + iframeName + "\" guid=\"" + guid + "\"></iframe>" : "" ) +
+                                        "<label>" + imageLang.url + "</label>" +
+                                        "<input type=\"text\" data-url />" + (function(){
+                                            return (settings.imageUpload) ? "<div class=\"" + classPrefix + "file-input\">" +
+                                                                                "<input type=\"file\" name=\"" + classPrefix + "image-file\" accept=\"image/*\" />" +
+                                                                                "<input type=\"submit\" value=\"" + imageLang.uploadButton + "\" />" +
+                                                                            "</div>" : "";
+                                        })() +
+                                        "<br/>" +
+                                        "<label>" + imageLang.alt + "</label>" +
+                                        "<input type=\"text\" value=\"" + selection + "\" data-alt />" +
+                                        "<br/>" +
+                                        "<label>" + imageLang.link + "</label>" +
+                                        "<input type=\"text\" value=\"http://\" data-link />" +
+                                        "<br/>" +
+                                    ( (settings.imageUpload) ? "</form>" : "</div>");
 
-
-
-                //这个是作者注释掉的，不知道干啥的 忽略即可
                 //var imageFooterHTML = "<button class=\"" + classPrefix + "btn " + classPrefix + "image-manager-btn\" style=\"float:left;\">" + imageLang.managerButton + "</button>";
 
                 dialog = this.createDialog({
@@ -112,7 +91,7 @@
                                 return false;
                             }
 
-                            var altAttr = (alt !== "") ? " \"" + alt + "\"" : "";
+							var altAttr = (alt !== "") ? " \"" + alt + "\"" : "";
 
                             if (link === "" || link === "http://")
                             {
@@ -148,29 +127,29 @@
 
                 dialog.attr("id", classPrefix + "image-dialog-" + guid);
 
-                if (!settings.imageUpload) {
+				if (!settings.imageUpload) {
                     return ;
                 }
 
-                var fileInput  = dialog.find("[name=\"" + classPrefix + "image-file\"]");
+				var fileInput  = dialog.find("[name=\"" + classPrefix + "image-file\"]");
 
-                fileInput.bind("change", function() {
-                    var fileName  = fileInput.val();
-                    var isImage   = new RegExp("(\\.(" + settings.imageFormats.join("|") + "))$", "i"); // /(\.(webp|jpg|jpeg|gif|bmp|png))$/
+				fileInput.bind("change", function() {
+					var fileName  = fileInput.val();
+					var isImage   = new RegExp("(\\.(" + settings.imageFormats.join("|") + "))$", "i"); // /(\.(webp|jpg|jpeg|gif|bmp|png))$/
 
-                    if (fileName === "")
-                    {
-                        alert(imageLang.uploadFileEmpty);
+					if (fileName === "")
+					{
+						alert(imageLang.uploadFileEmpty);
 
                         return false;
-                    }
+					}
 
                     if (!isImage.test(fileName))
-                    {
-                        alert(imageLang.formatNotAllowed + settings.imageFormats.join(", "));
+					{
+						alert(imageLang.formatNotAllowed + settings.imageFormats.join(", "));
 
                         return false;
-                    }
+					}
 
                     loading(true);
 
@@ -182,12 +161,10 @@
 
                             loading(false);
 
-                            /*var body = (uploadIframe.contentWindow ? uploadIframe.contentWindow : uploadIframe.contentDocument).document.body;
+                            var body = (uploadIframe.contentWindow ? uploadIframe.contentWindow : uploadIframe.contentDocument).document.body;
                             var json = (body.innerText) ? body.innerText : ( (body.textContent) ? body.textContent : null);
 
                             json = (typeof JSON.parse !== "undefined") ? JSON.parse(json) : eval("(" + json + ")");
-
-                            console.log(json);
 
                             if(!settings.crossDomainUpload)
                             {
@@ -201,85 +178,50 @@
                               }
                             }
 
-                            return false;*/
-
-                            //这是我个人写法
-                            var formData = new FormData();
-                            formData.append("editormd-image-file",$("#editormd-image-file")[0].files[0]);
-                            var action = settings.imageUploadURL + (settings.imageUploadURL.indexOf("?") >= 0 ? "&" : "?") + "guid=" + guid;
-                            console.log("这是action",action)
-                            //console.log(formData);
-                            alert("这是action")
-                            $.ajax({
-                                type:"post",
-                                url:action,
-                                data:formData,
-                                dataType:"json",
-                                async:false,
-                                processData : false, // 使数据不做处理
-                                contentType : false, // 不要设置Content-Type请求头
-                                success:function(data){
-                                    // 成功拿到结果放到这个函数 data就是拿到的结果
-                                    alert("这是image-dialog")
-                                    if(data.coed === 200){
-                                        console.log(data.msg);
-                                        dialog.find("[data-url]").val(data.msg);
-                                    }else{
-                                        alert(data.msg);
-                                    }
-                                },
-                                error: function (res) {
-                                    alert(res.responseText);
-                                }
-                            });
-
                             return false;
                         };
-
-
                     };
+
                     dialog.find("[type=\"submit\"]").bind("click", submitHandler).trigger("click");
-                });
+				});
             }
 
-            dialog = editor.find("." + dialogName);
-            dialog.find("[type=\"text\"]").val("");
-            dialog.find("[type=\"file\"]").val("");
-            dialog.find("[data-link]").val("http://");
+			dialog = editor.find("." + dialogName);
+			dialog.find("[type=\"text\"]").val("");
+			dialog.find("[type=\"file\"]").val("");
+			dialog.find("[data-link]").val("http://");
 
-            this.dialogShowMask(dialog);
-            this.dialogLockScreen();
-            dialog.show();
+			this.dialogShowMask(dialog);
+			this.dialogLockScreen();
+			dialog.show();
 
-        };
+		};
 
-    };
+	};
 
-    // CommonJS/Node.js
-    if (typeof require === "function" && typeof exports === "object" && typeof module === "object")
+	// CommonJS/Node.js
+	if (typeof require === "function" && typeof exports === "object" && typeof module === "object")
     {
         module.exports = factory;
     }
-    else if (typeof define === "function")  // AMD/CMD/Sea.js
+	else if (typeof define === "function")  // AMD/CMD/Sea.js
     {
-        if (define.amd) { // for Require.js
+		if (define.amd) { // for Require.js
 
-            define(["editormd"], function(editormd) {
+			define(["editormd"], function(editormd) {
                 factory(editormd);
             });
 
-        } else { // for Sea.js
-            define(function(require) {
+		} else { // for Sea.js
+			define(function(require) {
                 var editormd = require("./../../editormd");
                 factory(editormd);
             });
-        }
-    }
-    else
-    {
+		}
+	}
+	else
+	{
         factory(window.editormd);
-    }
+	}
 
 })();
-
-
