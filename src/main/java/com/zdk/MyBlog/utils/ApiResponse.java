@@ -9,12 +9,15 @@ public class ApiResponse<T>{
     private static final Integer CODE_SUCCESS = 200;
 
     private static final Integer CODE_FAIL = 201;
+    private static final String MSG_SUCCESS = "成功";
 
     private Integer code;
     private T data;
     private String msg;
 
     public ApiResponse(){
+        this.code=CODE_SUCCESS;
+        this.msg=MSG_SUCCESS;
     }
 
     public ApiResponse(Integer code){
@@ -31,24 +34,35 @@ public class ApiResponse<T>{
         this.msg = msg;
     }
 
+    public ApiResponse(T data,String msg){
+        this.code=CODE_SUCCESS;
+        this.msg=msg;
+        this.data=data;
+    }
+
+    public ApiResponse(Integer code, T data, String msg) {
+        this.code = code;
+        this.data = data;
+        this.msg = msg;
+    }
+
     public static <T> ApiResponse <T> success(){
-        return new ApiResponse<>(CODE_SUCCESS);
+        return new ApiResponse<>();
     }
-
     public static <T> ApiResponse <T> success(T data){
-        return new ApiResponse<>(CODE_SUCCESS, data);
+        return new ApiResponse<>(CODE_SUCCESS, data,MSG_SUCCESS);
     }
-
-    public static <T> ApiResponse <T> successMsg(T msg){
+    public static <T> ApiResponse <T> success(String msg){
         return new ApiResponse<>(CODE_SUCCESS, msg);
     }
-
+    public static <T> ApiResponse <T> success(T data,String msg){
+        return new ApiResponse<>(data,msg);
+    }
 
     public static <T> ApiResponse <T> fail(String msg){
         return new ApiResponse<>(CODE_FAIL, msg);
     }
-
-    public static <T> ApiResponse <T> widthCode(Integer errorCode) {
+    public static <T> ApiResponse <T> failWidthDiyCode(Integer errorCode) {
         return new ApiResponse<>(errorCode);
     }
 

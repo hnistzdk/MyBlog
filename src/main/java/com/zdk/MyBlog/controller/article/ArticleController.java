@@ -68,7 +68,7 @@ public class ArticleController extends BaseController {
         User loginUser = getLoginUser();
         article.setUserId(loginUser.getUsername()).setAuthorName(loginUser.getNickname()).setTime(DateUtil.now());
         if(articleService.addArticle(article)){
-            return ApiResponse.successMsg("成功");
+            return ApiResponse.success("成功");
         }
         return ApiResponse.fail("失败");
     }
@@ -96,7 +96,7 @@ public class ArticleController extends BaseController {
                 }
             }
             file.transferTo(destFile);
-            return ApiResponse.successMsg(HttpKit.getHost(new URI(request.getRequestURL() + "")) + "/upload/" + newFileName);
+            return ApiResponse.success(HttpKit.getHost(new URI(request.getRequestURL() + "")) + "/upload/" + newFileName);
         } catch (IOException e) {
             e.printStackTrace();
             return ApiResponse.fail("文件上传失败");
