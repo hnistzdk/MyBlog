@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdk.MyBlog.mapper.ArticleMapper">
+
+    <!--    在当前mapper.xml中使用二级缓存-->
+    <cache
+            eviction="FIFO"
+            flushInterval="60000"
+            size="512"
+            readOnly="true"/>
+    <insert id="addArticle">
+        insert into blog_article (user_id, author_name, title, content, time)
+        values (#{userId},#{authorName},#{title},#{content},#{time});
+    </insert>
+
+    <select id="getAllArticle" resultType="com.zdk.MyBlog.model.pojo.Article">
+        select * from blog_article;
+    </select>
+
+    <select id="getArticleById" resultType="com.zdk.MyBlog.model.pojo.Article">
+        select * from blog_article
+        <where>
+            <if test="id!=null">
+                id=#{id}
+            </if>
+        </where>
+    </select>
+
+    <select id="getArticleByUserId" resultType="com.zdk.MyBlog.model.pojo.Article">
+        select * from blog_article
+        <where>
+            <if test="username!=null">
+                user_id=#{username}
+            </if>
+        </where>
+    </select>
+</mapper>
