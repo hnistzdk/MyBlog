@@ -1,32 +1,27 @@
 package com.zdk.MyBlog.controller.article;
 
 import cn.hutool.core.date.DateUtil;
-import com.alibaba.fastjson.JSONObject;
 import com.zdk.MyBlog.controller.BaseController;
 import com.zdk.MyBlog.model.pojo.Article;
 import com.zdk.MyBlog.model.pojo.User;
 import com.zdk.MyBlog.service.article.ArticleService;
 import com.zdk.MyBlog.utils.ApiResponse;
-import com.zdk.MyBlog.utils.FileUtil;
-import com.zdk.MyBlog.utils.HttpKit;
 import com.zdk.MyBlog.utils.RedisUtil;
+import com.zdk.MyBlog.utils.UploadUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author zdk
@@ -73,33 +68,26 @@ public class ArticleController extends BaseController {
         return ApiResponse.fail("失败");
     }
 
-
     @PostMapping(value = "/file/upload")
     @ResponseBody
-    public ApiResponse imageUpload(@RequestParam("editormd-image-file") MultipartFile file, HttpServletRequest request) throws URISyntaxException {
-        System.out.println("file.getOriginalFilename() = " + file.getOriginalFilename());
-        String fileName = file.getOriginalFilename();
-        String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        //生成文件名称通用方法
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
-        Random r = new Random();
-        StringBuilder tempName = new StringBuilder();
-        tempName.append(sdf.format(new Date())).append(r.nextInt(100)).append(suffixName);
-        String newFileName = tempName.toString();
-        File fileDirectory = new File("E:/upload/");
-        //创建文件
-        File destFile = new File("E:/upload/" + newFileName);
+    public Map<String, Object> imageUpload(@RequestParam(value = "editormd-image-file") MultipartFile file) throws URISyntaxException {
+        String filename = UUID.randomUUID()+file.getOriginalFilename();
+        File fileDir = UploadUtils.getImgDirFile();
+        System.out.println("fileDir.getAbsolutePath() = " + fileDir.getAbsolutePath());
         try {
-            if (!fileDirectory.exists()) {
-                if (!fileDirectory.mkdir()) {
-                    return ApiResponse.fail("文件夹创建失败,路径为：" + fileDirectory);
-                }
-            }
-            file.transferTo(destFile);
-            return ApiResponse.success(HttpKit.getHost(new URI(request.getRequestURL() + "")) + "/upload/" + newFileName);
-        } catch (IOException e) {
+            File newFile = new File(fileDir.getAbsolutePath() + File.separator + filename);
+            System.out.println("newFile.getAbsolutePath() = " + newFile.getAbsolutePath());
+            file.transferTo(newFile);
+        }catch (IOException e){
             e.printStackTrace();
-            return ApiResponse.fail("文件上传失败");
         }
+        HashMap<String, Object> result = new HashMap<>(3);
+        result.put("success", 1);
+        result.put("message", "上传成功");
+        //通过以下URL即可访问到图片
+        //http://localhost:8088/static/upload/image/fb2117c8-9227-4e33-8da9-af73e3d8900e%E6%90%AD%E9%85%8D.png
+        result.put("link", "http://localhost:8088/static/upload/image/"+filename);
+        result.put("url", "/static/upload/image/"+filename);
+        return result;
     }
 }

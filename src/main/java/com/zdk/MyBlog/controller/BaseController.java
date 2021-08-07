@@ -1,22 +1,16 @@
 package com.zdk.MyBlog.controller;
 
 import cn.hutool.json.JSONUtil;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zdk.MyBlog.constant.WebConst;
 import com.zdk.MyBlog.model.pojo.User;
 import com.zdk.MyBlog.utils.ControllerKit;
-import com.zdk.MyBlog.utils.HttpKit;
 import com.zdk.MyBlog.utils.ParaValidator;
 import com.zdk.MyBlog.utils.RedisUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.mvc.Controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,12 +24,6 @@ public class BaseController {
 
     public BaseController() {
     }
-
-    private HttpServletRequest request;
-    private HttpServletResponse response;
-    private String urlPara;
-    private String[] urlParaArray;
-    private String rawData;
 
     public User getLoginUser(){
         Object user = redisUtil.hget(WebConst.USERINFO,WebConst.LOGIN_SESSION_KEY);

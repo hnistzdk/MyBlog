@@ -22,11 +22,13 @@ public class ApiResponse<T>{
 
     public ApiResponse(Integer code){
         this.code = code;
+        this.msg=MSG_SUCCESS;
     }
 
     public ApiResponse(Integer code, T data){
         this.code = code;
         this.data = data;
+        this.msg=MSG_SUCCESS;
     }
 
     public ApiResponse(Integer code, String msg){

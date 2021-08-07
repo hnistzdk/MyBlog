@@ -1,7 +1,6 @@
 package com.zdk.MyBlog.controller.user;
 
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.json.JSONUtil;
 import com.zdk.MyBlog.constant.WebConst;
 import com.zdk.MyBlog.controller.BaseController;
 import com.zdk.MyBlog.model.pojo.Article;
@@ -14,12 +13,10 @@ import com.zdk.MyBlog.utils.MyBeanUtil;
 import com.zdk.MyBlog.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -98,7 +95,6 @@ public class LoginController extends BaseController {
             return ApiResponse.fail("账号或密码错误,您还有"+(3-redisUtil.getNumber(userCountKey))+"次机会");
         }
     }
-
     @GetMapping("/logout")
     public String logout(){
         redisUtil.hdel(WebConst.USERINFO,WebConst.LOGIN_SESSION_KEY);
