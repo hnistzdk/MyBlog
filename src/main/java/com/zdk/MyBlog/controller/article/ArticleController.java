@@ -10,7 +10,6 @@ import com.zdk.MyBlog.utils.RedisUtil;
 import com.zdk.MyBlog.utils.UploadUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,28 +30,30 @@ import java.util.UUID;
 @Controller
 @RequestMapping(value = "/article",method = {RequestMethod.POST,RequestMethod.GET})
 public class ArticleController extends BaseController {
-
-    @Value("/static/upload/image")
-    private String filePath;
-
     @Autowired
     RedisUtil redisUtil;
-
     @Autowired
     ArticleService articleService;
-
-    public static final String URL = "http://localhost:8088/";
 
     @GetMapping(value = "/toPost")
     public String toPost(Model model, Integer id){
         System.out.println("id = " + id);
         Article article = articleService.getArticleById(id);
         model.addAttribute("article",article);
+        model.addAttribute("user",getLoginUser());
         return "blog-post";
     }
 
+    @GetMapping(value = "/toBlogList")
+    public String blogList(Model model){
+        model.addAttribute("user", getLoginUser());
+        model.addAttribute("articles", articleService.getAllArticle());
+        return "blog-list";
+    }
+
     @GetMapping(value = "/toWriteBlog")
-    public String toWriteBlog(){
+    public String toWriteBlog(Model model){
+        model.addAttribute("user", getLoginUser());
         return "writeBlog";
     }
 

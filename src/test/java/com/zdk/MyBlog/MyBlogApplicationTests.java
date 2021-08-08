@@ -2,6 +2,7 @@ package com.zdk.MyBlog;
 
 import cn.hutool.json.JSONUtil;
 import com.zdk.MyBlog.constant.WebConst;
+import com.zdk.MyBlog.controller.BaseController;
 import com.zdk.MyBlog.model.pojo.User;
 import com.zdk.MyBlog.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -11,10 +12,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 @Slf4j
-class MyBlogApplicationTests {
+class MyBlogApplicationTests extends BaseController {
 
 	@Autowired
 	RedisUtil redisUtil;
+
 
 	@Test
 	void contextLoads() {
@@ -25,5 +27,6 @@ class MyBlogApplicationTests {
 
 	@Test
 	void test(){
+		System.out.println("isOk(\"\") = " + isOk(null));
 	}
 }

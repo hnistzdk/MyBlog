@@ -18,11 +18,11 @@ public class UserServiceImpl extends ParaValidator implements UserService{
     UserMapper userMapper;
 
     @Override
-    public User login(String username, String password) {
-        if(StringUtils.isBlank(username)||StringUtils.isBlank(password)){
+    public User login(String username) {
+        if(StringUtils.isBlank(username)){
             return null;
         }
-        return userMapper.getUserInfoByCond(username, password);
+        return userMapper.getUserInfoByCond(username);
     }
 
     @Override
