@@ -3,6 +3,8 @@ package com.zdk.MyBlog.config;
 import com.zdk.MyBlog.interceptor.LoginHandlerInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -33,6 +35,15 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public LoginHandlerInterceptor getLoginHandlerInterceptor(){
         return new LoginHandlerInterceptor();
+    }
+
+    /**
+     * Spring-Security密码加密bean
+     * @return
+     */
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(10);
     }
 
     /**

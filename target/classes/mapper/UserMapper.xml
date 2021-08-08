@@ -40,7 +40,7 @@
 
 
     <select id="getUserInfoByCond" resultType="com.zdk.MyBlog.model.pojo.User">
-        select * from blog_user where username=#{username} and password=#{password}
+        select * from blog_user where username=#{username}
     </select>
 
 </mapper>

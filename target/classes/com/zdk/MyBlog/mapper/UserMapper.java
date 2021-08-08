@@ -11,12 +11,11 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface UserMapper {
     /**
-     * 根据用户名和密码获取用户信息
+     * 根据用户名获取用户信息
      * @param username
-     * @param password
      * @return
      */
-    User getUserInfoByCond(@Param("username") String username, @Param("password") String password);
+    User getUserInfoByCond(@Param("username") String username);
 
     /**
      * 更新用户信息

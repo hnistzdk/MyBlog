@@ -11,12 +11,11 @@ import org.springframework.stereotype.Service;
 @Service
 public interface UserService {
     /**
-     * 根据用户名和密码获取用户信息
+     * 根据用户名获取用户信息
      * @param username
-     * @param password
      * @return
      */
-    User login(@Param("username") String username, @Param("password") String password);
+    User login(@Param("username") String username);
 
     /**
      * 更新用户信息
