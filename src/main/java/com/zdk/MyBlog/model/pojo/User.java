@@ -16,6 +16,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
+@TableName("blog_user")
 public class User implements Serializable {
     @TableId(type = IdType.AUTO)
     private Integer id;

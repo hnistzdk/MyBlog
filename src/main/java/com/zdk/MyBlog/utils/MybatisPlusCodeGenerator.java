@@ -35,6 +35,7 @@
 //        config.setFileOverride(false);
 //        //去掉生成的service的I前缀
 //        config.setServiceName("%sService");
+//        config.setEntityName("%s");
 //        config.setServiceImplName("%sServiceImpl");
 //        config.setIdType(IdType.AUTO);
 //        config.setDateType(DateType.ONLY_DATE);
@@ -44,7 +45,7 @@
 //        //2.配置数据源
 //        DataSourceConfig dataSourceConfig = new DataSourceConfig();
 //        dataSourceConfig.setDbType(DbType.MYSQL);
-//        dataSourceConfig.setUrl("jdbc:mysql://localhost:3306/study?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=utf8");
+//        dataSourceConfig.setUrl("jdbc:mysql://localhost:3306/blog?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=utf8");
 //        dataSourceConfig.setDriverName("com.mysql.cj.jdbc.Driver");
 //        dataSourceConfig.setUsername("root");
 //        dataSourceConfig.setPassword("root");
@@ -54,18 +55,19 @@
 //        PackageConfig packageConfig = new PackageConfig();
 //        packageConfig.setParent("com.zdk");
 //        packageConfig.setModuleName("genCode");
-//        packageConfig.setEntity("entity");
-//        packageConfig.setMapper("mapper");
-//        packageConfig.setService("service");
-//        packageConfig.setServiceImpl("service.serviceImpl");
-//        packageConfig.setController("controller");
+//        packageConfig.setEntity("pojo");
+////        packageConfig.setMapper("mapper");
+////        packageConfig.setService("service");
+////        packageConfig.setServiceImpl("service.serviceImpl");
+////        packageConfig.setController("controller");
 //        generator.setPackageInfo(packageConfig);
 //
 //        //4.策略配置
 //        StrategyConfig strategyConfig = new StrategyConfig();
 //        //设置要(读取)映射的表
-//        strategyConfig.setInclude("user");
-//
+//        strategyConfig.setInclude("blog_attach","blog_comments","blog_logs","blog_metas","blog_online_user","blog_options","blog_relationships","");
+//        //设置要去掉的表的前缀
+//        strategyConfig.setTablePrefix("blog_");
 //        strategyConfig.setNaming(NamingStrategy.underline_to_camel);
 //        strategyConfig.setColumnNaming(NamingStrategy.underline_to_camel);
 //        //自动lombok

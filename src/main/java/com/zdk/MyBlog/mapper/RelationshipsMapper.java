@@ -1,0 +1,13 @@
+package com.zdk.MyBlog.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zdk.MyBlog.model.pojo.Relationships;
+import org.springframework.stereotype.Repository;
+
+/**
+ * @author zdk
+ * @date 2021/8/12 22:30
+ */
+@Repository
+public interface RelationshipsMapper extends BaseMapper<Relationships> {
+}

@@ -17,19 +17,91 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class Article implements Serializable {
+    /**
+     * 文章主键编号
+     */
     @TableId(type = IdType.AUTO)
     private Integer id;
+    /**
+     * 作者id
+     */
     private String userId;
+    /**
+     * 作者名
+     */
     private String authorName;
+    /**
+     * 标题内容
+     */
     private String title;
+    /**
+     * 标题图片
+     */
+    private String titlePicture;
+    /**
+     * 内容缩略名
+     */
+    private String slug;
+    /**
+     * 简介
+     */
+    private String introduction;
+    /**
+     * 内容主体
+     */
+    private String content;
+    /**
+     * 文章发布时间
+     */
     @TableField(fill = FieldFill.INSERT)
     private String publicTime;
+    /**
+     * 文章更新时间
+     */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private String updateTime;
+    /**
+     * 阅读量
+     */
     private Integer readCount;
+    /**
+     * 内容所属评论数
+     */
     private Integer commentCount;
-    private String introduction;
-    private String content;
     @TableLogic
     private Boolean deleted;
+
+    /**
+     * 内容类别
+     */
+    private String type;
+    /**
+     * 内容状态
+     */
+    private String status;
+    /**
+     * 标签列表
+     */
+    private String tags;
+    /**
+     * 分类列表
+     */
+    private String categories;
+    /**
+     * 点击次数
+     */
+    private Integer hits;
+    /**
+     * 是否允许评论
+     */
+    private Integer allowComment;
+    /**
+     * 是否允许ping
+     */
+    private Integer allowPing;
+    /**
+     * 允许出现在聚合中
+     */
+    private Integer allowFeed;
+
 }
