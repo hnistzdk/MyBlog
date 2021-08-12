@@ -31,7 +31,7 @@ import java.util.UUID;
 public class ArticleController extends BaseController {
     @Autowired
     RedisUtil redisUtil;
-    @Autowired(required = false)
+    @Autowired
     ArticleService articleService;
 
     @GetMapping(value = "/toPost")
@@ -40,20 +40,20 @@ public class ArticleController extends BaseController {
         articleService.updateById(article.setReadCount(article.getReadCount()+1));
         model.addAttribute("article",article);
         model.addAttribute("user",getLoginUser());
-        return "blog-post";
+        return "blog/blog-post";
     }
 
     @GetMapping(value = "/toBlogList")
     public String blogList(Model model){
         model.addAttribute("user", getLoginUser());
         model.addAttribute("articles", articleService.getAllArticle());
-        return "blog-list";
+        return "blog/blog-list";
     }
 
     @GetMapping(value = "/toWriteBlog")
     public String toWriteBlog(Model model){
         model.addAttribute("user", getLoginUser());
-        return "writeBlog";
+        return "blog/writeBlog";
     }
 
     @PostMapping(value = "/addArticle")

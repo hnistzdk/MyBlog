@@ -22,14 +22,14 @@ import java.util.List;
 @Controller
 @RequestMapping(value ="/user",method = {RequestMethod.POST,RequestMethod.GET})
 public class UserController extends BaseController {
-    @Autowired(required = false)
+    @Autowired
     UserService userService;
-    @Autowired(required = false)
+    @Autowired
     ArticleService articleService;
 
     @GetMapping(value ="/toLogin")
     public String toLogin(){
-        return "login";
+        return "blog/login";
     }
 
     @GetMapping(value = "/toIndex")
@@ -37,12 +37,12 @@ public class UserController extends BaseController {
         model.addAttribute("user", getLoginUser());
         List<Article> articles = articleService.getAllArticle();
         model.addAttribute("articles",articles);
-        return "index";
+        return "blog/index";
     }
 
     @GetMapping(value = "/toAboutMe")
     public String toAboutMe(Model model){
         model.addAttribute("user", getLoginUser());
-        return "about";
+        return "blog/about";
     }
 }

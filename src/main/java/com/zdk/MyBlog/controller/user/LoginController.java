@@ -28,7 +28,7 @@ public class LoginController extends BaseController {
 
     @Autowired
     RedisUtil redisUtil;
-    @Autowired(required = false)
+    @Autowired
     UserService userService;
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -79,6 +79,6 @@ public class LoginController extends BaseController {
     @GetMapping("/logout")
     public String logout() {
         redisUtil.hdel(WebConst.USERINFO, WebConst.LOGIN_SESSION_KEY);
-        return "/login";
+        return "blog/login";
     }
 }
