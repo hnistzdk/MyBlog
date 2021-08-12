@@ -1,5 +1,6 @@
 package com.zdk.MyBlog.model.pojo;
 
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,14 +17,19 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class User implements Serializable {
+    @TableId(type = IdType.AUTO)
     private Integer id;
     private String username;
     private String nickname;
     private String password;
     private String gender;
     private String trueName;
+    @TableField(fill = FieldFill.DEFAULT)
     private String loginDate;
+    @TableField(fill = FieldFill.DEFAULT)
     private Integer loginTimes;
     private String email;
     private String briefIntroduction;
+    @TableLogic
+    private Boolean deleted;
 }

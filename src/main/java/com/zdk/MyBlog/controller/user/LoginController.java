@@ -23,12 +23,12 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Slf4j
 @Controller
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/user",method = {RequestMethod.POST,RequestMethod.GET})
 public class LoginController extends BaseController {
 
     @Autowired
     RedisUtil redisUtil;
-    @Autowired
+    @Autowired(required = false)
     UserService userService;
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -51,8 +51,7 @@ public class LoginController extends BaseController {
         User user = userService.login(username);
         if (user != null) {
             if (passwordEncoder.matches(password, user.getPassword())) {
-                user.setLoginDate(DateUtil.now());
-                userService.updateUserInfo(user);
+                userService.updateUserInfo(user.setLoginDate(DateUtil.now()).setLoginTimes(user.getLoginTimes()+1));
                 redisUtil.del(userCountKey);
                 if (isOk(remember)) {
                     redisUtil.hset(WebConst.USERINFO, WebConst.LOGIN_SESSION_KEY, user, 3600);

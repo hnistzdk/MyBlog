@@ -1,5 +1,5 @@
 server:
-  port: 8088
+  port: 8090
   servlet:
     session:
       cookie:
@@ -70,21 +70,6 @@ spring:
     auto: true
     proxy-target-class: true
 
-mybatis:
-  type-aliases-package: com.zdk.MyBlog
-  mapper-locations: classpath:mapper/*.xml
-  configuration:
-    map-underscore-to-camel-case: true
-    cache-enabled: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
-#pagehelper
-pagehelper:
-  helperDialect: mysql
-  reasonable: true
-  supportMethodsArguments: true
-  params: count=countSql
-
 qiniu:
   accesskey: ""
   serectkey: ""
@@ -92,3 +77,17 @@ qiniu:
   cdn:
     url: ""
 
+#mybatis-plus的配置
+mybatis-plus:
+  type-aliases-package: com.zdk.MyBlog
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+  global-config:
+    db-config:
+      #logic-delete-field: deleted 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      table-prefix: blog_

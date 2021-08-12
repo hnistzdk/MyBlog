@@ -1,7 +1,7 @@
 package com.zdk.MyBlog.service.article;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.zdk.MyBlog.model.pojo.Article;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -9,8 +9,7 @@ import java.util.List;
  * @author zdk
  * @date 2021/7/22 17:06
  */
-@Service
-public interface ArticleService {
+public interface ArticleService extends IService<Article> {
     /**
      * 获取所有文章信息
      * @return
@@ -37,4 +36,11 @@ public interface ArticleService {
      * @return
      */
     Boolean addArticle(Article article);
+
+    /**
+     * 通过id删除文章
+     * @param id
+     * @return
+     */
+    Boolean deleteArticleById(Integer id);
 }

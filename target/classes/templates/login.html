@@ -105,11 +105,10 @@
 <script type="text/javascript">
     function checkForm() {
         $.ajax({
-            url:"/user/userLogin",
+            url:"/user/login",
             type:"post",
             data:$('#loginForm').serialize(),
             success:function (data) {
-                console.log("data",data);
                 if(data.code===200){
                     window.location.href='/user/toIndex'
                 }else{

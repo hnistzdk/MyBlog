@@ -1,6 +1,5 @@
 package com.zdk.MyBlog.controller.article;
 
-import cn.hutool.core.date.DateUtil;
 import com.zdk.MyBlog.controller.BaseController;
 import com.zdk.MyBlog.model.pojo.Article;
 import com.zdk.MyBlog.model.pojo.User;
@@ -32,13 +31,13 @@ import java.util.UUID;
 public class ArticleController extends BaseController {
     @Autowired
     RedisUtil redisUtil;
-    @Autowired
+    @Autowired(required = false)
     ArticleService articleService;
 
     @GetMapping(value = "/toPost")
     public String toPost(Model model, Integer id){
-        System.out.println("id = " + id);
         Article article = articleService.getArticleById(id);
+        articleService.updateById(article.setReadCount(article.getReadCount()+1));
         model.addAttribute("article",article);
         model.addAttribute("user",getLoginUser());
         return "blog-post";
@@ -60,9 +59,8 @@ public class ArticleController extends BaseController {
     @PostMapping(value = "/addArticle")
     @ResponseBody
     public ApiResponse addArticle(Article article){
-        System.out.println("article = " + article);
         User loginUser = getLoginUser();
-        article.setUserId(loginUser.getUsername()).setAuthorName(loginUser.getNickname()).setTime(DateUtil.now());
+        article.setUserId(loginUser.getUsername()).setAuthorName(loginUser.getNickname());
         if(articleService.addArticle(article)){
             return ApiResponse.success("成功");
         }

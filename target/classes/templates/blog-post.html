@@ -9,14 +9,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Blog Template">
     <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="../static/assets/images/favicon.ico">
 
     <!-- FontAwesome JS-->
     <script defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js"></script>
 
     <!-- Plugin CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/monokai-sublime.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/atom-one-dark.min.css">
+	<!-- Javascript -->
+	<script th:src="@{/assets/plugins/jquery-3.3.1.min.js}"></script>
+	<script th:src="@{/assets/plugins/popper.min.js}"></script>
+	<script th:src="@{/assets/plugins/bootstrap/js/bootstrap.min.js}"></script>
 
+	<!-- Page Specific JS -->
+	<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js}"></script>
+
+	<!-- Custom JS -->
+	<script th:src="@{/assets/js/blog.js}"></script>
+
+	<!-- Style Switcher (REMOVE ON YOUR PRODUCTION SITE) -->
+	<script th:src="@{/assets/js/demo/style-switcher.js}"></script>
     <!-- Theme CSS -->
     <link id="theme-style" rel="stylesheet" th:href="@{/assets/css/theme-1.css}">
 
@@ -30,7 +42,7 @@
 		    <div class="container">
 			    <header class="blog-post-header">
 				    <h2 class="title mb-2" th:text="${article.getTitle()}"></h2>
-				    <div class="meta mb-3"><span class="date" th:text="${article.getTime()}"></span><span class="time" th:text="${article.getRead()+' read'}"></span><span class="comment"><span class="comment" th:text="${article.getComment()+' comments'}"></span></span></div>
+				    <div class="meta mb-3"><span class="date" th:text="${article.getPublicTime()}"></span><span class="time" th:text="${article.getReadCount()+' read'}"></span><span class="comment"><span class="comment" th:text="${article.getCommentCount()+' comments'}"></span></span></div>
 			    </header>
 
 			    <div class="blog-post-body">
@@ -109,22 +121,6 @@
 
 <!-- *****CONFIGURE STYLE (REMOVE ON YOUR PRODUCTION SITE)****** -->
 <div th:replace="~{common.html::diyTheme}"></div><!--//configure-panel-->
-
-
-
-    <!-- Javascript -->
-    <script th:src="@{/assets/plugins/jquery-3.3.1.min.js}"></script>
-    <script th:src="@{/assets/plugins/popper.min.js}"></script>
-    <script th:src="@{/assets/plugins/bootstrap/js/bootstrap.min.js}"></script>
-
-    <!-- Page Specific JS -->
-    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js}"></script>
-
-    <!-- Custom JS -->
-    <script th:src="@{/assets/js/blog.js}"></script>
-
-    <!-- Style Switcher (REMOVE ON YOUR PRODUCTION SITE) -->
-    <script th:src="@{/assets/js/demo/style-switcher.js}"></script>
 </body>
 </html>
 

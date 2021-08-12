@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Blog Template">
     <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}">
 
     <!-- FontAwesome JS-->
     <script defer th:src="@{https://use.fontawesome.com/releases/v5.7.1/js/all.js}"></script>
@@ -43,10 +43,10 @@
 					    <div class="media-body">
 						    <h3 class="title mb-1"><a th:href="@{/article/toPost(id=${article.getId()})}" th:text="${article.getTitle()}"></a></h3>
 						    <div class="meta mb-1">
-								<span class="date" th:text="'Published '+${article.getTime()}"></span>
-								<span class="time" th:text="${article.getRead()+' read'}"></span>
+								<span class="date" th:text="'Published '+${article.getPublicTime()}"></span>
+								<span class="time" th:text="${article.getReadCount()+' read'}"></span>
 								<span class="comment">
-								<a href="#" th:text="${article.getComment()}+' comments'"></a>
+								<a href="#" th:text="${article.getCommentCount()}+' comments'"></a>
 								</span>
 							</div>
 						    <div class="intro" th:text="${article.getIntroduction()}"></div>

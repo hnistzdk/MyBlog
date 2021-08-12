@@ -1,5 +1,6 @@
 package com.zdk.MyBlog.model.pojo;
 
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,13 +17,19 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class Article implements Serializable {
+    @TableId(type = IdType.AUTO)
     private Integer id;
     private String userId;
     private String authorName;
     private String title;
-    private String time;
-    private Integer read;
-    private Integer comment;
+    @TableField(fill = FieldFill.INSERT)
+    private String publicTime;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private String updateTime;
+    private Integer readCount;
+    private Integer commentCount;
     private String introduction;
     private String content;
+    @TableLogic
+    private Boolean deleted;
 }

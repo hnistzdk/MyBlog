@@ -52,7 +52,17 @@ public class ParaValidator {
      * @param param
      */
     public static boolean notOk(String param){
-        return StringUtils.isBlank(param);
+        if (param != null) {
+            int i = 0;
+
+            for (int len = param.length(); i < len; ++i) {
+                if (param.charAt(i) > ' ') {
+                    return false;
+                }
+            }
+
+        }
+        return true;
     }
     /**
      * 判断Double参数是否有效
