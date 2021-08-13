@@ -1,6 +1,8 @@
 package com.zdk.MyBlog.service.article;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.mapper.ArticleMapper;
 import com.zdk.MyBlog.model.pojo.Article;
 import com.zdk.MyBlog.utils.ParaValidator;
@@ -53,5 +55,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             return null;
         }
         return removeById(id);
+    }
+
+    @Override
+    public PageInfo<Article> getArticlePage(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Article> articles = articleMapper.selectList(null);
+        return new PageInfo<>(articles);
     }
 }

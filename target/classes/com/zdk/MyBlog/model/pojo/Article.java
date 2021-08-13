@@ -16,6 +16,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
+@TableName("blog_article")
 public class Article implements Serializable {
     /**
      * 文章主键编号
@@ -51,10 +52,14 @@ public class Article implements Serializable {
      */
     private String content;
     /**
+     * 文章纯文本格式(渲染编辑页面时使用)
+     */
+    private String text;
+    /**
      * 文章发布时间
      */
     @TableField(fill = FieldFill.INSERT)
-    private String publicTime;
+    private String publishTime;
     /**
      * 文章更新时间
      */
@@ -94,14 +99,14 @@ public class Article implements Serializable {
     /**
      * 是否允许评论
      */
-    private Integer allowComment;
+    private Boolean allowComment;
     /**
      * 是否允许ping
      */
-    private Integer allowPing;
+    private Boolean allowPing;
     /**
      * 允许出现在聚合中
      */
-    private Integer allowFeed;
+    private Boolean allowFeed;
 
 }

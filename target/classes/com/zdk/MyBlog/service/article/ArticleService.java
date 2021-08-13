@@ -1,6 +1,7 @@
 package com.zdk.MyBlog.service.article;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.model.pojo.Article;
 
 import java.util.List;
@@ -43,4 +44,12 @@ public interface ArticleService extends IService<Article> {
      * @return
      */
     Boolean deleteArticleById(Integer id);
+
+    /**
+     * 获取文章分页
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    PageInfo<Article> getArticlePage(Integer pageNum,Integer pageSize);
 }

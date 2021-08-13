@@ -42,7 +42,7 @@
 		    <div class="container">
 			    <header class="blog-post-header">
 				    <h2 class="title mb-2" th:text="${article.getTitle()}"></h2>
-				    <div class="meta mb-3"><span class="date" th:text="${article.getPublicTime()}"></span><span class="time" th:text="${article.getReadCount()+' read'}"></span><span class="comment"><span class="comment" th:text="${article.getCommentCount()+' comments'}"></span></span></div>
+				    <div class="meta mb-3"><span class="date" th:text="${article.getPublishTime()}"></span><span class="time" th:text="${article.getReadCount()+' read'}"></span><span class="comment"><span class="comment" th:text="${article.getCommentCount()+' comments'}"></span></span></div>
 			    </header>
 
 			    <div class="blog-post-body">

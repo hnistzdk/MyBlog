@@ -5,9 +5,10 @@ import com.zdk.MyBlog.model.pojo.Article;
 import com.zdk.MyBlog.model.pojo.User;
 import com.zdk.MyBlog.service.article.ArticleService;
 import com.zdk.MyBlog.utils.ApiResponse;
-import com.zdk.MyBlog.utils.RedisUtil;
 import com.zdk.MyBlog.utils.UploadUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,13 +30,23 @@ import java.util.UUID;
 @Controller
 @RequestMapping(value = "/article",method = {RequestMethod.POST,RequestMethod.GET})
 public class ArticleController extends BaseController {
-    @Autowired
-    RedisUtil redisUtil;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ArticleController.class);
+
     @Autowired
     ArticleService articleService;
 
     @GetMapping(value = "/toPost")
     public String toPost(Model model, Integer id){
+        Article article = articleService.getArticleById(id);
+        articleService.updateById(article.setReadCount(article.getReadCount()+1));
+        model.addAttribute("article",article);
+        model.addAttribute("user",getLoginUser());
+        return "blog/blog-post";
+    }
+
+    @GetMapping(value = "/toPost/{id}")
+    public String toPost2(Model model, @PathVariable Integer id){
         Article article = articleService.getArticleById(id);
         articleService.updateById(article.setReadCount(article.getReadCount()+1));
         model.addAttribute("article",article);
@@ -62,9 +73,30 @@ public class ArticleController extends BaseController {
         User loginUser = getLoginUser();
         article.setUserId(loginUser.getUsername()).setAuthorName(loginUser.getNickname());
         if(articleService.addArticle(article)){
-            return ApiResponse.success("成功");
+            return ApiResponse.success("发布成功");
         }
-        return ApiResponse.fail("失败");
+        return ApiResponse.fail("发布失败");
+    }
+
+    @PostMapping("/modify")
+    @ResponseBody
+    public ApiResponse modifyArticle(Article article){
+        System.out.println("article = " + article);
+        boolean update = articleService.updateById(article);
+        if(update){
+            return ApiResponse.success("保存成功");
+        }
+        return ApiResponse.fail("保存失败");
+    }
+
+    @GetMapping("/delete")
+    @ResponseBody
+    public ApiResponse deleteArticle(Integer id){
+        Boolean result = articleService.deleteArticleById(id);
+        if(result){
+            return ApiResponse.success("删除成功");
+        }
+        return ApiResponse.fail("删除失败");
     }
 
     @PostMapping(value = "/file/upload")
@@ -84,8 +116,8 @@ public class ArticleController extends BaseController {
         result.put("success", 1);
         result.put("message", "上传成功");
         //通过以下URL即可访问到图片
-        //http://localhost:8088/static/upload/image/fb2117c8-9227-4e33-8da9-af73e3d8900e%E6%90%AD%E9%85%8D.png
-        result.put("link", "http://localhost:8088/static/upload/image/"+filename);
+        //http://localhost:8090/static/upload/image/fb2117c8-9227-4e33-8da9-af73e3d8900e%E6%90%AD%E9%85%8D.png
+        result.put("link", "http://localhost:8090/static/upload/image/"+filename);
         result.put("url", "/static/upload/image/"+filename);
         return result;
     }

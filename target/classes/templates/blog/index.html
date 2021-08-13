@@ -43,7 +43,7 @@
 					    <div class="media-body">
 						    <h3 class="title mb-1"><a th:href="@{/article/toPost(id=${article.getId()})}" th:text="${article.getTitle()}"></a></h3>
 						    <div class="meta mb-1">
-								<span class="date" th:text="'Published '+${article.getPublicTime()}"></span>
+								<span class="date" th:text="'Published '+${article.getPublishTime()}"></span>
 								<span class="time" th:text="${article.getReadCount()+' read'}"></span>
 								<span class="comment">
 								<a href="#" th:text="${article.getCommentCount()}+' comments'"></a>

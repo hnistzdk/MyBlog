@@ -110,7 +110,14 @@
             data:$('#loginForm').serialize(),
             success:function (data) {
                 if(data.code===200){
-                    window.location.href='/user/toIndex'
+                    tale.alertOk({
+                        text: data.msg,
+                        then: function () {
+                            setTimeout(function () {
+                                window.location.href = '/user/toIndex';
+                            }, 500);
+                        }
+                    })
                 }else{
                     tale.alertError(data.msg)
                 }
