@@ -56,7 +56,7 @@ $.tale.prototype.alertOkAndReload = function (text) {
     this.alertOk({text:text, then:function () {
         setTimeout(function () {
             window.location.reload();
-        }, 500);
+        }, 400);
     }});
 };
 

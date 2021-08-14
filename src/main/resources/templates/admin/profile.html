@@ -22,21 +22,21 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">账号</label>
                                         <div class="col-md-9">
-                                            <input type="text" th:value="${session.login_user.username}" class="form-control"  readonly="readonly" disabled="disabled"/>
+                                            <input type="text" th:value="${user.username}" class="form-control"  readonly="readonly" disabled="disabled"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">姓名</label>
+                                        <label class="col-md-3 control-label">昵称</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="screenName" placeholder="输入您的姓名"
-                                                   th:value="${session.login_user.screenName}" required="required" aria-required="true"/>
+                                            <input type="text" class="form-control" name="nickName" placeholder="输入您的昵称"
+                                                   th:value="${user.nickname}" required="required" aria-required="true"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">邮箱</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="email" placeholder="输入您的邮箱"
-                                                   th:value="${session.login_user.email}" required="required" aria-required="true"/>
+                                                   th:value="${user.email}" required="required" aria-required="true"/>
                                         </div>
                                     </div>
                                     <div class="clearfix pull-right">
@@ -67,7 +67,7 @@
                                         <label class="col-md-3 control-label">输入新密码</label>
                                         <div class="col-md-9">
                                             <input type="password" name="password" id="password1" class="form-control" required="required"
-                                                   aria-required="true" rangelength="[6,14]"/>
+                                                   aria-required="true" rangelength="[3,14]"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -108,8 +108,8 @@
             url : '/admin/profile',
             data: param,
             success: function (result) {
-                if(result && result.code == 'success'){
-                    tale.alertOk('保存成功');
+                if(result && result.code === 200){
+                    tale.alertOkAndReload('保存成功');
                 } else {
                     tale.alertError(result.msg || '保存失败');
                 }
@@ -124,8 +124,8 @@
                 url : '/admin/password',
                 data: params,
                 success: function (result) {
-                    if(result && result.code == 'success'){
-                        tale.alertOk('密码修改成功');
+                    if(result && result.code === 200){
+                        tale.alertOkAndReload('密码修改成功');
                     } else {
                         tale.alertError(result.msg || '密码修改失败');
                     }

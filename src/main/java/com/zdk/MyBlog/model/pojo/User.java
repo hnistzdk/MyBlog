@@ -33,4 +33,5 @@ public class User implements Serializable {
     private String briefIntroduction;
     @TableLogic
     private Boolean deleted;
+    private String role;
 }

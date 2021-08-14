@@ -35,9 +35,9 @@ public class LoginController extends BaseController {
 
     @PostMapping(value = "/login")
     @ResponseBody
-    public ApiResponse login(@RequestParam(name = "username") String username,
-                             @RequestParam(name = "password") String password,
-                             @RequestParam(name = "rememberMe") @Nullable String remember, HttpServletRequest request) {
+    public ApiResponse login(@RequestParam(name = "username",required = false) String username,
+                             @RequestParam(name = "password",required = false) String password,
+                             @RequestParam(name = "rememberMe",required = false) @Nullable String remember, HttpServletRequest request) {
         String ip = IpKit.getIpAddrByRequest(request);
         //构造登录错误次数唯一缓存key
         String userCountKey = WebConst.LOGIN_ERROR_COUNT + ip + username;

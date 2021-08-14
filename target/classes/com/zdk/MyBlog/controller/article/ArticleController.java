@@ -5,7 +5,6 @@ import com.zdk.MyBlog.model.pojo.Article;
 import com.zdk.MyBlog.model.pojo.User;
 import com.zdk.MyBlog.service.article.ArticleService;
 import com.zdk.MyBlog.utils.ApiResponse;
-import com.zdk.MyBlog.utils.RedisUtil;
 import com.zdk.MyBlog.utils.UploadUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -31,10 +30,9 @@ import java.util.UUID;
 @Controller
 @RequestMapping(value = "/article",method = {RequestMethod.POST,RequestMethod.GET})
 public class ArticleController extends BaseController {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ArticleController.class);
 
-    @Autowired
-    RedisUtil redisUtil;
     @Autowired
     ArticleService articleService;
 
@@ -75,9 +73,9 @@ public class ArticleController extends BaseController {
         User loginUser = getLoginUser();
         article.setUserId(loginUser.getUsername()).setAuthorName(loginUser.getNickname());
         if(articleService.addArticle(article)){
-            return ApiResponse.success("成功");
+            return ApiResponse.success("发布成功");
         }
-        return ApiResponse.fail("失败");
+        return ApiResponse.fail("发布失败");
     }
 
     @PostMapping("/modify")

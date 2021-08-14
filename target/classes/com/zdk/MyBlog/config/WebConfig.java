@@ -52,6 +52,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(getLoginHandlerInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns("/login.html","/","/user/login","/user/toLogin")
+                .excludePathPatterns("/admin/login","/admin")
                 .excludePathPatterns("/**/*.html", "/**/*.js", "/**/*.css", "/**/*.json", "/**/*.icon","/**/*.jpg","/**/*.png");
     }
 

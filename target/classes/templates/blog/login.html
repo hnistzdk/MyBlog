@@ -65,7 +65,7 @@
         </div>
         <div class="panel-body">
             <form class="form-horizontal m-t-20" method="post" id="loginForm" onsubmit="return false">
-                <div><span style="color: red" th:text="${msg}"></span></div>
+                <div><span style="color: red" th:if="${msg!=null}" th:text="${msg}"></span></div>
                 <div class="form-group">
                     <div class="col-xs-12">
                         <input class=" input-lg input-border" name="username" type="text" required=""

@@ -1,25 +1,28 @@
 package com.zdk.MyBlog.controller.admin;
 
+import com.zdk.MyBlog.constant.WebConst;
 import com.zdk.MyBlog.controller.BaseController;
 import com.zdk.MyBlog.model.dto.StatisticsDto;
 import com.zdk.MyBlog.model.pojo.Article;
 import com.zdk.MyBlog.model.pojo.Comments;
 import com.zdk.MyBlog.model.pojo.Logs;
+import com.zdk.MyBlog.model.pojo.User;
 import com.zdk.MyBlog.service.article.ArticleService;
 import com.zdk.MyBlog.service.comments.CommentsService;
 import com.zdk.MyBlog.service.logs.LogsService;
+import com.zdk.MyBlog.service.user.UserService;
 import com.zdk.MyBlog.utils.ApiResponse;
+import com.zdk.MyBlog.utils.RedisUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -33,11 +36,24 @@ public class IndexController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
 
     @Autowired
+    UserService userService;
+    @Autowired
     private ArticleService articleService;
     @Autowired
     private CommentsService commentsService;
     @Autowired
     private LogsService logsService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    @Autowired
+    RedisUtil redisUtil;
+
+
+    @ApiOperation("进入管理端登录页面")
+    @GetMapping("/login")
+    public String login(){
+        return "admin/login";
+    }
 
     @ApiOperation("进入首页")
     @GetMapping("/index")
@@ -62,7 +78,9 @@ public class IndexController extends BaseController {
      * 个人设置页面
      */
     @GetMapping(value = "/profile")
-    public String profile() {
+    public String profile(Model model) {
+        User user = userService.getById(getLoginUser().getId());
+        model.addAttribute("user", user);
         return "admin/profile";
     }
 
@@ -71,8 +89,14 @@ public class IndexController extends BaseController {
      */
     @PostMapping(value = "/profile")
     @ResponseBody
-    public ApiResponse saveProfile(@RequestParam String screenName, @RequestParam String email, HttpServletRequest request, HttpSession session) {
-        return null;
+    public ApiResponse saveProfile(@RequestParam String nickName, @RequestParam String email) {
+        User user = getLoginUser();
+        user.setNickname(nickName).setEmail(email);
+        Boolean updateUserInfo = userService.updateUserInfo(user);
+        if(updateUserInfo){
+            return ApiResponse.success("保存成功");
+        }
+        return ApiResponse.fail("保存失败");
     }
 
     /**
@@ -80,8 +104,27 @@ public class IndexController extends BaseController {
      */
     @PostMapping(value = "/password")
     @ResponseBody
-    public ApiResponse modifyPassword() {
-        return null;
+    public ApiResponse modifyPassword(String oldPassword,String password,String repass) {
+        System.out.println("oldPassword = " + oldPassword);
+        System.out.println("password = " + password);
+        System.out.println("repass = " + repass);
+        User user = getLoginUser();
+        if(passwordEncoder.matches(oldPassword,user.getPassword())){
+            return ApiResponse.fail("旧密码错误");
+        }
+        if(notOk(password)||notOk(repass)||!password.equals(repass)){
+            return ApiResponse.fail("请输入正确的密码格式");
+        }
+        if(userService.updateUserInfo(user.setPassword(passwordEncoder.encode(password)))){
+            return ApiResponse.success("修改密码成功");
+        }
+        return ApiResponse.fail("修改密码失败");
     }
 
+
+    @GetMapping ("/logout")
+    public String logout() {
+        redisUtil.hdel(WebConst.USERINFO, WebConst.LOGIN_SESSION_KEY);
+        return "admin/login";
+    }
 }
