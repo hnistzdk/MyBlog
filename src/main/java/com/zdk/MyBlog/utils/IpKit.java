@@ -17,7 +17,7 @@ public class IpKit {
      * @param request 请求
      * @return IP Address
      */
-    public static String getIpAddrByRequest(HttpServletRequest request) {
+    public static String getIpAddressByRequest(HttpServletRequest request) {
         String Xip = request.getHeader("X-Real-IP");
         String XFor = request.getHeader("X-Forwarded-For");
         if(StringUtils.isNotEmpty(XFor) && !"unKnown".equalsIgnoreCase(XFor)){

@@ -43,7 +43,7 @@ public class LoginController extends BaseController {
     public ApiResponse login(@RequestParam(name = "username",required = false) String username,
                              @RequestParam(name = "password",required = false) String password,
                              @RequestParam(name = "rememberMe",required = false) @Nullable String remember, HttpServletRequest request) {
-        String ip = IpKit.getIpAddrByRequest(request);
+        String ip = IpKit.getIpAddressByRequest(request);
         //构造登录错误次数唯一缓存key
         String userCountKey = WebConst.LOGIN_ERROR_COUNT + ip + username;
         //构造登录成功后用户信息唯一缓存key
@@ -58,7 +58,7 @@ public class LoginController extends BaseController {
             if (passwordEncoder.matches(password, user.getPassword())) {
                 userService.updateUserInfo(user.setLoginDate(DateUtil.now()).setLoginTimes(user.getLoginTimes()+1));
                 Logs logs = new Logs().setAction(LogActions.LOGIN.getAction()).setAuthorId(getLoginUser().getId())
-                        .setCreateTime(DateUtil.now()).setIp(request.getRemoteAddr());
+                        .setCreateTime(DateUtil.now()).setIp(IpKit.getIpAddressByRequest(request));
                 logsService.save(logs);
                 redisUtil.del(userCountKey);
                 if (isOk(remember)) {
@@ -88,7 +88,7 @@ public class LoginController extends BaseController {
     public String logout(HttpServletRequest request) {
         redisUtil.hdel(WebConst.USERINFO, WebConst.LOGIN_SESSION_KEY);
         Logs logs = new Logs().setAction(LogActions.LOGOUT.getAction()).setAuthorId(getLoginUser().getId())
-                .setCreateTime(DateUtil.now()).setIp(request.getRemoteAddr());
+                .setCreateTime(DateUtil.now()).setIp(IpKit.getIpAddressByRequest(request));
         logsService.save(logs);
         return "blog/login";
     }

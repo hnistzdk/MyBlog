@@ -14,6 +14,7 @@ import com.zdk.MyBlog.service.comments.CommentsService;
 import com.zdk.MyBlog.service.logs.LogsService;
 import com.zdk.MyBlog.service.user.UserService;
 import com.zdk.MyBlog.utils.ApiResponse;
+import com.zdk.MyBlog.utils.IpKit;
 import com.zdk.MyBlog.utils.RedisUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -96,7 +97,7 @@ public class IndexController extends BaseController {
         user.setNickname(nickName).setEmail(email);
         Boolean updateUserInfo = userService.updateUserInfo(user);
         Logs logs = new Logs().setAction(LogActions.UP_INFO.getAction()).setAuthorId(getLoginUser().getId())
-                .setCreateTime(DateUtil.now()).setIp(request.getRemoteAddr());
+                .setCreateTime(DateUtil.now()).setIp(IpKit.getIpAddressByRequest(request));
         logsService.save(logs);
         if(updateUserInfo){
             redisUtil.hset(WebConst.USERINFO, WebConst.LOGIN_SESSION_KEY, user);
@@ -111,9 +112,6 @@ public class IndexController extends BaseController {
     @PostMapping(value = "/password")
     @ResponseBody
     public ApiResponse modifyPassword(String oldPassword,String password,String repass,HttpServletRequest request) {
-        Logs logs = new Logs().setAction(LogActions.UP_PWD.getAction()).setAuthorId(getLoginUser().getId())
-                .setCreateTime(DateUtil.now()).setIp(request.getRemoteAddr());
-        logsService.save(logs);
         User user = userService.getById(getLoginUser().getId());
         if(!passwordEncoder.matches(oldPassword,user.getPassword())){
             return ApiResponse.fail("旧密码错误");
@@ -123,6 +121,9 @@ public class IndexController extends BaseController {
         }
         if(userService.updateUserInfo(user.setPassword(passwordEncoder.encode(password)))){
             redisUtil.hset(WebConst.USERINFO, WebConst.LOGIN_SESSION_KEY, user);
+            Logs logs = new Logs().setAction(LogActions.UP_PWD.getAction()).setAuthorId(getLoginUser().getId())
+                    .setCreateTime(DateUtil.now()).setIp(IpKit.getIpAddressByRequest(request));
+            logsService.save(logs);
             return ApiResponse.success("修改密码成功");
         }
         return ApiResponse.fail("修改密码失败");
@@ -133,7 +134,7 @@ public class IndexController extends BaseController {
     public String logout(HttpServletRequest request) {
         redisUtil.hdel(WebConst.USERINFO, WebConst.LOGIN_SESSION_KEY);
         Logs logs = new Logs().setAction(LogActions.LOGOUT.getAction()).setAuthorId(getLoginUser().getId())
-                .setCreateTime(DateUtil.now()).setIp(request.getRemoteAddr());
+                .setCreateTime(DateUtil.now()).setIp(IpKit.getIpAddressByRequest(request));
         logsService.save(logs);
         return "admin/login";
     }
