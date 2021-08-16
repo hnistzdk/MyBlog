@@ -1,6 +1,5 @@
 package com.zdk.MyBlog.controller.admin;
 
-import com.zdk.MyBlog.qiniu.QiniuCloudService;
 import com.zdk.MyBlog.service.attach.AttachService;
 import com.zdk.MyBlog.utils.TaleUtils;
 import io.swagger.annotations.Api;
@@ -22,6 +21,4 @@ public class AttAchController {
     private static final Logger LOGGER = LoggerFactory.getLogger(AttAchController.class);
     @Autowired
     private AttachService attachService;
-    @Autowired
-    private QiniuCloudService qiniuCloudService;
 }

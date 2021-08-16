@@ -1,11 +1,14 @@
 package com.zdk.MyBlog.controller.article;
 
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
+import com.upyun.Result;
 import com.zdk.MyBlog.controller.BaseController;
 import com.zdk.MyBlog.model.pojo.Article;
 import com.zdk.MyBlog.model.pojo.User;
 import com.zdk.MyBlog.service.article.ArticleService;
 import com.zdk.MyBlog.utils.ApiResponse;
-import com.zdk.MyBlog.utils.UploadUtils;
+import com.zdk.MyBlog.utils.UpYunUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +18,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SignatureException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -98,24 +103,25 @@ public class ArticleController extends BaseController {
         return ApiResponse.fail("删除失败");
     }
 
-    @PostMapping(value = "/file/upload")
+    @PostMapping(value = "/file/imageUpload")
     @ResponseBody
-    public Map<String, Object> imageUpload(@RequestParam(value = "editormd-image-file") MultipartFile file) throws URISyntaxException {
-        String filename = UUID.randomUUID()+file.getOriginalFilename();
-        File fileDir = UploadUtils.getImgDirFile();
-        try {
-            File newFile = new File(fileDir.getAbsolutePath() + File.separator + filename);
-            file.transferTo(newFile);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+    public Map<String, Object> imageUpload(@RequestParam(value = "editormd-image-file") MultipartFile file) throws URISyntaxException, NoSuchAlgorithmException, SignatureException, InvalidKeyException, IOException {
+        //上传的文件名
+        String filename=file.getOriginalFilename();
+        //获取文件名的后缀
+        String suffixName=filename.substring(filename.lastIndexOf("."));
+        filename=UUID.randomUUID()+suffixName;
+
+        //上传又拍云
+        Result uploadResult = UpYunUtil.testSync(file.getBytes(), filename);
+        JSONObject photoMsg = JSONUtil.parseObj(uploadResult.getMsg());
+        String url="http://zdk-blog-image.test.upcdn.net/"+photoMsg.getStr("url");
+
         HashMap<String, Object> result = new HashMap<>(3);
         result.put("success", 1);
         result.put("message", "上传成功");
-        //通过以下URL即可访问到图片
-        //http://localhost:8090/static/upload/image/fb2117c8-9227-4e33-8da9-af73e3d8900e%E6%90%AD%E9%85%8D.png
-        result.put("link", "http://localhost:8090/static/upload/image/"+filename);
-        result.put("url", "/static/upload/image/"+filename);
+        result.put("link", url);
+        result.put("url", url);
         return result;
     }
 }

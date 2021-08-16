@@ -149,11 +149,27 @@
 		</dependency>
 
 		<!-- 七牛云对象存储 -->
+<!--		<dependency>-->
+<!--			<groupId>com.qiniu</groupId>-->
+<!--			<artifactId>qiniu-java-sdk</artifactId>-->
+<!--			<version>7.8.0</version>-->
+<!--		</dependency>-->
+
+<!--		又拍云-->
+		<!-- https://mvnrepository.com/artifact/com.upyun/java-sdk -->
 		<dependency>
-			<groupId>com.qiniu</groupId>
-			<artifactId>qiniu-java-sdk</artifactId>
-			<version>7.8.0</version>
+			<groupId>com.upyun</groupId>
+			<artifactId>java-sdk</artifactId>
+			<version>4.1.3</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
+
+
 
 		<!-- 分页插件 -->
 		<dependency>
