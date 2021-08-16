@@ -26,7 +26,7 @@ public class Article implements Serializable {
     /**
      * 作者id
      */
-    private String userId;
+    private Integer authorId;
     /**
      * 作者名
      */

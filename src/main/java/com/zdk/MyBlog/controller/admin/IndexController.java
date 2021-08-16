@@ -1,5 +1,7 @@
 package com.zdk.MyBlog.controller.admin;
 
+import cn.hutool.core.date.DateUtil;
+import com.zdk.MyBlog.constant.LogActions;
 import com.zdk.MyBlog.constant.WebConst;
 import com.zdk.MyBlog.controller.BaseController;
 import com.zdk.MyBlog.model.dto.StatisticsDto;
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -59,15 +62,14 @@ public class IndexController extends BaseController {
     @GetMapping("/index")
     public String index(Model model){
 
-        //statistics
-        StatisticsDto statistics = new StatisticsDto(1L, 2L, 3L,4L);
         //articles
-        List<Article> articles = articleService.getAllArticle();
+        List<Article> articles = articleService.getArticleByAuthorId(getLoginUser());
         //comments
-        List<Comments> comments = commentsService.list();
+        List<Comments> comments = commentsService.getCommentsByOwnerId(getLoginUser().getId(), getLoginUser());
         //logs
-        List<Logs> logs = logsService.list();
-
+        List<Logs> logs = logsService.getLogByLoginUser(getLoginUser());
+        //statistics
+        StatisticsDto statistics = new StatisticsDto((long) articles.size(), (long) comments.size(), 3L,4L);
         model.addAttribute("statistics",statistics);
         model.addAttribute("articles",articles);
         model.addAttribute("comments",comments);
@@ -89,11 +91,15 @@ public class IndexController extends BaseController {
      */
     @PostMapping(value = "/profile")
     @ResponseBody
-    public ApiResponse saveProfile(@RequestParam String nickName, @RequestParam String email) {
+    public ApiResponse saveProfile(@RequestParam String nickName, @RequestParam String email, HttpServletRequest request) {
         User user = getLoginUser();
         user.setNickname(nickName).setEmail(email);
         Boolean updateUserInfo = userService.updateUserInfo(user);
+        Logs logs = new Logs().setAction(LogActions.UP_INFO.getAction()).setAuthorId(getLoginUser().getId())
+                .setCreateTime(DateUtil.now()).setIp(request.getRemoteAddr());
+        logsService.save(logs);
         if(updateUserInfo){
+            redisUtil.hset(WebConst.USERINFO, WebConst.LOGIN_SESSION_KEY, user);
             return ApiResponse.success("保存成功");
         }
         return ApiResponse.fail("保存失败");
@@ -104,18 +110,19 @@ public class IndexController extends BaseController {
      */
     @PostMapping(value = "/password")
     @ResponseBody
-    public ApiResponse modifyPassword(String oldPassword,String password,String repass) {
-        System.out.println("oldPassword = " + oldPassword);
-        System.out.println("password = " + password);
-        System.out.println("repass = " + repass);
-        User user = getLoginUser();
-        if(passwordEncoder.matches(oldPassword,user.getPassword())){
+    public ApiResponse modifyPassword(String oldPassword,String password,String repass,HttpServletRequest request) {
+        Logs logs = new Logs().setAction(LogActions.UP_PWD.getAction()).setAuthorId(getLoginUser().getId())
+                .setCreateTime(DateUtil.now()).setIp(request.getRemoteAddr());
+        logsService.save(logs);
+        User user = userService.getById(getLoginUser().getId());
+        if(!passwordEncoder.matches(oldPassword,user.getPassword())){
             return ApiResponse.fail("旧密码错误");
         }
         if(notOk(password)||notOk(repass)||!password.equals(repass)){
             return ApiResponse.fail("请输入正确的密码格式");
         }
         if(userService.updateUserInfo(user.setPassword(passwordEncoder.encode(password)))){
+            redisUtil.hset(WebConst.USERINFO, WebConst.LOGIN_SESSION_KEY, user);
             return ApiResponse.success("修改密码成功");
         }
         return ApiResponse.fail("修改密码失败");
@@ -123,8 +130,11 @@ public class IndexController extends BaseController {
 
 
     @GetMapping ("/logout")
-    public String logout() {
+    public String logout(HttpServletRequest request) {
         redisUtil.hdel(WebConst.USERINFO, WebConst.LOGIN_SESSION_KEY);
+        Logs logs = new Logs().setAction(LogActions.LOGOUT.getAction()).setAuthorId(getLoginUser().getId())
+                .setCreateTime(DateUtil.now()).setIp(request.getRemoteAddr());
+        logsService.save(logs);
         return "admin/login";
     }
 }

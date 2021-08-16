@@ -71,7 +71,7 @@ public class ArticleController extends BaseController {
     @ResponseBody
     public ApiResponse addArticle(Article article){
         User loginUser = getLoginUser();
-        article.setUserId(loginUser.getUsername()).setAuthorName(loginUser.getNickname());
+        article.setAuthorId(loginUser.getId()).setAuthorName(loginUser.getNickname());
         if(articleService.addArticle(article)){
             return ApiResponse.success("发布成功");
         }
@@ -81,7 +81,6 @@ public class ArticleController extends BaseController {
     @PostMapping("/modify")
     @ResponseBody
     public ApiResponse modifyArticle(Article article){
-        System.out.println("article = " + article);
         boolean update = articleService.updateById(article);
         if(update){
             return ApiResponse.success("保存成功");
@@ -104,10 +103,8 @@ public class ArticleController extends BaseController {
     public Map<String, Object> imageUpload(@RequestParam(value = "editormd-image-file") MultipartFile file) throws URISyntaxException {
         String filename = UUID.randomUUID()+file.getOriginalFilename();
         File fileDir = UploadUtils.getImgDirFile();
-        System.out.println("fileDir.getAbsolutePath() = " + fileDir.getAbsolutePath());
         try {
             File newFile = new File(fileDir.getAbsolutePath() + File.separator + filename);
-            System.out.println("newFile.getAbsolutePath() = " + newFile.getAbsolutePath());
             file.transferTo(newFile);
         }catch (IOException e){
             e.printStackTrace();

@@ -3,14 +3,17 @@ package com.zdk.MyBlog.service.article;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zdk.MyBlog.constant.RoleConst;
 import com.zdk.MyBlog.mapper.ArticleMapper;
 import com.zdk.MyBlog.model.pojo.Article;
+import com.zdk.MyBlog.model.pojo.User;
 import com.zdk.MyBlog.utils.ParaValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author zdk
@@ -37,11 +40,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    public Article getArticleByUserId(String username) {
-        if (ParaValidator.notOk(username)){
+    public List<Article> getArticleByAuthorId(User loginUser) {
+        if (ParaValidator.notOk(loginUser.getId())){
             return null;
         }
-        return getOne(query().eq("username", username));
+        return lambdaQuery().eq(!Objects.equals(loginUser.getRole(), RoleConst.ADMIN),Article::getAuthorId, loginUser.getId()).list();
     }
 
     @Override
@@ -58,9 +61,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    public PageInfo<Article> getArticlePage(Integer pageNum, Integer pageSize) {
+    public PageInfo<Article> getArticlePage(Integer pageNum, Integer pageSize,User loginUser) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Article> articles = articleMapper.selectList(null);
+        List<Article> articles = lambdaQuery().eq(!Objects.equals(loginUser.getRole(), RoleConst.ADMIN), Article::getAuthorId, loginUser.getId()).list();
         return new PageInfo<>(articles);
     }
 }

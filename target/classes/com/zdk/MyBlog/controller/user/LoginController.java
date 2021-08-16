@@ -1,9 +1,12 @@
 package com.zdk.MyBlog.controller.user;
 
 import cn.hutool.core.date.DateUtil;
+import com.zdk.MyBlog.constant.LogActions;
 import com.zdk.MyBlog.constant.WebConst;
 import com.zdk.MyBlog.controller.BaseController;
+import com.zdk.MyBlog.model.pojo.Logs;
 import com.zdk.MyBlog.model.pojo.User;
+import com.zdk.MyBlog.service.logs.LogsService;
 import com.zdk.MyBlog.service.user.UserService;
 import com.zdk.MyBlog.utils.ApiResponse;
 import com.zdk.MyBlog.utils.IpKit;
@@ -31,6 +34,8 @@ public class LoginController extends BaseController {
     @Autowired
     UserService userService;
     @Autowired
+    LogsService logsService;
+    @Autowired
     PasswordEncoder passwordEncoder;
 
     @PostMapping(value = "/login")
@@ -52,13 +57,16 @@ public class LoginController extends BaseController {
         if (user != null) {
             if (passwordEncoder.matches(password, user.getPassword())) {
                 userService.updateUserInfo(user.setLoginDate(DateUtil.now()).setLoginTimes(user.getLoginTimes()+1));
+                Logs logs = new Logs().setAction(LogActions.LOGIN.getAction()).setAuthorId(getLoginUser().getId())
+                        .setCreateTime(DateUtil.now()).setIp(request.getRemoteAddr());
+                logsService.save(logs);
                 redisUtil.del(userCountKey);
                 if (isOk(remember)) {
                     redisUtil.hset(WebConst.USERINFO, WebConst.LOGIN_SESSION_KEY, user, 3600);
                 } else {
                     redisUtil.hset(WebConst.USERINFO, WebConst.LOGIN_SESSION_KEY, user, -1);
                 }
-                return ApiResponse.success();
+                return ApiResponse.success("登录成功");
             } else {
                 loginErrorCount = redisUtil.getNumber(userCountKey);
                 if (isOk(loginErrorCount)) {
@@ -77,8 +85,11 @@ public class LoginController extends BaseController {
     }
 
     @GetMapping("/logout")
-    public String logout() {
+    public String logout(HttpServletRequest request) {
         redisUtil.hdel(WebConst.USERINFO, WebConst.LOGIN_SESSION_KEY);
+        Logs logs = new Logs().setAction(LogActions.LOGOUT.getAction()).setAuthorId(getLoginUser().getId())
+                .setCreateTime(DateUtil.now()).setIp(request.getRemoteAddr());
+        logsService.save(logs);
         return "blog/login";
     }
 }

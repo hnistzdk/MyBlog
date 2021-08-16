@@ -3,11 +3,14 @@ package com.zdk.MyBlog.service.logs;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zdk.MyBlog.mapper.LogsMapper;
 import com.zdk.MyBlog.model.pojo.Logs;
+import com.zdk.MyBlog.model.pojo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author zdk
@@ -19,4 +22,9 @@ public class LogsServiceImpl extends ServiceImpl<LogsMapper, Logs> implements Lo
     private static final Logger LOGGER = LoggerFactory.getLogger(LogsServiceImpl.class);
     @Autowired
     private LogsMapper logsMapper;
+
+    @Override
+    public List<Logs> getLogByLoginUser(User loginUser) {
+        return lambdaQuery().eq(Logs::getAuthorId, loginUser.getId()).list();
+    }
 }

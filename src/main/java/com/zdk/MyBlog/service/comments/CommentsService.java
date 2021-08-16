@@ -2,7 +2,9 @@ package com.zdk.MyBlog.service.comments;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.model.pojo.Comments;
+import com.zdk.MyBlog.model.pojo.User;
 
 import java.io.Serializable;
 import java.util.List;
@@ -58,9 +60,18 @@ public interface CommentsService extends IService<Comments> {
     /**
      * 根据被评论者id获取评论
      * @param ownerId
+     * @param loginUser
      * @return
      */
-    List<Comments> getCommentsByOwnerIdId(Integer ownerId);
+    List<Comments> getCommentsByOwnerId(Integer ownerId, User loginUser);
 
 
+    /**
+     * 获取评论分页
+     * @param pageNum
+     * @param pageSize
+     * @param loginUser
+     * @return
+     */
+    PageInfo<Comments> getCommentsPage(Integer pageNum,Integer pageSize,User loginUser);
 }

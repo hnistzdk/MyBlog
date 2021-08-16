@@ -43,7 +43,7 @@ public class AdminArticleController extends BaseController {
     public String article(Model model,
                           @RequestParam(name = "page",required = false, defaultValue = "1") Integer pageNum,
                           @RequestParam(name = "limit",required = false, defaultValue = "5")Integer pageSize){
-        PageInfo<Article> articlePage = articleService.getArticlePage(pageNum, pageSize);
+        PageInfo<Article> articlePage = articleService.getArticlePage(pageNum, pageSize,getLoginUser());
         model.addAttribute("articles",articlePage);
         return "admin/article_list";
     }

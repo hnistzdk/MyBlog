@@ -3,6 +3,7 @@ package com.zdk.MyBlog.service.article;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.model.pojo.Article;
+import com.zdk.MyBlog.model.pojo.User;
 
 import java.util.List;
 
@@ -25,11 +26,11 @@ public interface ArticleService extends IService<Article> {
     Article getArticleById(Integer id);
 
     /**
-     * 根据username获取文章信息
-     * @param username
+     * 根据用户id获取文章信息
+     * @param loginUser
      * @return
      */
-    Article getArticleByUserId(String username);
+    List<Article> getArticleByAuthorId(User loginUser);
 
     /**
      * 添加文章
@@ -49,7 +50,8 @@ public interface ArticleService extends IService<Article> {
      * 获取文章分页
      * @param pageNum
      * @param pageSize
+     * @param loginUser
      * @return
      */
-    PageInfo<Article> getArticlePage(Integer pageNum,Integer pageSize);
+    PageInfo<Article> getArticlePage(Integer pageNum,Integer pageSize,User loginUser);
 }
