@@ -65,7 +65,10 @@ public class CommentsServiceImpl extends ServiceImpl<CommentsMapper, Comments> i
     @Override
     public PageInfo<Comments> getCommentsPage(Integer pageNum, Integer pageSize,User loginUser) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Comments> comments = lambdaQuery().eq(Comments::getOwnerId, loginUser.getId()).list();
+        List<Comments> comments = lambdaQuery()
+                .eq(!Objects.equals(loginUser.getRole(), RoleConst.ADMIN),Comments::getOwnerId, loginUser.getId())
+                .orderByDesc(Comments::getCreateTime)
+                .list();
         return new PageInfo<>(comments);
     }
 }

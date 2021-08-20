@@ -2,6 +2,7 @@ package com.zdk.MyBlog.service.article;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
+import com.zdk.MyBlog.model.dto.cond.ArticleCond;
 import com.zdk.MyBlog.model.pojo.Article;
 import com.zdk.MyBlog.model.pojo.User;
 
@@ -54,4 +55,25 @@ public interface ArticleService extends IService<Article> {
      * @return
      */
     PageInfo<Article> getArticlePage(Integer pageNum,Integer pageSize,User loginUser);
+
+    /**
+     * 将分类为oldCategory的文章全部替换为分类为newCategory
+     * @param oldCategory
+     * @param newCategory
+     */
+    void updateByCondition(String oldCategory,String newCategory);
+
+    /**
+     * 根据查询条件获取文章信息
+     * @param articleCond
+     * @return
+     */
+    List<Article> getArticleByCondition(ArticleCond articleCond);
+
+    /**
+     * 编辑文章后保存
+     * @param article
+     * @return
+     */
+    Boolean modifyArticle(Article article);
 }

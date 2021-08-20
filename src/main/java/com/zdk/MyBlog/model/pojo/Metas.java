@@ -55,7 +55,7 @@ public class Metas implements Serializable {
      * 对应文章类型
      */
     @TableField("contentType")
-    private String contenttype;
+    private String contentType;
 
     /**
      * 选项描述

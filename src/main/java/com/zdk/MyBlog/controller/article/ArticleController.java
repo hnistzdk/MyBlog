@@ -3,10 +3,13 @@ package com.zdk.MyBlog.controller.article;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.upyun.Result;
+import com.zdk.MyBlog.constant.Types;
 import com.zdk.MyBlog.controller.BaseController;
+import com.zdk.MyBlog.model.dto.MetaDto;
 import com.zdk.MyBlog.model.pojo.Article;
 import com.zdk.MyBlog.model.pojo.User;
 import com.zdk.MyBlog.service.article.ArticleService;
+import com.zdk.MyBlog.service.metas.MetasService;
 import com.zdk.MyBlog.utils.ApiResponse;
 import com.zdk.MyBlog.utils.UpYunUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -18,13 +21,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -42,7 +45,7 @@ public class ArticleController extends BaseController {
     @Autowired
     ArticleService articleService;
     @Autowired
-    HttpServletRequest request;
+    MetasService metasService;
 
     @GetMapping(value = "/toPost")
     public String toPost(Model model, Integer id){
@@ -71,7 +74,9 @@ public class ArticleController extends BaseController {
 
     @GetMapping(value = "/toWriteBlog")
     public String toWriteBlog(Model model){
+        List<MetaDto> categories = metasService.getMetaList(Types.CATEGORY.getType());
         model.addAttribute("user", getLoginUser());
+        model.addAttribute("categories", categories);
         return "blog/writeBlog";
     }
 
@@ -80,7 +85,10 @@ public class ArticleController extends BaseController {
     public ApiResponse addArticle(Article article){
         User loginUser = getLoginUser();
         article.setAuthorId(loginUser.getId()).setAuthorName(loginUser.getNickname());
+        article.setCategories(article.getCategories().substring(1));
         if(articleService.addArticle(article)){
+            metasService.addMetas(article.getId(),article.getCategories(), Types.CATEGORY.getType());
+            metasService.addMetas(article.getId(),article.getTags(), Types.TAG.getType());
             return ApiResponse.success("发布成功");
         }
         return ApiResponse.fail("发布失败");
@@ -89,7 +97,8 @@ public class ArticleController extends BaseController {
     @PostMapping("/modify")
     @ResponseBody
     public ApiResponse modifyArticle(Article article){
-        boolean update = articleService.updateById(article);
+        article.setCategories(article.getCategories().substring(1));
+        boolean update = articleService.modifyArticle(article);
         if(update){
             return ApiResponse.success("保存成功");
         }
