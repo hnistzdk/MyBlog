@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
@@ -40,6 +41,8 @@ public class ArticleController extends BaseController {
 
     @Autowired
     ArticleService articleService;
+    @Autowired
+    HttpServletRequest request;
 
     @GetMapping(value = "/toPost")
     public String toPost(Model model, Integer id){

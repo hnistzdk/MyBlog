@@ -11,6 +11,7 @@ import com.zdk.MyBlog.service.user.UserService;
 import com.zdk.MyBlog.utils.ApiResponse;
 import com.zdk.MyBlog.utils.IpKit;
 import com.zdk.MyBlog.utils.RedisUtil;
+import com.zdk.MyBlog.utils.TaleUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
@@ -18,7 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Cookie;
 
 /**
  * @author zdk
@@ -28,7 +29,6 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping(value = "/user",method = {RequestMethod.POST,RequestMethod.GET})
 public class LoginController extends BaseController {
-
     @Autowired
     RedisUtil redisUtil;
     @Autowired
@@ -42,13 +42,12 @@ public class LoginController extends BaseController {
     @ResponseBody
     public ApiResponse login(@RequestParam(name = "username",required = false) String username,
                              @RequestParam(name = "password",required = false) String password,
-                             @RequestParam(name = "rememberMe",required = false) @Nullable String remember, HttpServletRequest request) {
+                             @RequestParam(name = "rememberMe",required = false) @Nullable String remember) {
         String ip = IpKit.getIpAddressByRequest(request);
         //构造登录错误次数唯一缓存key
         String userCountKey = WebConst.LOGIN_ERROR_COUNT + ip + username;
         //构造登录成功后用户信息唯一缓存key
         String userInfoKey = WebConst.USERINFO + ip + username;
-
         Integer loginErrorCount = redisUtil.getNumber(userCountKey);
         if (isOk(loginErrorCount) && loginErrorCount >= 3) {
             return ApiResponse.fail("您输入密码已经错误超过3次，请10分钟后尝试");
@@ -57,14 +56,19 @@ public class LoginController extends BaseController {
         if (user != null) {
             if (passwordEncoder.matches(password, user.getPassword())) {
                 userService.updateUserInfo(user.setLoginDate(DateUtil.now()).setLoginTimes(user.getLoginTimes()+1));
-                Logs logs = new Logs().setAction(LogActions.LOGIN.getAction()).setAuthorId(getLoginUser().getId())
+                Logs logs = new Logs().setAction(LogActions.LOGIN.getAction()).setAuthorId(user.getId())
                         .setCreateTime(DateUtil.now()).setIp(IpKit.getIpAddressByRequest(request));
                 logsService.save(logs);
                 redisUtil.del(userCountKey);
+                Cookie cookie = new Cookie(WebConst.USERINFO,userInfoKey);
+//                cookie.setMaxAge(3000);//最大有效时间
+                cookie.setPath("/");
+                response.addCookie(cookie);
+
                 if (isOk(remember)) {
-                    redisUtil.hset(WebConst.USERINFO, WebConst.LOGIN_SESSION_KEY, user, 3600);
+                    redisUtil.hset(WebConst.USERINFO, cookie.getValue(), user, 3600);
                 } else {
-                    redisUtil.hset(WebConst.USERINFO, WebConst.LOGIN_SESSION_KEY, user, -1);
+                    redisUtil.hset(WebConst.USERINFO, cookie.getValue(), user, -1);
                 }
                 return ApiResponse.success("登录成功");
             } else {
@@ -85,11 +89,11 @@ public class LoginController extends BaseController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request) {
-        redisUtil.hdel(WebConst.USERINFO, WebConst.LOGIN_SESSION_KEY);
+    public String logout() {
         Logs logs = new Logs().setAction(LogActions.LOGOUT.getAction()).setAuthorId(getLoginUser().getId())
                 .setCreateTime(DateUtil.now()).setIp(IpKit.getIpAddressByRequest(request));
         logsService.save(logs);
+        redisUtil.hdel(WebConst.USERINFO, TaleUtils.getCookieValue(WebConst.USERINFO, request));
         return "blog/login";
     }
 }

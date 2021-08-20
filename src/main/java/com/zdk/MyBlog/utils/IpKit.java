@@ -52,7 +52,7 @@ public class IpKit {
     }
 
     /**
-     * @return 本机IPSocketException
+     * @return 本机I
      * @throws SocketException
      */
     public static String getRealIp() throws SocketException {
@@ -81,7 +81,7 @@ public class IpKit {
                 }
             }
         }
-        if (netIp != null && !"".equals(netIp)) {
+        if (StringUtils.isNotBlank(netIp)) {
             return netIp;
         } else {
             return localIp;
