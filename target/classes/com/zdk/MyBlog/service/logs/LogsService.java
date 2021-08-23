@@ -1,6 +1,7 @@
 package com.zdk.MyBlog.service.logs;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.model.pojo.Logs;
 import com.zdk.MyBlog.model.pojo.User;
 
@@ -17,4 +18,11 @@ public interface LogsService extends IService<Logs> {
      * @return
      */
     List<Logs> getLogByLoginUser(User loginUser);
+
+    /**
+     * 分页获取当前登录用户日志
+     * @param loginUser
+     * @return
+     */
+    PageInfo<Logs> getLogPageByLoginUser(User loginUser);
 }

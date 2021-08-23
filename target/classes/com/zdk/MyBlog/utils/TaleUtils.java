@@ -149,7 +149,7 @@ public class TaleUtils {
      * @param request 请求
      * @return cookie
      */
-    private static Cookie cookieRaw(String name, HttpServletRequest request) {
+    public static Cookie cookieRaw(String name, HttpServletRequest request) {
         javax.servlet.http.Cookie[] servletCookies = request.getCookies();
         if (servletCookies == null) {
             return null;
@@ -157,6 +157,26 @@ public class TaleUtils {
         for (javax.servlet.http.Cookie c : servletCookies) {
             if (c.getName().equals(name)) {
                 return c;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 从cookies中获取指定cookie的value
+     *
+     * @param name    名称
+     * @param request 请求
+     * @return cookie
+     */
+    public static String getCookieValue(String name, HttpServletRequest request) {
+        javax.servlet.http.Cookie[] servletCookies = request.getCookies();
+        if (servletCookies == null) {
+            return null;
+        }
+        for (javax.servlet.http.Cookie c : servletCookies) {
+            if (c.getName().equals(name)) {
+                return c.getValue();
             }
         }
         return null;

@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -25,9 +26,11 @@ import java.util.regex.Pattern;
 public class Commons {
     @Autowired
     private RedisUtil redisUtil;
+    @Autowired
+    private HttpServletRequest request;
 
     public User getLoginUser(){
-        Object user = redisUtil.hget(WebConst.USERINFO,WebConst.LOGIN_SESSION_KEY);
+        Object user = redisUtil.hget(WebConst.USERINFO,TaleUtils.getCookieValue(WebConst.USERINFO, request));
         return JSONUtil.toBean(JSONUtil.parseObj(user), User.class);
     }
 

@@ -85,7 +85,13 @@ public class ArticleController extends BaseController {
     public ApiResponse addArticle(Article article){
         User loginUser = getLoginUser();
         article.setAuthorId(loginUser.getId()).setAuthorName(loginUser.getNickname());
-        article.setCategories(article.getCategories().substring(1));
+        //去除文章储存时的多余逗号
+        article.setContent(article.getContent().substring(1));
+        if (article.getCategories().charAt(0) == ','){
+            article.setCategories(article.getCategories().substring(1));
+        }else {
+            article.setCategories(article.getCategories());
+        }
         if(articleService.addArticle(article)){
             metasService.addMetas(article.getId(),article.getCategories(), Types.CATEGORY.getType());
             metasService.addMetas(article.getId(),article.getTags(), Types.TAG.getType());
@@ -97,7 +103,14 @@ public class ArticleController extends BaseController {
     @PostMapping("/modify")
     @ResponseBody
     public ApiResponse modifyArticle(Article article){
-        article.setCategories(article.getCategories().substring(1));
+        //去除文章储存时的多余逗号
+        article.setContent(article.getContent().substring(1));
+        if (article.getCategories().charAt(0) == ','){
+            article.setCategories(article.getCategories().substring(1));
+        }else {
+            article.setCategories(article.getCategories());
+        }
+
         boolean update = articleService.modifyArticle(article);
         if(update){
             return ApiResponse.success("保存成功");

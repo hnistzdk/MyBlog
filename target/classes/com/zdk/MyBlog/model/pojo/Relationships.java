@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 文章关联信息表
+ * 文章与分类、标签等信息的关联表
  * </p>
  *
  * @author zdk

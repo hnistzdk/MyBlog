@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class CommentsController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommentsController.class);
     @Autowired
-    private CommentsService commentsService;
+    CommentsService commentsService;
 
     @GetMapping("")
     public String index(Model model,

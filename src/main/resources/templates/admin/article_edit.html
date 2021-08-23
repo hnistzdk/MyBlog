@@ -45,7 +45,6 @@
                         <form id="articleForm" role="form" novalidate="novalidate">
                             <input type="hidden" name="userId" th:value="${user.getId()}">
                             <input type="hidden" name="authorName" th:value="${article!=null?article.getAuthorName():user.getNickname()}">
-                            <input type="hidden" name="categories" id="categories"/>
 <!--                            <input type="hidden" name="type" id="type"/>-->
                             <input type="hidden" name="id"
                                    th:value="${article!=null and article.id!=null}?${article.id}: ''" id="id"/>
@@ -209,24 +208,24 @@
         });
     });
 
-    function submitBlog(type) {
+    function submitBlog(status) {
         let title = $('#articleForm input[name=title]').val();
         let content = $('#content').val();
         if (title == '') {
-            tale.alertWarn('请输入文章标题');
+            tale.alertWarn('文章标题不能为空');
             return;
         }
         if (content == '') {
-            tale.alertWarn('请输入文章内容');
+            tale.alertWarn('文章内容不能为空');
             return;
         }
+        $("#articleForm #status").val(status);
         let url = $('#articleForm #id').val() != '' ? '/article/modify' : '/article/addArticle';
         $.ajax({
             url: url,
             type:"post",
             data:$('#articleForm').serialize(),
             success:function (data) {
-                console.log("data",data)
                 if(data.code===200){
                     tale.alertOk({
                         text: data.msg,

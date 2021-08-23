@@ -8,9 +8,11 @@ import com.zdk.MyBlog.model.pojo.User;
 import com.zdk.MyBlog.utils.ControllerKit;
 import com.zdk.MyBlog.utils.ParaValidator;
 import com.zdk.MyBlog.utils.RedisUtil;
+import com.zdk.MyBlog.utils.TaleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -21,12 +23,32 @@ public class BaseController {
 
     @Autowired
     RedisUtil redisUtil;
+    @Autowired
+    public HttpServletRequest request;
+    @Autowired
+    public HttpServletResponse response;
+
+    public HttpServletRequest getRequest() {
+        return request;
+    }
+
+    public void setRequest(HttpServletRequest request) {
+        this.request = request;
+    }
+
+    public HttpServletResponse getResponse() {
+        return response;
+    }
+
+    public void setResponse(HttpServletResponse response) {
+        this.response = response;
+    }
 
     public BaseController() {
     }
 
     public User getLoginUser(){
-        Object user = redisUtil.hget(WebConst.USERINFO,WebConst.LOGIN_SESSION_KEY);
+        Object user = redisUtil.hget(WebConst.USERINFO,TaleUtils.getCookieValue(WebConst.USERINFO, request));
         return JSONUtil.toBean(JSONUtil.parseObj(user), User.class);
     }
     /**

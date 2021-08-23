@@ -1,6 +1,8 @@
 package com.zdk.MyBlog.service.logs;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.mapper.LogsMapper;
 import com.zdk.MyBlog.model.pojo.Logs;
 import com.zdk.MyBlog.model.pojo.User;
@@ -26,5 +28,11 @@ public class LogsServiceImpl extends ServiceImpl<LogsMapper, Logs> implements Lo
     @Override
     public List<Logs> getLogByLoginUser(User loginUser) {
         return lambdaQuery().eq(Logs::getAuthorId, loginUser.getId()).list();
+    }
+
+    @Override
+    public PageInfo<Logs> getLogPageByLoginUser(User loginUser) {
+        PageHelper.startPage(1, 6);
+        return new PageInfo<>(lambdaQuery().eq(Logs::getAuthorId, loginUser.getId()).orderByDesc(Logs::getCreateTime).list());
     }
 }

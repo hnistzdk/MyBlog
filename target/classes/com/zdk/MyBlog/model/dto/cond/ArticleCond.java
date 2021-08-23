@@ -41,13 +41,13 @@ public class ArticleCond {
     private String type;
 
     /**
-     * 开始时间戳
+     * 开始时间
      */
-    private Integer startTime;
+    private String startTime;
 
     /**
-     * 结束时间戳
+     * 结束时间
      */
-    private Integer endTime;
+    private String endTime;
 
 }

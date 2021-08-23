@@ -1,10 +1,12 @@
 package com.zdk.MyBlog.controller.admin;
 
 import com.github.pagehelper.PageInfo;
+import com.zdk.MyBlog.constant.Types;
 import com.zdk.MyBlog.controller.BaseController;
+import com.zdk.MyBlog.model.dto.MetaDto;
 import com.zdk.MyBlog.model.pojo.Article;
-import com.zdk.MyBlog.model.pojo.User;
 import com.zdk.MyBlog.service.article.ArticleService;
+import com.zdk.MyBlog.service.metas.MetasService;
 import com.zdk.MyBlog.utils.RedisUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author zdk
@@ -29,12 +33,15 @@ public class AdminArticleController extends BaseController {
     RedisUtil redisUtil;
     @Autowired
     ArticleService articleService;
+    @Autowired
+    MetasService metasService;
 
     @ApiOperation("跳转到发布文章页面")
     @GetMapping(value = "/publish")
     public String index(Model model){
-        User user = getLoginUser();
-        model.addAttribute("user", user);
+        List<MetaDto> categories = metasService.getMetaList(Types.CATEGORY.getType());
+        model.addAttribute("user", getLoginUser());
+        model.addAttribute("categories", categories);
         return "admin/article_edit";
     }
 
@@ -51,10 +58,11 @@ public class AdminArticleController extends BaseController {
     @ApiOperation("跳转到文章编辑页")
     @GetMapping(value = "/{id}")
     public String toPost2(Model model, @PathVariable Integer id){
-        User loginUser = getLoginUser();
         Article article = articleService.getArticleById(id);
+        List<MetaDto> categories = metasService.getMetaList(Types.CATEGORY.getType());
         model.addAttribute("article",article);
-        model.addAttribute("user",loginUser);
+        model.addAttribute("user",getLoginUser());
+        model.addAttribute("categories",categories);
         return "admin/article_edit";
     }
 }

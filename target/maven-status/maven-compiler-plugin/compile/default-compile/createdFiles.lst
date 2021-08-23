@@ -22,7 +22,9 @@ com\zdk\MyBlog\model\dto\cond\ArticleCond.class
 com\zdk\MyBlog\model\pojo\Article.class
 com\zdk\MyBlog\model\pojo\OnlineUser.class
 com\zdk\MyBlog\mapper\OptionsMapper.class
+com\zdk\MyBlog\utils\Tools.class
 com\zdk\MyBlog\mapper\UserMapper.class
+com\zdk\MyBlog\constant\UpYunConst.class
 com\zdk\MyBlog\constant\ErrorConstant$Common.class
 com\zdk\MyBlog\utils\MyBeanUtil.class
 com\zdk\MyBlog\mapper\ArticleMapper.class
@@ -61,6 +63,7 @@ com\zdk\MyBlog\constant\LogActions.class
 com\zdk\MyBlog\interceptor\LoginHandlerInterceptor.class
 com\zdk\MyBlog\service\logs\LogsServiceImpl.class
 com\zdk\MyBlog\utils\DateKit.class
+com\zdk\MyBlog\constant\Types.class
 com\zdk\MyBlog\service\relationships\RelationshipsServiceImpl.class
 com\zdk\MyBlog\service\user\UserService.class
 com\zdk\MyBlog\exception\MyGlobalException.class
@@ -83,6 +86,7 @@ com\zdk\MyBlog\utils\PatternKit.class
 com\zdk\MyBlog\service\metas\MetasService.class
 com\zdk\MyBlog\controller\admin\CommentsController.class
 com\zdk\MyBlog\model\pojo\Relationships.class
+com\zdk\MyBlog\utils\AdminCommons.class
 com\zdk\MyBlog\utils\UUID.class
 com\zdk\MyBlog\service\site\SiteServiceImpl.class
 com\zdk\MyBlog\mapper\MetasMapper.class

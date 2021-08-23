@@ -42,13 +42,12 @@
             border-bottom: 1px solid #dadada;
         }
 
-        body{
+        html,body{
             /*background: url("");*/
             background-size: 100% 100%;
             /*background-image: url("static/admin/images/bg/4.png");*/
             width: 100%;
-            height: 935px;
-
+            height: 100%;
         }
         .bg-img > h3 {
             text-shadow: 0px 2px 3px #555;
@@ -110,7 +109,14 @@
             data:$('#loginForm').serialize(),
             success:function (data) {
                 if(data.code===200){
-                    window.location.href='/admin/index'
+                    tale.alertOk({
+                        text: data.msg,
+                        then: function () {
+                            setTimeout(function () {
+                                window.location.href = '/admin/index';
+                            }, 500);
+                        }
+                    })
                 }else{
                     tale.alertError(data.msg)
                 }

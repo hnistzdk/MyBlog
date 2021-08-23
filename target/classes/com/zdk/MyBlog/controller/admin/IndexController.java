@@ -1,6 +1,7 @@
 package com.zdk.MyBlog.controller.admin;
 
 import cn.hutool.core.date.DateUtil;
+import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.constant.LogActions;
 import com.zdk.MyBlog.constant.WebConst;
 import com.zdk.MyBlog.controller.BaseController;
@@ -14,7 +15,9 @@ import com.zdk.MyBlog.service.comments.CommentsService;
 import com.zdk.MyBlog.service.logs.LogsService;
 import com.zdk.MyBlog.service.user.UserService;
 import com.zdk.MyBlog.utils.ApiResponse;
+import com.zdk.MyBlog.utils.IpKit;
 import com.zdk.MyBlog.utils.RedisUtil;
+import com.zdk.MyBlog.utils.TaleUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -24,9 +27,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * @author zdk
@@ -63,17 +63,17 @@ public class IndexController extends BaseController {
     public String index(Model model){
 
         //articles
-        List<Article> articles = articleService.getArticleByAuthorId(getLoginUser());
+        PageInfo<Article> articlePageInfo = articleService.getArticlePage(1,6,getLoginUser());
         //comments
-        List<Comments> comments = commentsService.getCommentsByOwnerId(getLoginUser().getId(), getLoginUser());
+        PageInfo<Comments> commentsPageInfo = commentsService.getCommentsPage(1,6, getLoginUser());
         //logs
-        List<Logs> logs = logsService.getLogByLoginUser(getLoginUser());
+        PageInfo<Logs> logsPageInfo = logsService.getLogPageByLoginUser(getLoginUser());
         //statistics
-        StatisticsDto statistics = new StatisticsDto((long) articles.size(), (long) comments.size(), 3L,4L);
+        StatisticsDto statistics = new StatisticsDto((long) articlePageInfo.getList().size(), (long) commentsPageInfo.getList().size(), 3L,4L);
         model.addAttribute("statistics",statistics);
-        model.addAttribute("articles",articles);
-        model.addAttribute("comments",comments);
-        model.addAttribute("logs",logs);
+        model.addAttribute("articles",articlePageInfo.getList());
+        model.addAttribute("comments",commentsPageInfo.getList());
+        model.addAttribute("logs",logsPageInfo.getList());
         return "admin/index";
     }
     /**
@@ -91,15 +91,15 @@ public class IndexController extends BaseController {
      */
     @PostMapping(value = "/profile")
     @ResponseBody
-    public ApiResponse saveProfile(@RequestParam String nickName, @RequestParam String email, HttpServletRequest request) {
+    public ApiResponse saveProfile(@RequestParam String nickName, @RequestParam String email) {
         User user = getLoginUser();
         user.setNickname(nickName).setEmail(email);
         Boolean updateUserInfo = userService.updateUserInfo(user);
         Logs logs = new Logs().setAction(LogActions.UP_INFO.getAction()).setAuthorId(getLoginUser().getId())
-                .setCreateTime(DateUtil.now()).setIp(request.getRemoteAddr());
+                .setCreateTime(DateUtil.now()).setIp(IpKit.getIpAddressByRequest(request));
         logsService.save(logs);
         if(updateUserInfo){
-            redisUtil.hset(WebConst.USERINFO, WebConst.LOGIN_SESSION_KEY, user);
+            redisUtil.hset(WebConst.USERINFO, TaleUtils.getCookieValue(WebConst.USERINFO, request), user);
             return ApiResponse.success("保存成功");
         }
         return ApiResponse.fail("保存失败");
@@ -110,10 +110,7 @@ public class IndexController extends BaseController {
      */
     @PostMapping(value = "/password")
     @ResponseBody
-    public ApiResponse modifyPassword(String oldPassword,String password,String repass,HttpServletRequest request) {
-        Logs logs = new Logs().setAction(LogActions.UP_PWD.getAction()).setAuthorId(getLoginUser().getId())
-                .setCreateTime(DateUtil.now()).setIp(request.getRemoteAddr());
-        logsService.save(logs);
+    public ApiResponse modifyPassword(String oldPassword,String password,String repass) {
         User user = userService.getById(getLoginUser().getId());
         if(!passwordEncoder.matches(oldPassword,user.getPassword())){
             return ApiResponse.fail("旧密码错误");
@@ -122,7 +119,10 @@ public class IndexController extends BaseController {
             return ApiResponse.fail("请输入正确的密码格式");
         }
         if(userService.updateUserInfo(user.setPassword(passwordEncoder.encode(password)))){
-            redisUtil.hset(WebConst.USERINFO, WebConst.LOGIN_SESSION_KEY, user);
+            redisUtil.hset(WebConst.USERINFO, TaleUtils.getCookieValue(WebConst.USERINFO, request), user);
+            Logs logs = new Logs().setAction(LogActions.UP_PWD.getAction()).setAuthorId(user.getId())
+                    .setCreateTime(DateUtil.now()).setIp(IpKit.getIpAddressByRequest(request));
+            logsService.save(logs);
             return ApiResponse.success("修改密码成功");
         }
         return ApiResponse.fail("修改密码失败");
@@ -130,10 +130,10 @@ public class IndexController extends BaseController {
 
 
     @GetMapping ("/logout")
-    public String logout(HttpServletRequest request) {
-        redisUtil.hdel(WebConst.USERINFO, WebConst.LOGIN_SESSION_KEY);
+    public String logout() {
+        redisUtil.hdel(WebConst.USERINFO, TaleUtils.getCookieValue(WebConst.USERINFO, request));
         Logs logs = new Logs().setAction(LogActions.LOGOUT.getAction()).setAuthorId(getLoginUser().getId())
-                .setCreateTime(DateUtil.now()).setIp(request.getRemoteAddr());
+                .setCreateTime(DateUtil.now()).setIp(IpKit.getIpAddressByRequest(request));
         logsService.save(logs);
         return "admin/login";
     }

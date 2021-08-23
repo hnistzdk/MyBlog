@@ -43,8 +43,6 @@
                     </div>
                     <div class="col-md-12">
                         <form id="articleForm" role="form" novalidate="novalidate">
-                            <input type="hidden" name="categories" id="categories"/>
-<!--                            <input type="hidden" name="type" id="type"/>-->
                             <input type="hidden" name="userId" id="userId" th:value="${user.getId()}"/>
                             <input type="hidden" name="authorName" th:value="${article!=null?article.getAuthorName():user.getNickname()}">
                             <input type="hidden" name="id"
@@ -91,7 +89,7 @@
                                        th:value="${article!=null and article.tags !=null}?${article.tags}: ''"/>
                             </div>
                             <div class="form-group col-md-6" >
-                                <select id="multiple-sel"   class="select2 form-control" multiple="multiple"
+                                <select id="multiple-sel" name="categories" class="select2 form-control" multiple="multiple"
                                         data-placeholder="请选择分类...">
                                     <th:block th:if="${null == categories}">
                                         <option value="默认分类" selected="selected">默认分类</option>
@@ -99,7 +97,7 @@
                                     <th:block th:unless="${null == categories}">
                                         <th:block th:each="c : ${categories}">
                                             <option th:value="${c.name}" th:text="${c.name}"
-                                                    th:selected="${null !=article and adminCommons.exist_cat(c, article.categories)}?true:false"></option>
+                                                    th:selected="${null !=article and @adminCommons.exist_cat(c, article.categories)}?true:false"></option>
                                         </th:block>
                                     </th:block>
                                 </select>
@@ -107,8 +105,8 @@
 
                             <div class="clearfix"></div>
                             <div id="my-editormd" >
-                                <textarea id="my-text" name="my-text" style="display:none;" class="editormd-markdown-textarea"
-                                          th:utext="${article!=null and article.content !=null}?${article.content}: ''"></textarea>
+                                <textarea id="my-text" name="text" style="display:none;" class="editormd-markdown-textarea"
+                                          th:utext="${article!=null and article.text !=null}?${article.text}: ''"></textarea>
                                 <!-- 注意：name属性的值-->
                                 <textarea class="editormd-html-textarea" id="content" name="content" style="display:none;" ></textarea>
                             </div>
@@ -209,24 +207,24 @@
         });
     });
 
-    function submitBlog(type) {
+    function submitBlog(status) {
         let title = $('#articleForm input[name=title]').val();
         let content = $('#content').val();
         if (title == '') {
-            tale.alertWarn('请输入文章标题');
+            tale.alertWarn('文章标题不能为空');
             return;
         }
         if (content == '') {
-            tale.alertWarn('请输入文章内容');
+            tale.alertWarn('文章内容不能为空');
             return;
         }
+        $("#articleForm #status").val(status);
         let url = $('#articleForm #id').val() != '' ? '/article/modify' : '/article/addArticle';
         $.ajax({
             url: url,
             type:"post",
             data:$('#articleForm').serialize(),
             success:function (data) {
-                console.log("data",data)
                 if(data.code===200){
                     tale.alertOk({
                         text: data.msg,

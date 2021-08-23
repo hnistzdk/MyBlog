@@ -15,6 +15,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class MetaCond {
+    private Integer id;
     /**
      * meta Name
      */

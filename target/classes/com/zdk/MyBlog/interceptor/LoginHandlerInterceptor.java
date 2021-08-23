@@ -3,6 +3,7 @@ package com.zdk.MyBlog.interceptor;
 import com.zdk.MyBlog.constant.WebConst;
 import com.zdk.MyBlog.utils.IpKit;
 import com.zdk.MyBlog.utils.RedisUtil;
+import com.zdk.MyBlog.utils.TaleUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,13 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         logger.info("===========>进入拦截器");
         String uri=request.getRequestURI();
         logger.info("UserAgent: {}",request.getHeader(USER_AGENT));
-        logger.info("用户访问地址: {}, 来路地址: {}",uri, IpKit.getIpAddrByRequest(request));
+        logger.info("用户访问地址: {}, 来路地址: {}",uri, IpKit.getIpAddressByRequest(request));
+
+        String cookieValue = TaleUtils.getCookieValue(WebConst.USERINFO, request);
+        logger.debug("cookieValue: {}",cookieValue);
 
         //请求拦截处理
-        Object user = redisUtil.hget(WebConst.USERINFO,WebConst.LOGIN_SESSION_KEY);
+        Object user = redisUtil.hget(WebConst.USERINFO, TaleUtils.getCookieValue(WebConst.USERINFO, request));
 
         if (user==null&&uri.startsWith("/user") && !uri.startsWith("/user/login")) {
             request.setAttribute("msg", "请先登录");
