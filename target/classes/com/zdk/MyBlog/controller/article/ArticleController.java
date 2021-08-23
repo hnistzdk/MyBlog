@@ -86,12 +86,8 @@ public class ArticleController extends BaseController {
         User loginUser = getLoginUser();
         article.setAuthorId(loginUser.getId()).setAuthorName(loginUser.getNickname());
         //去除文章储存时的多余逗号
-        article.setContent(article.getContent().substring(1));
-        if (article.getCategories().charAt(0) == ','){
-            article.setCategories(article.getCategories().substring(1));
-        }else {
-            article.setCategories(article.getCategories());
-        }
+        article.setContent(article.getContent().replaceAll("^,", ""));
+        article.setCategories(article.getCategories().replaceAll("^,", ""));
         if(articleService.addArticle(article)){
             metasService.addMetas(article.getId(),article.getCategories(), Types.CATEGORY.getType());
             metasService.addMetas(article.getId(),article.getTags(), Types.TAG.getType());
@@ -104,13 +100,8 @@ public class ArticleController extends BaseController {
     @ResponseBody
     public ApiResponse modifyArticle(Article article){
         //去除文章储存时的多余逗号
-        article.setContent(article.getContent().substring(1));
-        if (article.getCategories().charAt(0) == ','){
-            article.setCategories(article.getCategories().substring(1));
-        }else {
-            article.setCategories(article.getCategories());
-        }
-
+        article.setContent(article.getContent().replaceAll("^,", ""));
+        article.setCategories(article.getCategories().replaceAll("^,", ""));
         boolean update = articleService.modifyArticle(article);
         if(update){
             return ApiResponse.success("保存成功");
