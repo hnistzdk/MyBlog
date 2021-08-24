@@ -4,7 +4,7 @@ import com.zdk.MyBlog.controller.BaseController;
 import com.zdk.MyBlog.model.pojo.Article;
 import com.zdk.MyBlog.service.article.ArticleService;
 import com.zdk.MyBlog.service.user.UserService;
-import lombok.extern.slf4j.Slf4j;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +18,7 @@ import java.util.List;
  * @author zdk
  * @date 2021/8/8 10:23
  */
-@Slf4j
+@Api("用户相关接口")
 @Controller
 @RequestMapping(value ="/user",method = {RequestMethod.POST,RequestMethod.GET})
 public class UserController extends BaseController {

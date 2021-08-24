@@ -32,7 +32,7 @@ import java.util.List;
  * @author zdk
  * @date 2021/8/12 20:53
  */
-@Api("后台首页")
+@Api("管理端首页")
 @Controller
 @RequestMapping("/admin")
 public class IndexController extends BaseController {
@@ -84,6 +84,7 @@ public class IndexController extends BaseController {
     /**
      * 个人设置页面
      */
+    @ApiOperation("进入个人设置")
     @GetMapping(value = "/profile")
     public String profile(Model model) {
         User user = userService.getById(getLoginUser().getId());
@@ -94,6 +95,7 @@ public class IndexController extends BaseController {
     /**
      * 保存个人信息
      */
+    @ApiOperation("保存个人信息")
     @PostMapping(value = "/profile")
     @ResponseBody
     public ApiResponse saveProfile(@RequestParam String nickName, @RequestParam String email) {
@@ -113,6 +115,7 @@ public class IndexController extends BaseController {
     /**
      * 修改密码
      */
+    @ApiOperation("修改密码")
     @PostMapping(value = "/password")
     @ResponseBody
     public ApiResponse modifyPassword(String oldPassword,String password,String repass) {
@@ -133,7 +136,7 @@ public class IndexController extends BaseController {
         return ApiResponse.fail("修改密码失败");
     }
 
-
+    @ApiOperation("注销登录")
     @GetMapping ("/logout")
     public String logout() {
         redisUtil.hdel(WebConst.USERINFO, TaleUtils.getCookieValue(WebConst.USERINFO, request));

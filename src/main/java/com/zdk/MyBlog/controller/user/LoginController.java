@@ -12,6 +12,7 @@ import com.zdk.MyBlog.utils.ApiResponse;
 import com.zdk.MyBlog.utils.IpKit;
 import com.zdk.MyBlog.utils.RedisUtil;
 import com.zdk.MyBlog.utils.TaleUtils;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import javax.servlet.http.Cookie;
  * @author zdk
  * @date 2021/7/20 17:49
  */
+@Api("登录相关接口")
 @Controller
 @RequestMapping(value = "/user",method = {RequestMethod.POST,RequestMethod.GET})
 public class LoginController extends BaseController {

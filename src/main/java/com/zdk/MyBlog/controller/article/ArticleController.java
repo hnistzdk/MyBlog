@@ -12,7 +12,8 @@ import com.zdk.MyBlog.service.article.ArticleService;
 import com.zdk.MyBlog.service.metas.MetasService;
 import com.zdk.MyBlog.utils.ApiResponse;
 import com.zdk.MyBlog.utils.UpYunUtil;
-import lombok.extern.slf4j.Slf4j;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ import java.util.UUID;
  * @author zdk
  * @date 2021/7/22 17:02
  */
-@Slf4j
+@Api("博客端文章接口")
 @Controller
 @RequestMapping(value = "/article",method = {RequestMethod.POST,RequestMethod.GET})
 public class ArticleController extends BaseController {
@@ -48,6 +49,7 @@ public class ArticleController extends BaseController {
     @Autowired
     MetasService metasService;
 
+    @ApiOperation("进入博客")
     @GetMapping(value = "/toPost")
     public String toPost(Model model, Integer id){
         Article article = articleService.getArticleById(id);
@@ -57,6 +59,7 @@ public class ArticleController extends BaseController {
         return "blog/blog-post";
     }
 
+    @ApiOperation("进入博客详情页")
     @GetMapping(value = "/toPost/{id}")
     public String toPost2(Model model, @PathVariable Integer id){
         Article article = articleService.getArticleById(id);
@@ -66,6 +69,7 @@ public class ArticleController extends BaseController {
         return "blog/blog-post";
     }
 
+    @ApiOperation("进入博客列表")
     @GetMapping(value = "/toBlogList")
     public String blogList(Model model){
         model.addAttribute("user", getLoginUser());
@@ -73,6 +77,7 @@ public class ArticleController extends BaseController {
         return "blog/blog-list";
     }
 
+    @ApiOperation("进入发布文章页面")
     @GetMapping(value = "/toWriteBlog")
     public String toWriteBlog(Model model){
         List<MetaDto> categories = metasService.getMetaList(Types.CATEGORY.getType());
@@ -81,6 +86,7 @@ public class ArticleController extends BaseController {
         return "blog/writeBlog";
     }
 
+    @ApiOperation("发布文章")
     @PostMapping(value = "/addArticle")
     @ResponseBody
     public ApiResponse addArticle(Article article){
@@ -97,6 +103,7 @@ public class ArticleController extends BaseController {
         return ApiResponse.fail("发布失败");
     }
 
+    @ApiOperation("修改文章")
     @PostMapping("/modify")
     @ResponseBody
     public ApiResponse modifyArticle(Article article){
@@ -110,6 +117,7 @@ public class ArticleController extends BaseController {
         return ApiResponse.fail("保存失败");
     }
 
+    @ApiOperation("删除文章")
     @GetMapping("/delete")
     @ResponseBody
     public ApiResponse deleteArticle(Integer id){
@@ -120,6 +128,7 @@ public class ArticleController extends BaseController {
         return ApiResponse.fail("删除失败");
     }
 
+    @ApiOperation("图片上传")
     @PostMapping(value = "/file/imageUpload")
     @ResponseBody
     public Map<String, Object> imageUpload(@RequestParam(value = "editormd-image-file") MultipartFile file) throws URISyntaxException, NoSuchAlgorithmException, SignatureException, InvalidKeyException, IOException {
