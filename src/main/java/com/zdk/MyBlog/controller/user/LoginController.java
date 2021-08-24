@@ -12,7 +12,8 @@ import com.zdk.MyBlog.utils.ApiResponse;
 import com.zdk.MyBlog.utils.IpKit;
 import com.zdk.MyBlog.utils.RedisUtil;
 import com.zdk.MyBlog.utils.TaleUtils;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,7 +26,6 @@ import javax.servlet.http.Cookie;
  * @author zdk
  * @date 2021/7/20 17:49
  */
-@Slf4j
 @Controller
 @RequestMapping(value = "/user",method = {RequestMethod.POST,RequestMethod.GET})
 public class LoginController extends BaseController {
@@ -38,6 +38,10 @@ public class LoginController extends BaseController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    private static final Integer ERROR_NUMBER = 4;
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
+
+
     @PostMapping(value = "/login")
     @ResponseBody
     public ApiResponse login(@RequestParam(name = "username",required = false) String username,
@@ -49,8 +53,8 @@ public class LoginController extends BaseController {
         //构造登录成功后用户信息唯一缓存key
         String userInfoKey = WebConst.USERINFO + ip + username;
         Integer loginErrorCount = redisUtil.getNumber(userCountKey);
-        if (isOk(loginErrorCount) && loginErrorCount >= 3) {
-            return ApiResponse.fail("您输入密码已经错误超过3次，请10分钟后尝试");
+        if (isOk(loginErrorCount) && loginErrorCount >= ERROR_NUMBER) {
+            return ApiResponse.fail("您输入密码已经错误超过4次，请10分钟后尝试");
         }
         User user = userService.login(username);
         if (user != null) {
@@ -77,11 +81,11 @@ public class LoginController extends BaseController {
                     redisUtil.setNumber(userCountKey, 1, 600);
                 } else {
                     redisUtil.incr(userCountKey, 1);
-                    if (redisUtil.getNumber(userCountKey) >= 3) {
+                    if (redisUtil.getNumber(userCountKey) >= ERROR_NUMBER) {
                         redisUtil.expire(userCountKey, 600);
                     }
                 }
-                return ApiResponse.fail("账号或密码错误,您还有" + (3 - redisUtil.getNumber(userCountKey)) + "次机会");
+                return ApiResponse.fail("账号或密码错误,您还有" + (ERROR_NUMBER - redisUtil.getNumber(userCountKey)) + "次机会");
             }
         } else {
             return ApiResponse.fail("该用户不存在");

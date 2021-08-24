@@ -6,11 +6,9 @@ import com.zdk.MyBlog.constant.LogActions;
 import com.zdk.MyBlog.constant.WebConst;
 import com.zdk.MyBlog.controller.BaseController;
 import com.zdk.MyBlog.model.dto.StatisticsDto;
-import com.zdk.MyBlog.model.pojo.Article;
-import com.zdk.MyBlog.model.pojo.Comments;
-import com.zdk.MyBlog.model.pojo.Logs;
-import com.zdk.MyBlog.model.pojo.User;
+import com.zdk.MyBlog.model.pojo.*;
 import com.zdk.MyBlog.service.article.ArticleService;
+import com.zdk.MyBlog.service.attach.AttachService;
 import com.zdk.MyBlog.service.comments.CommentsService;
 import com.zdk.MyBlog.service.logs.LogsService;
 import com.zdk.MyBlog.service.user.UserService;
@@ -28,6 +26,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author zdk
  * @date 2021/8/12 20:53
@@ -41,11 +41,13 @@ public class IndexController extends BaseController {
     @Autowired
     UserService userService;
     @Autowired
-    private ArticleService articleService;
+    ArticleService articleService;
     @Autowired
-    private CommentsService commentsService;
+    CommentsService commentsService;
     @Autowired
-    private LogsService logsService;
+    AttachService attachService;
+    @Autowired
+    LogsService logsService;
     @Autowired
     PasswordEncoder passwordEncoder;
     @Autowired
@@ -68,8 +70,11 @@ public class IndexController extends BaseController {
         PageInfo<Comments> commentsPageInfo = commentsService.getCommentsPage(1,6, getLoginUser());
         //logs
         PageInfo<Logs> logsPageInfo = logsService.getLogPageByLoginUser(getLoginUser());
+
+        List<Attach> attaches = attachService.getAttachesByUser(getLoginUser());
+
         //statistics
-        StatisticsDto statistics = new StatisticsDto((long) articlePageInfo.getList().size(), (long) commentsPageInfo.getList().size(), 3L,4L);
+        StatisticsDto statistics = new StatisticsDto((long) articlePageInfo.getList().size(), (long) commentsPageInfo.getList().size(), 3L,(long)attaches.size());
         model.addAttribute("statistics",statistics);
         model.addAttribute("articles",articlePageInfo.getList());
         model.addAttribute("comments",commentsPageInfo.getList());

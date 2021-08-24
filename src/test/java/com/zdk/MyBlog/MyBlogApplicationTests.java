@@ -7,6 +7,7 @@ import com.zdk.MyBlog.model.dto.cond.ArticleCond;
 import com.zdk.MyBlog.model.pojo.Article;
 import com.zdk.MyBlog.model.pojo.User;
 import com.zdk.MyBlog.service.article.ArticleService;
+import com.zdk.MyBlog.service.attach.AttachService;
 import com.zdk.MyBlog.service.relationships.RelationshipsService;
 import com.zdk.MyBlog.utils.RedisUtil;
 import com.zdk.MyBlog.utils.TaleUtils;
@@ -30,6 +31,8 @@ class MyBlogApplicationTests extends BaseController {
 	ArticleService articleService;
 	@Autowired
 	RelationshipsService relationshipsService;
+	@Autowired
+	AttachService attachService;
 
 	@Test
 	void contextLoads() {
@@ -51,6 +54,6 @@ class MyBlogApplicationTests extends BaseController {
 
 	@Test
 	void testDelete(){
-		relationshipsService.deleteByMetaId(1);
+		attachService.getAttachPage(1, 5, null);
 	}
 }

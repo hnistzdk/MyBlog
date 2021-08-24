@@ -2,6 +2,7 @@ package com.zdk.MyBlog.utils;
 
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageInfo;
 import com.vdurmont.emoji.EmojiParser;
 import com.zdk.MyBlog.constant.WebConst;
 import com.zdk.MyBlog.model.pojo.Article;
@@ -355,8 +356,8 @@ public class Commons {
      * @param paginator
      * @return
      */
-    public static <T> boolean pageIsEmpty(Page<T> paginator) {
-        return paginator == null || (paginator.getRecords() == null) || (paginator.getRecords().size() == 0);
+    public static <T> boolean pageIsEmpty(PageInfo<T> paginator) {
+        return paginator == null || (paginator.getList() == null) || (paginator.getList().size() == 0);
     }
 
     /**
@@ -367,11 +368,9 @@ public class Commons {
      * @return
      */
     public static String substr(String str, int len) {
-        if (str.length() > len) {
-            return str.substring(0, len);
-        }
-        return str;
+        return str.substring(len);
     }
+
 
     /**
      * 返回作品文章地址
@@ -588,6 +587,19 @@ public class Commons {
             }
             return text;
         }
+    }
+
+    /**
+     * 根据后缀判断是不是图片
+     * @param suffix
+     * @return
+     */
+    public static Boolean isImage(String suffix){
+        List<String> imageList = Arrays.asList("bmp", "dib", "gif",
+                "jfif", "jpe", "4", "jpeg",
+                "jpg", "png", "7", "tif",
+                "tiff", "ico");
+        return imageList.contains(suffix);
     }
 
 

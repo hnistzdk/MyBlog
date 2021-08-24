@@ -41,6 +41,7 @@ import java.util.UUID;
 public class ArticleController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ArticleController.class);
+    private static final String URL_PREFIX = "http://zdk-blog-image.test.upcdn.net";
 
     @Autowired
     ArticleService articleService;
@@ -122,6 +123,8 @@ public class ArticleController extends BaseController {
     @PostMapping(value = "/file/imageUpload")
     @ResponseBody
     public Map<String, Object> imageUpload(@RequestParam(value = "editormd-image-file") MultipartFile file) throws URISyntaxException, NoSuchAlgorithmException, SignatureException, InvalidKeyException, IOException {
+        request.setCharacterEncoding( "utf-8" );
+        response.setHeader( "Content-Type" , "text/html" );
         //上传的文件名
         String filename=file.getOriginalFilename();
         //获取文件名的后缀
@@ -129,9 +132,9 @@ public class ArticleController extends BaseController {
         filename=UUID.randomUUID()+suffixName;
 
         //上传又拍云
-        Result uploadResult = UpYunUtil.testSync(file.getBytes(), filename);
+        Result uploadResult = UpYunUtil.uploadImage(file.getBytes(), filename);
         JSONObject photoMsg = JSONUtil.parseObj(uploadResult.getMsg());
-        String url="http://zdk-blog-image.test.upcdn.net/"+photoMsg.getStr("url");
+        String url=URL_PREFIX+photoMsg.getStr("url");
 
         HashMap<String, Object> result = new HashMap<>(3);
         result.put("success", 1);

@@ -18,6 +18,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         log.info("插入时开始填充--------");
         setFieldValByName("publishTime", DateUtil.now(),metaObject);
         setFieldValByName("updateTime",DateUtil.now(),metaObject);
+        setFieldValByName("createTime",DateUtil.now(),metaObject);
     }
 
     @Override
