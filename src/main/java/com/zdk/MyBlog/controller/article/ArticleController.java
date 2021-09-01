@@ -45,9 +45,9 @@ public class ArticleController extends BaseController {
     private static final String URL_PREFIX = "http://zdk-blog-image.test.upcdn.net";
 
     @Autowired
-    ArticleService articleService;
+    private ArticleService articleService;
     @Autowired
-    MetasService metasService;
+    private MetasService metasService;
 
     @ApiOperation("进入博客")
     @GetMapping(value = "/toPost")

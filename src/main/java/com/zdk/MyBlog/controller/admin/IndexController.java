@@ -39,19 +39,19 @@ public class IndexController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
 
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    ArticleService articleService;
+    private ArticleService articleService;
     @Autowired
-    CommentsService commentsService;
+    private CommentsService commentsService;
     @Autowired
-    AttachService attachService;
+    private AttachService attachService;
     @Autowired
-    LogsService logsService;
+    private LogsService logsService;
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
     @Autowired
-    RedisUtil redisUtil;
+    private RedisUtil redisUtil;
 
 
     @ApiOperation("进入管理端登录页面")

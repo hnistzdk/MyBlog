@@ -22,7 +22,7 @@ import java.util.List;
 public class BaseController {
 
     @Autowired
-    RedisUtil redisUtil;
+    private RedisUtil redisUtil;
     @Autowired
     public HttpServletRequest request;
     @Autowired

@@ -251,3 +251,75 @@
 2021-08-31 22:07:04.519 INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor Line:218 - Shutting down ExecutorService 'applicationTaskExecutor'
 2021-08-31 22:07:04.634 INFO  com.alibaba.druid.pool.DruidDataSource Line:2043 - {dataSource-1} closing ...
 2021-08-31 22:07:04.635 INFO  com.alibaba.druid.pool.DruidDataSource Line:2116 - {dataSource-1} closed
+2021-08-31 22:16:44.376 INFO  com.zdk.MyBlog.MyBlogApplication Line:55  - Starting MyBlogApplication using Java 1.8.0_282 on DESKTOP-7KN75LJ with PID 656 (F:\project\my\my-blog\target\classes started by zdk in F:\project\my\my-blog)
+2021-08-31 22:16:44.378 INFO  com.zdk.MyBlog.MyBlogApplication Line:679 - The following profiles are active: dev
+2021-08-31 22:16:44.410 INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor Line:255 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-08-31 22:16:44.411 INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor Line:255 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-08-31 22:16:45.052 INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate Line:250 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-08-31 22:16:45.054 INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate Line:128 - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-08-31 22:16:45.073 INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate Line:188 - Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2021-08-31 22:16:45.607 INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer Line:108 - Tomcat initialized with port(s): 8090 (http)
+2021-08-31 22:16:45.614 INFO  org.apache.catalina.core.StandardService Line:173 - Starting service [Tomcat]
+2021-08-31 22:16:45.615 INFO  org.apache.catalina.core.StandardEngine Line:173 - Starting Servlet engine: [Apache Tomcat/9.0.45]
+2021-08-31 22:16:45.702 INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] Line:173 - Initializing Spring embedded WebApplicationContext
+2021-08-31 22:16:45.703 INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext Line:289 - Root WebApplicationContext: initialization completed in 1292 ms
+2021-08-31 22:16:45.818 INFO  com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure Line:56  - Init DruidDataSource
+2021-08-31 22:16:45.987 INFO  com.alibaba.druid.pool.DruidDataSource Line:990 - {dataSource-1} inited
+2021-08-31 22:16:47.302 INFO  springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping Line:69  - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-08-31 22:16:47.399 INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor Line:181 - Initializing ExecutorService 'applicationTaskExecutor'
+2021-08-31 22:16:47.441 INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer Line:58  - LiveReload server is running on port 35729
+2021-08-31 22:16:47.855 INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer Line:220 - Tomcat started on port(s): 8090 (http) with context path ''
+2021-08-31 22:16:47.856 INFO  springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper Line:160 - Context refreshed
+2021-08-31 22:16:47.867 INFO  springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper Line:163 - Found 1 custom documentation plugin(s)
+2021-08-31 22:16:47.893 INFO  springfox.documentation.spring.web.scanners.ApiListingReferenceScanner Line:41  - Scanning for api listing references
+2021-08-31 22:16:48.007 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: toPost2UsingPOST_1
+2021-08-31 22:16:48.008 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: toPost2UsingGET_1
+2021-08-31 22:16:48.012 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: indexUsingGET_1
+2021-08-31 22:16:48.017 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: deleteUsingPOST_1
+2021-08-31 22:16:48.018 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: indexUsingGET_2
+2021-08-31 22:16:48.021 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: indexUsingGET_3
+2021-08-31 22:16:48.022 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: indexUsingGET_4
+2021-08-31 22:16:48.028 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: loginUsingGET_1
+2021-08-31 22:16:48.029 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: logoutUsingGET_1
+2021-08-31 22:16:48.033 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: indexUsingGET_5
+2021-08-31 22:16:48.035 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: indexUsingPOST_1
+2021-08-31 22:16:48.052 INFO  com.zdk.MyBlog.MyBlogApplication Line:61  - Started MyBlogApplication in 4.094 seconds (JVM running for 6.005)
+2021-08-31 22:17:24.327 INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor Line:218 - Shutting down ExecutorService 'applicationTaskExecutor'
+2021-08-31 22:17:24.341 INFO  com.alibaba.druid.pool.DruidDataSource Line:2043 - {dataSource-1} closing ...
+2021-08-31 22:17:24.344 INFO  com.alibaba.druid.pool.DruidDataSource Line:2116 - {dataSource-1} closed
+2021-08-31 22:17:30.723 INFO  com.zdk.MyBlog.MyBlogApplication Line:55  - Starting MyBlogApplication using Java 1.8.0_282 on DESKTOP-7KN75LJ with PID 21328 (F:\project\my\my-blog\target\classes started by zdk in F:\project\my\my-blog)
+2021-08-31 22:17:30.725 INFO  com.zdk.MyBlog.MyBlogApplication Line:679 - The following profiles are active: dev
+2021-08-31 22:17:30.764 INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor Line:255 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-08-31 22:17:30.765 INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor Line:255 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-08-31 22:17:31.373 INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate Line:250 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-08-31 22:17:31.374 INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate Line:128 - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-08-31 22:17:31.394 INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate Line:188 - Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2021-08-31 22:17:31.898 INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer Line:108 - Tomcat initialized with port(s): 8090 (http)
+2021-08-31 22:17:31.905 INFO  org.apache.catalina.core.StandardService Line:173 - Starting service [Tomcat]
+2021-08-31 22:17:31.906 INFO  org.apache.catalina.core.StandardEngine Line:173 - Starting Servlet engine: [Apache Tomcat/9.0.45]
+2021-08-31 22:17:31.986 INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] Line:173 - Initializing Spring embedded WebApplicationContext
+2021-08-31 22:17:31.987 INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext Line:289 - Root WebApplicationContext: initialization completed in 1221 ms
+2021-08-31 22:17:32.099 INFO  com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure Line:56  - Init DruidDataSource
+2021-08-31 22:17:32.259 INFO  com.alibaba.druid.pool.DruidDataSource Line:990 - {dataSource-1} inited
+2021-08-31 22:17:33.533 INFO  springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping Line:69  - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-08-31 22:17:33.637 INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor Line:181 - Initializing ExecutorService 'applicationTaskExecutor'
+2021-08-31 22:17:33.679 INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer Line:58  - LiveReload server is running on port 35729
+2021-08-31 22:17:34.064 INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer Line:220 - Tomcat started on port(s): 8090 (http) with context path ''
+2021-08-31 22:17:34.065 INFO  springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper Line:160 - Context refreshed
+2021-08-31 22:17:34.076 INFO  springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper Line:163 - Found 1 custom documentation plugin(s)
+2021-08-31 22:17:34.098 INFO  springfox.documentation.spring.web.scanners.ApiListingReferenceScanner Line:41  - Scanning for api listing references
+2021-08-31 22:17:34.195 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: toPost2UsingPOST_1
+2021-08-31 22:17:34.196 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: toPost2UsingGET_1
+2021-08-31 22:17:34.201 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: indexUsingGET_1
+2021-08-31 22:17:34.206 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: deleteUsingPOST_1
+2021-08-31 22:17:34.207 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: indexUsingGET_2
+2021-08-31 22:17:34.210 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: indexUsingGET_3
+2021-08-31 22:17:34.211 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: indexUsingGET_4
+2021-08-31 22:17:34.216 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: loginUsingGET_1
+2021-08-31 22:17:34.218 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: logoutUsingGET_1
+2021-08-31 22:17:34.222 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: indexUsingGET_5
+2021-08-31 22:17:34.224 INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator Line:40  - Generating unique operation named: indexUsingPOST_1
+2021-08-31 22:17:34.240 INFO  com.zdk.MyBlog.MyBlogApplication Line:61  - Started MyBlogApplication in 3.858 seconds (JVM running for 4.409)
+2021-08-31 22:17:39.621 INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor Line:218 - Shutting down ExecutorService 'applicationTaskExecutor'
+2021-08-31 22:17:39.634 INFO  com.alibaba.druid.pool.DruidDataSource Line:2043 - {dataSource-1} closing ...
+2021-08-31 22:17:39.638 INFO  com.alibaba.druid.pool.DruidDataSource Line:2116 - {dataSource-1} closed

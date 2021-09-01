@@ -30,11 +30,11 @@ public class AdminArticleController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminArticleController.class);
 
     @Autowired
-    RedisUtil redisUtil;
+    private RedisUtil redisUtil;
     @Autowired
-    ArticleService articleService;
+    private ArticleService articleService;
     @Autowired
-    MetasService metasService;
+    private MetasService metasService;
 
     @ApiOperation("跳转到发布文章页面")
     @GetMapping(value = "/publish")

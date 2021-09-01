@@ -23,7 +23,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     private static final String USER_AGENT = "user-agent";
     private static final Logger logger = LoggerFactory.getLogger(LoginHandlerInterceptor.class);
     @Autowired
-    RedisUtil redisUtil;
+    private RedisUtil redisUtil;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

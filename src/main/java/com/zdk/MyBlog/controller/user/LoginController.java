@@ -32,13 +32,13 @@ import javax.servlet.http.Cookie;
 @RequestMapping(value = "/user",method = {RequestMethod.POST,RequestMethod.GET})
 public class LoginController extends BaseController {
     @Autowired
-    RedisUtil redisUtil;
+    private RedisUtil redisUtil;
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    LogsService logsService;
+    private LogsService logsService;
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     private static final Integer ERROR_NUMBER = 4;
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);

@@ -35,7 +35,7 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
     @Autowired
     private RelationshipsService relationshipsService;
     @Autowired
-    ArticleService articleService;
+    private ArticleService articleService;
 
     @Override
     public void addMetas(Integer articleId, String names, String type) {

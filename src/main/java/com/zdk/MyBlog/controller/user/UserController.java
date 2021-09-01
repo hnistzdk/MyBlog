@@ -23,9 +23,9 @@ import java.util.List;
 @RequestMapping(value ="/user",method = {RequestMethod.POST,RequestMethod.GET})
 public class UserController extends BaseController {
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    ArticleService articleService;
+    private ArticleService articleService;
 
     @GetMapping(value ="/toLogin")
     public String toLogin(){

@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserManageController extends BaseController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @ApiOperation("用户管理页")
     @RequestMapping("")

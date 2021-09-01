@@ -28,11 +28,11 @@ import java.util.Objects;
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService{
 
     @Autowired
-    ArticleMapper articleMapper;
+    private ArticleMapper articleMapper;
     @Autowired
-    RelationshipsService relationshipsService;
+    private RelationshipsService relationshipsService;
     @Autowired
-    MetasService metasService;
+    private MetasService metasService;
 
     @Override
     public List<Article> getAllArticle() {
