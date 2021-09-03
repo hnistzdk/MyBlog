@@ -3,6 +3,7 @@ package com.zdk.MyBlog.service.user;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.model.pojo.User;
+import com.zdk.MyBlog.model.vo.UserInfoVo;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -32,4 +33,11 @@ public interface UserService extends IService<User> {
      * @return
      */
     PageInfo<User> getUserPage(Integer pageNumber, Integer pageSize, String keywords);
+
+    /**
+     * 管理员更新用户信息
+     * @param userInfoVo
+     * @return
+     */
+    Boolean editUserInfo(UserInfoVo userInfoVo);
 }

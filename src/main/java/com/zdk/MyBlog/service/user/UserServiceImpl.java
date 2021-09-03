@@ -6,6 +6,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.mapper.UserMapper;
 import com.zdk.MyBlog.model.pojo.User;
+import com.zdk.MyBlog.model.vo.UserInfoVo;
 import com.zdk.MyBlog.utils.ParaValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,5 +45,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 .or().like(ParaValidator.isOk(keywords), User::getNickname, keywords)
                 .or().like(ParaValidator.isOk(keywords), User::getTrueName, keywords).list();
         return new PageInfo<>(userList);
+    }
+
+    @Override
+    public Boolean editUserInfo(UserInfoVo userInfoVo) {
+        if (userInfoVo==null||ParaValidator.notOk(userInfoVo.getId())){
+            return false;
+        }
+        User user = new User();
+        user.setId(userInfoVo.getId()).setNickname(userInfoVo.getNickname())
+                .setGender(userInfoVo.getGender()).setTrueName(userInfoVo.getTrueName())
+                .setEmail(userInfoVo.getEmail());
+        return updateById(user);
     }
 }
