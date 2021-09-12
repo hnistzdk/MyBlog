@@ -6,34 +6,37 @@ package com.zdk.MyBlog.constant;
  */
 public interface ErrorConstant {
     interface Common {
-        static final String PARAM_IS_EMPTY = "参数为空";
-        static final String INVALID_PARAM = "无效的参数";
-        static final String CAN_NOT_FIND_PARAM_TO_CONTIUNE = "找不到参数继续运行";
+        String PARAM_IS_EMPTY = "参数为空";
+        String INVALID_PARAM = "无效的参数";
+        String CAN_NOT_FIND_PARAM_TO_CONTINUE = "找不到参数继续运行";
+        String DELETE_FAIL = "删除失败";
+        String ADD_FAIL = "添加失败";
+        String UPDATE_FAIL = "更新失败";
     }
 
     interface Article {
-        static final String UPDATE_ARTICLE_FAIL = "更新文章失败";
-        static final String ADD_NEW_ARTICLE_FAIL = "添加文章失败";
-        static final String DELETE_ARTICLE_ERROR = "删除文章失败";
-        static final String TITLE_IS_TOO_LONG = "文章标题过长";
-        static final String TITLE_CAN_NOT_EMPTY = "文章标题不能为空";
-        static final String CONTENT_CAN_NOT_EMPTY = "文章内容不能为空";
-        static final String CONTENT_IS_TOO_LONG = "文章字数超过限制";
+        String UPDATE_ARTICLE_FAIL = "更新文章失败";
+        String ADD_NEW_ARTICLE_FAIL = "添加文章失败";
+        String DELETE_ARTICLE_ERROR = "删除文章失败";
+        String TITLE_IS_TOO_LONG = "文章标题过长";
+        String TITLE_CAN_NOT_EMPTY = "文章标题不能为空";
+        String CONTENT_CAN_NOT_EMPTY = "文章内容不能为空";
+        String CONTENT_IS_TOO_LONG = "文章字数超过限制";
 
     }
 
     interface Att {
-        static final String ADD_NEW_ATT_FAIL = "添加附件信息失败";
-        static final String UPDATE_ATT_FAIL =  "更新附件信息失败";
-        static final String DELETE_ATT_FAIL = "删除附件信息失败";
-        static final String UPLOAD_FILE_FAIL = "上传附件失败";
+        String ADD_NEW_ATT_FAIL = "添加附件信息失败";
+        String UPDATE_ATT_FAIL =  "更新附件信息失败";
+        String DELETE_ATT_FAIL = "删除附件信息失败";
+        String UPLOAD_FILE_FAIL = "上传附件失败";
     }
 
     interface Comment {
-        static final String ADD_NEW_COMMENT_FAIL = "添加评论失败";
-        static final String UPDATE_COMMENT_FAIL = "更新评论失败";
-        static final String DELETE_COMMENT_FAIL = "删除评论失败";
-        static final String COMMENT_NOT_EXIST = "评论不存在";
+        String ADD_NEW_COMMENT_FAIL = "添加评论失败";
+        String UPDATE_COMMENT_FAIL = "更新评论失败";
+        String DELETE_COMMENT_FAIL = "删除评论失败";
+        String COMMENT_NOT_EXIST = "评论不存在";
     }
 
     interface Option {

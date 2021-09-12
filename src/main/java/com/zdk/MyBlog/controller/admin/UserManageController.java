@@ -59,4 +59,15 @@ public class UserManageController extends BaseController {
         }
         return ApiResponse.fail("操作失败");
     }
+
+    @ApiOperation("删除用户")
+    @PostMapping("/delete")
+    @ResponseBody
+    public ApiResponse delete(Integer id){
+        boolean remove = userService.removeById(id);
+        if (remove){
+            return ApiResponse.success();
+        }
+        return ApiResponse.success(ErrorConstant.Common.DELETE_FAIL);
+    }
 }

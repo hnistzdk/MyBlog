@@ -140,7 +140,6 @@
 
 
 <div th:replace="admin/footer :: footer"></div>
-<script type="text/javascript" th:src="@{/layui/layui.js}"></script>
 <script type="text/javascript">
     var tale = new $.tale();
 
@@ -172,8 +171,9 @@
         tale.alertConfirm({
             title: '确定删除该用户吗?',
             then: function () {
-                tale.user({
+                $.ajax({
                     url: '/admin/userManage/delete',
+                    type:"post",
                     data: {id: id},
                     success: function (result) {
                         if (result && result.code === 200) {
