@@ -1,8 +1,11 @@
 package com.zdk.MyBlog.controller.user;
 
+import com.zdk.MyBlog.constant.Types;
 import com.zdk.MyBlog.controller.BaseController;
+import com.zdk.MyBlog.model.dto.MetaDto;
 import com.zdk.MyBlog.model.pojo.Article;
 import com.zdk.MyBlog.service.article.ArticleService;
+import com.zdk.MyBlog.service.metas.MetasService;
 import com.zdk.MyBlog.service.user.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +27,9 @@ import java.util.List;
 @RequestMapping(value ="/user",method = {RequestMethod.POST,RequestMethod.GET})
 public class UserController extends BaseController {
     @Autowired
-    private UserService userService;
-    @Autowired
     private ArticleService articleService;
+    @Autowired
+    private MetasService metasService;
 
     @GetMapping(value ="/toLogin")
     public String toLogin(){
@@ -39,6 +42,10 @@ public class UserController extends BaseController {
                           @RequestParam(name = "limit",required = false, defaultValue = "5")Integer pageSize,
                           @RequestParam(name = "keywords",required = false) String keywords){
         model.addAttribute("articles", articleService.getArticlePageByKeywords(pageNumber,pageSize,keywords));
+        List<MetaDto> categories = metasService.getMetaList(Types.CATEGORY.getType());
+        List<MetaDto> tags = metasService.getMetaList(Types.TAG.getType());
+        model.addAttribute("categories",categories);
+        model.addAttribute("tags",tags);
         return "blog/index";
     }
 

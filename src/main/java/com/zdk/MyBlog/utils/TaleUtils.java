@@ -4,11 +4,6 @@ import com.zdk.MyBlog.constant.WebConst;
 import com.zdk.MyBlog.controller.admin.AttAchController;
 import com.zdk.MyBlog.exception.MyGlobalException;
 import org.apache.commons.lang3.StringUtils;
-import org.commonmark.Extension;
-import org.commonmark.ext.gfm.tables.TablesExtension;
-import org.commonmark.node.Node;
-import org.commonmark.parser.Parser;
-import org.commonmark.renderer.html.HtmlRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -24,7 +19,6 @@ import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.Normalizer;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -55,7 +49,7 @@ public class TaleUtils {
     /**
      * markdown解析器
      */
-    private static Parser parser = Parser.builder().build();
+//    private static Parser parser = Parser.builder().build();
     /**
      * 获取文件所在目录
      */
@@ -202,18 +196,18 @@ public class TaleUtils {
      * @param markdown
      * @return
      */
-    public static String mdToHtml(String markdown) {
-        if (StringUtils.isBlank(markdown)) {
-            return "";
-        }
-        java.util.List<Extension> extensions = Arrays.asList(TablesExtension.create());
-        Parser parser = Parser.builder().extensions(extensions).build();
-        Node document = parser.parse(markdown);
-        HtmlRenderer renderer = HtmlRenderer.builder().extensions(extensions).build();
-        String content = renderer.render(document);
-        content = Commons.emoji(content);
-        return content;
-    }
+//    public static String mdToHtml(String markdown) {
+//        if (StringUtils.isBlank(markdown)) {
+//            return "";
+//        }
+//        java.util.List<Extension> extensions = Arrays.asList(TablesExtension.create());
+//        Parser parser = Parser.builder().extensions(extensions).build();
+//        Node document = parser.parse(markdown);
+//        HtmlRenderer renderer = HtmlRenderer.builder().extensions(extensions).build();
+//        String content = renderer.render(document);
+//        content = Commons.emoji(content);
+//        return content;
+//    }
 
     /**
      * 退出登录状态
