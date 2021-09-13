@@ -2,125 +2,52 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title></title>
-
-    <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Blog Template">
-    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
     <link rel="shortcut icon" href="../../static/assets/images/favicon.ico">
-
-    <!-- FontAwesome JS-->
     <script defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js"></script>
 
-    <!-- Plugin CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/atom-one-dark.min.css">
-	<!-- Javascript -->
 	<script th:src="@{/assets/plugins/jquery-3.3.1.min.js}"></script>
 	<script th:src="@{/assets/plugins/popper.min.js}"></script>
 	<script th:src="@{/assets/plugins/bootstrap/js/bootstrap.min.js}"></script>
 
-	<!-- Page Specific JS -->
 	<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js}"></script>
 
-	<!-- Custom JS -->
 	<script th:src="@{/assets/js/blog.js}"></script>
 
-	<!-- Style Switcher (REMOVE ON YOUR PRODUCTION SITE) -->
 	<script th:src="@{/assets/js/demo/style-switcher.js}"></script>
-    <!-- Theme CSS -->
     <link id="theme-style" rel="stylesheet" th:href="@{/assets/css/theme-1.css}">
-
-
 </head>
 
+<div th:replace="site/head::head(${article.title},${@commons.getGoogleSiteVerification()}, ${@commons.getBaiduSiteVerification()})"></div>
+
 <body>
-<header th:replace="~{blog/common.html::sidebar}"></header>
-    <div class="main-wrapper">
-	    <article class="blog-post px-3 py-5 p-md-5">
-		    <div class="container">
-			    <header class="blog-post-header">
-				    <h2 class="title mb-2" th:text="${article.getTitle()}"></h2>
-				    <div class="meta mb-3"><span class="date" th:text="${article.getPublishTime()}"></span><span class="time" th:text="${article.getReadCount()+' read'}"></span><span class="comment"><span class="comment" th:text="${article.getCommentCount()+' comments'}"></span></span></div>
-			    </header>
+<main role="main-inner-wrapper" class="container">
+	<div class="blog-details">
+		<article class="post-details" id="post-details">
+			<header role="bog-header" class="bog-header text-center">
+				<h3>
+					<th:block th:utext="${article.getPublishTime()}"></th:block>
+<!--					<th:block th:utext="${article.getReadCount()+' read'}"></th:block>-->
+<!--					<th:block th:utext="${article.getCommentCount()+' comments'}"></th:block>-->
+				</h3>
+				<h2>
+					<th:block th:text="${article.title}"></th:block>
+				</h2>
+			</header>
+			<figure>
+				<img th:src="@{/site/images/blog-images/blog-details-image.jpg}" alt="" class="img-responsive"/>
+			</figure>
+			<div id="post-content" class="post-content" itemprop="articleBody">
+				<th:block th:utext="${article.getContent()}"></th:block>
+			</div>
+		</article>
+		<!-- Comments -->
+		<div th:replace="site/comments::comments"></div>
+	</div>
+</main>
 
-			    <div class="blog-post-body">
-					<div th:utext="${article.getContent()}" style="width: auto">
-					</div>
-			    </div>
-
-<!--				-->
-				<div>
-					<div class="embed-responsive embed-responsive-16by9">
-						video
-					</div>
-				</div>
-<!--				-->
-			    <nav class="blog-nav nav nav-justified my-5">
-				  <a class="nav-link-prev nav-item nav-link rounded-left" th:href="@{/index}">Previous<i class="arrow-prev fas fa-long-arrow-alt-left"></i></a>
-				  <a class="nav-link-next nav-item nav-link rounded-right" th:href="@{/blogList}">Next<i class="arrow-next fas fa-long-arrow-alt-right"></i></a>
-				</nav>
-				<div class="blog-comments-section">
-					<div id="disqus_thread"></div>
-					<script>
-					    /**
-					     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT
-					     *  THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR
-					     *  PLATFORM OR CMS.
-					     *
-					     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT:
-					     *  https://disqus.com/admin/universalcode/#configuration-variables
-					     */
-					    /*
-					    var disqus_config = function () {
-					        // Replace PAGE_URL with your page's canonical URL variable
-					        this.page.url = PAGE_URL;
-
-					        // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-					        this.page.identifier = PAGE_IDENTIFIER;
-					    };
-					    */
-
-					    (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
-					        var d = document, s = d.createElement('script');
-
-					        // IMPORTANT: Replace 3wmthemes with your forum shortname!
-					        s.src = '';
-
-					        s.setAttribute('data-timestamp', +new Date());
-					        (d.head || d.body).appendChild(s);
-					    })();
-					</script>
-					<noscript>
-					    Please enable JavaScript to view the
-					    <a href="https://disqus.com/?ref_noscript" rel="nofollow">
-					        comments powered by Disqus.
-					    </a>
-					</noscript>
-				</div><!--//blog-comments-section-->
-
-		    </div><!--//container-->
-	    </article>
-
-	    <section class="promo-section theme-bg-light py-5 text-center">
-		    <div class="container">
-			    <h2 class="title">Promo Section Heading</h2>
-			    <p>You can use this section to promote your side projects etc. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. </p>
-                <figure class="promo-figure">
-			        <a href="#" target="_blank"><img class="img-fluid" th:src="@{/assets/images/promo-banner.jpg}" alt="image"></a>
-			    </figure>
-		    </div><!--//container-->
-	    </section><!--//promo-section-->
-
-	    <footer th:replace="~{blog/common.html::footer}">
-	    </footer>
-
-    </div><!--//main-wrapper-->
-
-
-<!-- *****CONFIGURE STYLE (REMOVE ON YOUR PRODUCTION SITE)****** -->
-<div th:replace="~{blog/common.html::diyTheme}"></div><!--//configure-panel-->
 </body>
 </html>
 

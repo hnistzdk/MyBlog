@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -33,10 +34,11 @@ public class UserController extends BaseController {
     }
 
     @GetMapping(value = "/toIndex")
-    public String toIndex(Model model){
-        model.addAttribute("user", getLoginUser());
-        List<Article> articles = articleService.getAllArticle();
-        model.addAttribute("articles",articles);
+    public String toIndex(Model model,
+                          @RequestParam(name = "page",required = false, defaultValue = "1") Integer pageNumber,
+                          @RequestParam(name = "limit",required = false, defaultValue = "5")Integer pageSize,
+                          @RequestParam(name = "keywords",required = false) String keywords){
+        model.addAttribute("articles", articleService.getArticlePageByKeywords(pageNumber,pageSize,keywords));
         return "blog/index";
     }
 

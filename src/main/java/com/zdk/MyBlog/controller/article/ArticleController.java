@@ -49,31 +49,22 @@ public class ArticleController extends BaseController {
     @Autowired
     private MetasService metasService;
 
-    @ApiOperation("进入博客")
+    @ApiOperation("进入博客详情页")
     @GetMapping(value = "/toPost")
     public String toPost(Model model, Integer id){
         Article article = articleService.getArticleById(id);
         articleService.updateById(article.setReadCount(article.getReadCount()+1));
         model.addAttribute("article",article);
-        model.addAttribute("user",getLoginUser());
-        return "blog/blog-post";
-    }
-
-    @ApiOperation("进入博客详情页")
-    @GetMapping(value = "/toPost/{id}")
-    public String toPost2(Model model, @PathVariable Integer id){
-        Article article = articleService.getArticleById(id);
-        articleService.updateById(article.setReadCount(article.getReadCount()+1));
-        model.addAttribute("article",article);
-        model.addAttribute("user",getLoginUser());
         return "blog/blog-post";
     }
 
     @ApiOperation("进入博客列表")
     @GetMapping(value = "/toBlogList")
-    public String blogList(Model model){
-        model.addAttribute("user", getLoginUser());
-        model.addAttribute("articles", articleService.getAllArticle());
+    public String blogList(Model model,
+                           @RequestParam(name = "page",required = false, defaultValue = "1") Integer pageNumber,
+                           @RequestParam(name = "limit",required = false, defaultValue = "5")Integer pageSize,
+                           @RequestParam(name = "keywords",required = false) String keywords){
+        model.addAttribute("articles", articleService.getArticlePageByKeywords(pageNumber,pageSize,keywords));
         return "blog/blog-list";
     }
 

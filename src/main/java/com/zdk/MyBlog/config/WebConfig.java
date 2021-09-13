@@ -22,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addRedirectViewController("/","/user/toLogin");
+        registry.addRedirectViewController("/","/user/toIndex");
         registry.addRedirectViewController("/admin","/admin/login");
     }
 
@@ -51,7 +51,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(getLoginHandlerInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/login.html","/","/user/login","/user/toLogin")
+                .excludePathPatterns("/login.html","/","/user/login","/user/toLogin","/user/toIndex")
                 .excludePathPatterns("/admin/login","/admin")
                 .excludePathPatterns("/**/*.html", "/**/*.js", "/**/*.css", "/**/*.json", "/**/*.icon","/**/*.jpg","/**/*.png");
     }

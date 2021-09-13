@@ -2,16 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="comments">
 <body>
 
-<div th:if="${article.allowComment}" class="comment-allow">
+<div th:if="${article.allowComment!=null}" class="comment-allow">
     <div id="comments-content" th:if="${article}!=null">
-        <div th:id="${article.cid ?: 0}" class="comments-pan">
+        <div th:id="${article.id ?: 0}" class="comments-pan">
 
             <h3>
-                <th:block th:text="${article.commentsNum ?: 0}"></th:block>
+                <th:block th:text="${article.commentCount ?: 0}"></th:block>
                 Comments
             </h3>
 
-            <ul th:if="${comments}" class="comments-reply">
+            <ul th:if="${comments!=null}" class="comments-reply">
                 <th:block th:each="comment :${comments}">
                     <li th:id="'li-comment-'+${comment.coid}">
 
@@ -51,7 +51,7 @@
                           onsubmit="return TaleComment.subComment();">
 
                         <input type="hidden" name="coid" id="coid"/>
-                        <input type="hidden" name="cid" id="cid" th:value="${article.cid}"/>
+                        <input type="hidden" name="cid" id="cid" th:value="${article.id}"/>
                         <input type="hidden" name="_csrf_token" th:value="${_csrf_token}"/>
                         <div class="col-xs-12 col-sm-4 col-md-4">
 

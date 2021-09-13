@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:replace="site/head::head(${article.title},${commons.google_site_verification()}, ${commons.baidu_site_verification()})"></div>
+<div th:replace="site/head::head(${article.title},${@commons.getGoogleSiteVerification()}, ${@commons.getBaiduSiteVerification()})"></div>
 
 
 <body>
@@ -36,9 +36,7 @@
 
 
             <figure>
-
                 <img src="images/blog-images/blog-details-image.jpg" alt="" class="img-responsive"/>
-
             </figure>
 
             <div id="post-content" class="post-content" itemprop="articleBody">

@@ -76,6 +76,15 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
+    public PageInfo<Article> getArticlePageByKeywords(Integer pageNum, Integer pageSize,String keywords) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Article> articles = lambdaQuery().like(ParaValidator.isOk(keywords),Article::getTitle,keywords).
+                or().like(ParaValidator.isOk(keywords),Article::getContent,keywords)
+                .orderByDesc(Article::getUpdateTime).list();
+        return new PageInfo<>(articles);
+    }
+
+    @Override
     public void updateByCondition(String oldCategory, String newCategory) {
         List<Article> list = lambdaQuery().eq(Article::getCategories, oldCategory).list();
         list.forEach(article -> {

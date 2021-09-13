@@ -43,7 +43,7 @@
 		</section>
 	    <section class="blog-list px-3 py-5 p-md-5">
 		    <div class="container">
-			    <div class="item mb-5" th:each="article:${articles}">
+			    <div class="item mb-5" th:each="article:${articles.list}">
 				    <div class="media">
 					    <img class="mr-3 img-fluid post-thumb d-none d-md-flex" th:src="@{/assets/images/blog/blog-post-thumb-7.jpg}" alt="image">
 					    <div class="media-body">
@@ -60,10 +60,11 @@
 					    </div><!--//media-body-->
 				    </div><!--//media-->
 			    </div><!--//item-->
-			    <nav class="blog-nav nav nav-justified my-5">
-				  <a class="nav-link-prev nav-item nav-link rounded-left" href="index.html">Previous<i class="arrow-prev fas fa-long-arrow-alt-left"></i></a>
-				  <a class="nav-link-next nav-item nav-link rounded-right" href="blog-list.html">Next<i class="arrow-next fas fa-long-arrow-alt-right"></i></a>
-				</nav>
+<!--			    <nav class="blog-nav nav nav-justified my-5">-->
+<!--				  <a class="nav-link-prev nav-item nav-link rounded-left" href="index.html">Previous<i class="arrow-prev fas fa-long-arrow-alt-left"></i></a>-->
+<!--				  <a class="nav-link-next nav-item nav-link rounded-right" href="blog-list.html">Next<i class="arrow-next fas fa-long-arrow-alt-right"></i></a>-->
+<!--				</nav>-->
+				<div th:replace="comm/macros :: pageAdminNav(${articles})"></div>
 		    </div>
 	    </section>
 		<footer th:replace="~{blog/common.html::footer}" class="fixed-bottom"></footer>

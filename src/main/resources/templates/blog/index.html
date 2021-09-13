@@ -2,26 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Home</title>
-
-    <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Blog Template">
-    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
     <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}">
-
-    <!-- FontAwesome JS-->
     <script defer th:src="@{https://use.fontawesome.com/releases/v5.7.1/js/all.js}"></script>
 
-    <!-- Theme CSS -->
-    <link id="theme-style" rel="stylesheet" th:href="@{/assets/css/theme-1.css}">
+    <link id="theme-style" rel="stylesheet" th:href="@{/assets/css/theme-7.css}">
 </head>
 
 <body>
-<header th:replace="~{blog/common.html::sidebar}"></header>
+<div th:replace="~{blog/common.html::sidebar}"></div>
     <div class="main-wrapper">
-	    <section class="cta-section theme-bg-light py-5">
+	    <section class="col-xs-6 col-sm-6 col-md-6 col-lg-6 grid">
 		    <div class="container text-center">
 			    <h2 class="heading">DevBlog - A Blog Made For Myself</h2>
 			    <div class="intro">Welcome to my blog. Subscribe and get my latest blog post in your inbox.</div>
@@ -32,11 +24,12 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Subscribe</button>
                 </form>
-		    </div><!--//container-->
+		    </div>
 	    </section>
-	    <section class="blog-list px-3 py-5 p-md-5">
+		<div class="clearfix"></div>
+	    <section class="col-xs-12 col-sm-6 col-md-6 col-lg-6 grid">
 		    <div class="container">
-			    <div class="item mb-5" th:each="article:${articles}">
+			    <div class="item mb-1" th:each="article:${articles.list}">
 				    <div class="media">
 					    <img class="mr-3 img-fluid post-thumb d-none d-md-flex" th:src="@{/assets/images/blog/blog-post-thumb-1.jpg}" alt="image">
 					    <div class="media-body">
@@ -50,31 +43,252 @@
 							</div>
 						    <div class="intro" th:text="${article.getIntroduction()}"></div>
 						    <a class="more-link" th:href="@{/article/toPost(id=${article.getId()})}">Read more &rarr;</a>
-					    </div><!--//media-body-->
-				    </div><!--//media-->
-			    </div><!--//item-->
-			    <nav class="blog-nav nav nav-justified my-5">
-				  <a class="nav-link-prev nav-item nav-link d-none rounded-left" href="#">Previous<i class="arrow-prev fas fa-long-arrow-alt-left"></i></a>
-				  <a class="nav-link-next nav-item nav-link rounded" th:href="@{/blogList}">Next<i class="arrow-next fas fa-long-arrow-alt-right"></i></a>
-				</nav>
+					    </div>
+				    </div>
+			    </div>
+				<div th:replace="comm/macros :: pageAdminNav(${articles})"></div>
 		    </div>
+<!--			am-u-lg-4 am-u-sm-12 am-u-lg-offset-0 am-u-sm-offset-0 sidebar-container-->
+			<div class="right-bar-enabled">
+				<section>
+					<section>
+						<div class="sidebar-header">
+                <span class="sidebar-header-title">
+                    搜索文章
+                </span>
+						</div>
+						<div class="sidebar-search">
+							<form method="get" onsubmit="return false;" accept-charset="utf-8">
+								<div class="search-input">
+									<input type="text" name="keyword" id="searchbox" placeholder="输入关键字搜索">
+									<button type="submit" class="search-submit" onclick="search()"></button>
+								</div>
+							</form>
+						</div>
+					</section>
+					<section>
+						<div class="sidebar-header">
+                <span class="sidebar-header-title">
+                    热门标签
+                </span>
+						</div>
+						<div class="tags ">
+
+
+							<a rel="tag" href="/tag/Springboot">
+								Springboot(7)
+							</a>
+
+							<a rel="tag" href="/tag/newbee-mall">
+								newbee-mall(7)
+							</a>
+
+							<a rel="tag" href="/tag/新蜂商城">
+								新蜂商城(6)
+							</a>
+
+							<a rel="tag" href="/tag/RESTful">
+								RESTful(6)
+							</a>
+
+							<a rel="tag" href="/tag/开源项目">
+								开源项目(5)
+							</a>
+
+							<a rel="tag" href="/tag/优化">
+								优化(5)
+							</a>
+
+							<a rel="tag" href="/tag/easyUI">
+								easyUI(4)
+							</a>
+
+							<a rel="tag" href="/tag/网络安全">
+								网络安全(4)
+							</a>
+
+							<a rel="tag" href="/tag/Redis">
+								Redis(4)
+							</a>
+
+							<a rel="tag" href="/tag/副业">
+								副业(3)
+							</a>
+
+							<a rel="tag" href="/tag/开源">
+								开源(3)
+							</a>
+
+							<a rel="tag" href="/tag/单元测试">
+								单元测试(3)
+							</a>
+
+							<a rel="tag" href="/tag/Thymeleaf">
+								Thymeleaf(3)
+							</a>
+
+							<a rel="tag" href="/tag/mysql">
+								mysql(3)
+							</a>
+
+							<a rel="tag" href="/tag/Spring">
+								Spring(3)
+							</a>
+
+							<a rel="tag" href="/tag/ssm整合">
+								ssm整合(3)
+							</a>
+
+							<a rel="tag" href="/tag/网络攻击">
+								网络攻击(3)
+							</a>
+
+							<a rel="tag" href="/tag/SpringMVC">
+								SpringMVC(3)
+							</a>
+
+							<a rel="tag" href="/tag/MyBatis">
+								MyBatis(3)
+							</a>
+
+							<a rel="tag" href="/tag/druid">
+								druid(3)
+							</a>
+
+
+						</div>
+					</section>
+					<section>
+						<div class="sidebar-header">
+                <span class="sidebar-header-title">
+                    最新发布
+                </span>
+						</div>
+						<div class="sidebar-list">
+							<ul class="sidebar-list-body sidebar-list-items">
+
+
+								<li class="sidebar-list-item"><a href="/blog/11249"
+																 class="tag tooltipped tooltipped-n">
+									Vue3教程：开发一个 Vue 3 + element-plus 的后台管理系统
+								</a></li>
+
+								<li class="sidebar-list-item"><a href="/blog/11248"
+																 class="tag tooltipped tooltipped-n">
+									开源1年半，newbee-mall 收获 9K star
+								</a></li>
+
+								<li class="sidebar-list-item"><a href="/blog/11247"
+																 class="tag tooltipped tooltipped-n">
+									程序员的副业：2021年我写完了第一本书
+								</a></li>
+
+								<li class="sidebar-list-item"><a href="/blog/11246"
+																 class="tag tooltipped tooltipped-n">
+									一个基于 Vue 3 + Vant 3 的开源商城项目开源了
+								</a></li>
+
+								<li class="sidebar-list-item"><a href="/blog/11245"
+																 class="tag tooltipped tooltipped-n">
+									再见 2020， 愿“山河无恙，人间皆安”
+								</a></li>
+
+								<li class="sidebar-list-item"><a href="/blog/11241"
+																 class="tag tooltipped tooltipped-n">
+									「2020年中总结」这半年我又做了哪些副业？
+								</a></li>
+
+								<li class="sidebar-list-item"><a href="/blog/11240"
+																 class="tag tooltipped tooltipped-n">
+									开源项目在闲鱼、b 站上被倒卖？这是什么骚操作？
+								</a></li>
+
+								<li class="sidebar-list-item"><a href="/blog/11239"
+																 class="tag tooltipped tooltipped-n">
+									「newbee-mall新蜂商城开源啦」GitHub 上最热门的 Spring Boot 项目，我也要做一次靓仔！
+								</a></li>
+
+								<li class="sidebar-list-item"><a href="/blog/11238"
+																 class="tag tooltipped tooltipped-n">
+									年终总结-2019年，我的副业元年？
+								</a></li>
+
+
+							</ul>
+						</div>
+					</section>
+					<section>
+						<div class="sidebar-header">
+                <span class="sidebar-header-title">
+                    点击最多
+                </span>
+						</div>
+						<main class="sidebar-lists">
+							<ul>
+
+
+								<li class="sidebar-list-item"><a class="tag tooltipped tooltipped-n"
+																 href="/blog/11246">
+									一个基于 Vue 3 + Vant 3 的开源商城项目开源了
+								</a></li>
+
+								<li class="sidebar-list-item"><a class="tag tooltipped tooltipped-n"
+																 href="/blog/11177">
+									我是十三
+								</a></li>
+
+								<li class="sidebar-list-item"><a class="tag tooltipped tooltipped-n"
+																 href="/blog/11240">
+									开源项目在闲鱼、b 站上被倒卖？这是什么骚操作？
+								</a></li>
+
+								<li class="sidebar-list-item"><a class="tag tooltipped tooltipped-n"
+																 href="/blog/11219">
+									thymeleaf模板引擎调用java类中的方法
+								</a></li>
+
+								<li class="sidebar-list-item"><a class="tag tooltipped tooltipped-n"
+																 href="/blog/11229">
+									Spring+SpringMVC+MyBatis+easyUI整合进阶篇（十四）Redis缓存正确的使用姿势
+								</a></li>
+
+								<li class="sidebar-list-item"><a class="tag tooltipped tooltipped-n"
+																 href="/blog/11235">
+									SpringBoot系列教程
+								</a></li>
+
+								<li class="sidebar-list-item"><a class="tag tooltipped tooltipped-n"
+																 href="/blog/11230">
+									程序员，你怎么这么忙？
+								</a></li>
+
+								<li class="sidebar-list-item"><a class="tag tooltipped tooltipped-n"
+																 href="/blog/11218">
+									RESTful API实战笔记(接口设计及Java后端实现)
+								</a></li>
+
+								<li class="sidebar-list-item"><a class="tag tooltipped tooltipped-n"
+																 href="/blog/11249">
+									Vue3教程：开发一个 Vue 3 + element-plus 的后台管理系统
+								</a></li>
+							</ul>
+						</main>
+					</section>
+				</section>
+			</div>
 	    </section>
+		<footer th:replace="~{blog/common.html::footer}"></footer>
+    </div>
 
-        <footer th:replace="~{blog/common.html::footer}"></footer>
 
-    </div><!--//main-wrapper-->
-
-<!-- *****CONFIGURE STYLE (REMOVE ON YOUR PRODUCTION SITE)****** -->
-    <div th:replace="~{blog/common.html::diyTheme}"></div><!--//configure-panel-->
+    <div th:replace="~{blog/common.html::diyTheme}"></div>
 
 
 
-    <!-- Javascript -->
     <script th:src="@{/assets/plugins/jquery-3.3.1.min.js}"></script>
     <script th:src="@{/assets/plugins/popper.min.js}"></script>
     <script th:src="@{/assets/plugins/bootstrap/js/bootstrap.min.js}"></script>
 
-    <!-- Style Switcher (REMOVE ON YOUR PRODUCTION SITE) -->
     <script th:src="@{/assets/js/demo/style-switcher.js}"></script>
 
 

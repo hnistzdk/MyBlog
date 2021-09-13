@@ -39,11 +39,11 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         //请求拦截处理
         Object user = redisUtil.hget(WebConst.USERINFO, TaleUtils.getCookieValue(WebConst.USERINFO, request));
 
-        if (user==null&&uri.startsWith("/user") && !uri.startsWith("/user/login")) {
-            request.setAttribute("msg", "请先登录");
-            request.getRequestDispatcher("/user/toLogin").forward(request, response);
-            return false;
-        }
+//        if (user==null&&uri.startsWith("/user") && !uri.startsWith("/user/login")) {
+//            request.setAttribute("msg", "请先登录");
+//            request.getRequestDispatcher("/user/toLogin").forward(request, response);
+//            return false;
+//        }
         if (user==null&&uri.startsWith("/admin") && !uri.startsWith("/admin/login")
                 && !uri.startsWith("/admin/css") && !uri.startsWith("/admin/images")
                 && !uri.startsWith("/admin/js") && !uri.startsWith("/admin/plugins")
