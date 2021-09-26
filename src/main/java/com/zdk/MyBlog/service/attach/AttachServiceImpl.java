@@ -30,6 +30,8 @@ public class AttachServiceImpl extends ServiceImpl<AttachMapper, Attach> impleme
     private static final Logger LOGGER = LoggerFactory.getLogger(AttachServiceImpl.class);
     @Autowired
     private AttachMapper attachMapper;
+    @Autowired
+    private UpYunUtil upYunUtil;
 
     @Override
     public PageInfo<Attach> getAttachPage(Integer pageNum, Integer pageSize, User loginUser) {
@@ -45,7 +47,7 @@ public class AttachServiceImpl extends ServiceImpl<AttachMapper, Attach> impleme
     @Override
     public Boolean deleteAttachById(Integer id) throws UpException, IOException {
         Attach attach = getById(id);
-        Boolean result = UpYunUtil.deleteFile(attach.getFileKey());
+        Boolean result = upYunUtil.deleteFile(attach.getFileKey());
         Boolean result1 = remove(new QueryWrapper<Attach>().eq("id", id));
         return result&&result1;
     }

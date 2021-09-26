@@ -48,6 +48,8 @@ public class ArticleController extends BaseController {
     private ArticleService articleService;
     @Autowired
     private MetasService metasService;
+    @Autowired
+    private UpYunUtil upYunUtil;
 
     @ApiOperation("进入博客详情页")
     @GetMapping(value = "/toPost")
@@ -57,6 +59,16 @@ public class ArticleController extends BaseController {
         model.addAttribute("article",article);
         return "blog/blog-post";
     }
+
+    @ApiOperation("进入博客详情页")
+    @GetMapping(value = "/toPost/{id}")
+    public String toPost1(Model model, @PathVariable Integer id){
+        Article article = articleService.getArticleById(id);
+        articleService.updateById(article.setReadCount(article.getReadCount()+1));
+        model.addAttribute("article",article);
+        return "blog/blog-post";
+    }
+
 
     @ApiOperation("进入博客列表")
     @GetMapping(value = "/toBlogList")
@@ -132,7 +144,7 @@ public class ArticleController extends BaseController {
         filename=UUID.randomUUID()+suffixName;
 
         //上传又拍云
-        Result uploadResult = UpYunUtil.uploadImage(file.getBytes(), filename);
+        Result uploadResult = upYunUtil.uploadImage(file.getBytes(), filename);
         JSONObject photoMsg = JSONUtil.parseObj(uploadResult.getMsg());
         String url=URL_PREFIX+photoMsg.getStr("url");
 

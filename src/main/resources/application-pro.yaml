@@ -99,4 +99,12 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
-  returnPageInfo: check
+
+#又拍云配置
+up-yun:
+  bucketName: zdk-blog-image
+  userName: fengzhu
+  password: x04vgrvGFyge5opzOgdgXcARS1eYfekA
+  saveKey: /zdk-blog-image/
+  imageParam: /fw/1100/unsharp/true/quality/100/format/png
+

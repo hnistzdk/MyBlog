@@ -39,6 +39,8 @@ public class AttAchController extends BaseController {
     private static final String URL_PREFIX = "http://zdk-blog-image.test.upcdn.net";
     @Autowired
     private AttachService attachService;
+    @Autowired
+    private UpYunUtil upYunUtil;
 
     @ApiOperation("附件管理首页")
     @GetMapping("")
@@ -63,7 +65,7 @@ public class AttAchController extends BaseController {
             uploadFiles.add(file.getBytes());
             uploadFilesName.add(fileName);
         }
-        List<Result> results = UpYunUtil.uploadFiles(uploadFiles, uploadFilesName);
+        List<Result> results = upYunUtil.uploadFiles(uploadFiles, uploadFilesName);
         List<Attach> attaches = new ArrayList<>();
         Attach attach = new Attach();
         for (Result result : results) {

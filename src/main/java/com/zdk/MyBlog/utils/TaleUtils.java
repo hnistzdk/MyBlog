@@ -37,14 +37,16 @@ public class TaleUtils {
     /**
      * 一个月
      */
-    private static final int one_month = 30 * 24 * 60 * 60;
+    private static final int A_MONTH = 30 * 24 * 60 * 60;
     /**
      * 匹配邮箱正则
      */
     private static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     private static final Pattern SLUG_REGEX = Pattern.compile("^[A-Za-z0-9_-]{5,100}$", Pattern.CASE_INSENSITIVE);
-    // 使用双重检查锁的单例方式需要添加 volatile 关键字
+    /**
+     * 使用双重检查锁的单例方式需要添加 volatile 关键字
+     */
     private static volatile DataSource newDataSource;
     /**
      * markdown解析器
