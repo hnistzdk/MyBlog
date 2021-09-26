@@ -46,10 +46,10 @@
 			<artifactId>druid-spring-boot-starter</artifactId>
 			<version>1.2.6</version>
 		</dependency>
-		<dependency>
-			<groupId>org.thymeleaf.extras</groupId>
-			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.thymeleaf.extras</groupId>-->
+<!--			<artifactId>thymeleaf-extras-springsecurity5</artifactId>-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -76,6 +76,13 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+<!--		spring boot注解处理器-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
 		</dependency>
 
 <!--		阿里 fastjson-->
@@ -135,26 +142,6 @@
             <version>5.1.1</version>
         </dependency>
 
-		<!--markdown处理-->
-		<dependency>
-			<groupId>com.atlassian.commonmark</groupId>
-			<artifactId>commonmark</artifactId>
-			<version>0.17.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.atlassian.commonmark</groupId>
-			<artifactId>commonmark-ext-gfm-tables</artifactId>
-			<version>0.17.0</version>
-		</dependency>
-
-		<!-- 七牛云对象存储 -->
-<!--		<dependency>-->
-<!--			<groupId>com.qiniu</groupId>-->
-<!--			<artifactId>qiniu-java-sdk</artifactId>-->
-<!--			<version>7.8.0</version>-->
-<!--		</dependency>-->
-
 <!--		又拍云-->
 		<!-- https://mvnrepository.com/artifact/com.upyun/java-sdk -->
 		<dependency>
@@ -168,8 +155,6 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.6</version>
 		</dependency>
-
-
 
 		<!-- 分页插件 -->
 		<dependency>
@@ -197,6 +182,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>2.5.4</version>
 				<configuration>
 					<excludes>
 						<exclude>
