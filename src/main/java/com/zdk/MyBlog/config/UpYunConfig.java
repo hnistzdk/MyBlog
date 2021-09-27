@@ -3,15 +3,17 @@ package com.zdk.MyBlog.config;
 import com.UpYun;
 import com.upyun.FormUploader;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author zdk
  * @date 2021/9/26 18:26
  */
-@Component
+@Configuration
 @ConfigurationProperties(prefix = "up-yun")
+@EnableConfigurationProperties(UpYunConfig.class)
 public class UpYunConfig {
     private String bucketName;
     private String userName;
