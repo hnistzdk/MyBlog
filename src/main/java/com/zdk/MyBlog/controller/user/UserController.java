@@ -46,6 +46,12 @@ public class UserController extends BaseController {
         List<MetaDto> tags = metasService.getMetaList(Types.TAG.getType());
         model.addAttribute("categories",categories);
         model.addAttribute("tags",tags);
+
+        List<Article> latestArticle = articleService.getLatestArticle();
+        model.addAttribute("latestArticle",latestArticle);
+
+        List<Article> clickMostArticle = articleService.getClickMostArticle();
+        model.addAttribute("clickMostArticle",clickMostArticle);
         return "blog/index";
     }
 

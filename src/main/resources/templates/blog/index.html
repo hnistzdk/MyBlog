@@ -73,13 +73,12 @@
 						<div class="sidebar-search">
 							<form method="get" onsubmit="return false;" accept-charset="utf-8">
 								<div class="input-group" style="width: 50%" >
-									<input type="text" class="form-control" name="keyword" id="searchbox" placeholder="输入关键字搜索">
+									<input type="text" class="form-control" oninput="searchArticle()" name="keywords" id="searchbox" placeholder="输入关键字搜索">
 									<span class="input-group-btn">
-        								<button class="btn btn-default" type="button" onclick="searchArticle()">
+        								<a class="btn btn-default" id="search" href="">
 											<span class="glyphicon glyphicon-search" aria-hidden="true">查询</span>
-										</button>
+										</a>
      	 							</span>
-<!--									<button type="submit" class="glyphicon glyphicon-search" onclick="searchArticle()"></button>-->
 								</div>
 							</form>
 						</div>
@@ -104,52 +103,9 @@
 						</div>
 						<div class="sidebar-list">
 							<ul class="sidebar-list-body sidebar-list-items">
-
-
-								<li class="sidebar-list-item"><a href="/blog/11249"
-																 class="tag tooltipped tooltipped-n">
-									Vue3教程：开发一个 Vue 3 + element-plus 的后台管理系统
-								</a></li>
-
-								<li class="sidebar-list-item"><a href="/blog/11248"
-																 class="tag tooltipped tooltipped-n">
-									开源1年半，newbee-mall 收获 9K star
-								</a></li>
-
-								<li class="sidebar-list-item"><a href="/blog/11247"
-																 class="tag tooltipped tooltipped-n">
-									程序员的副业：2021年我写完了第一本书
-								</a></li>
-
-								<li class="sidebar-list-item"><a href="/blog/11246"
-																 class="tag tooltipped tooltipped-n">
-									一个基于 Vue 3 + Vant 3 的开源商城项目开源了
-								</a></li>
-
-								<li class="sidebar-list-item"><a href="/blog/11245"
-																 class="tag tooltipped tooltipped-n">
-									再见 2020， 愿“山河无恙，人间皆安”
-								</a></li>
-
-								<li class="sidebar-list-item"><a href="/blog/11241"
-																 class="tag tooltipped tooltipped-n">
-									「2020年中总结」这半年我又做了哪些副业？
-								</a></li>
-
-								<li class="sidebar-list-item"><a href="/blog/11240"
-																 class="tag tooltipped tooltipped-n">
-									开源项目在闲鱼、b 站上被倒卖？这是什么骚操作？
-								</a></li>
-
-								<li class="sidebar-list-item"><a href="/blog/11239"
-																 class="tag tooltipped tooltipped-n">
-									「newbee-mall新蜂商城开源啦」GitHub 上最热门的 Spring Boot 项目，我也要做一次靓仔！
-								</a></li>
-
-								<li class="sidebar-list-item"><a href="/blog/11238"
-																 class="tag tooltipped tooltipped-n">
-									年终总结-2019年，我的副业元年？
-								</a></li>
+								<li class="sidebar-list-item" th:each="article,count:${latestArticle}" th:if="${count.count<=10}">
+									<a class="tag tooltipped tooltipped-n" th:href="@{/article/toPost(id=${article.getId()})}" th:text="${article.title}"></a>
+								</li>
 							</ul>
 						</div>
 					</section>
@@ -161,52 +117,9 @@
 						</div>
 						<main class="sidebar-lists">
 							<ul>
-
-
-								<li class="sidebar-list-item"><a class="tag tooltipped tooltipped-n"
-																 href="/blog/11246">
-									一个基于 Vue 3 + Vant 3 的开源商城项目开源了
-								</a></li>
-
-								<li class="sidebar-list-item"><a class="tag tooltipped tooltipped-n"
-																 href="/blog/11177">
-									我是十三
-								</a></li>
-
-								<li class="sidebar-list-item"><a class="tag tooltipped tooltipped-n"
-																 href="/blog/11240">
-									开源项目在闲鱼、b 站上被倒卖？这是什么骚操作？
-								</a></li>
-
-								<li class="sidebar-list-item"><a class="tag tooltipped tooltipped-n"
-																 href="/blog/11219">
-									thymeleaf模板引擎调用java类中的方法
-								</a></li>
-
-								<li class="sidebar-list-item"><a class="tag tooltipped tooltipped-n"
-																 href="/blog/11229">
-									Spring+SpringMVC+MyBatis+easyUI整合进阶篇（十四）Redis缓存正确的使用姿势
-								</a></li>
-
-								<li class="sidebar-list-item"><a class="tag tooltipped tooltipped-n"
-																 href="/blog/11235">
-									SpringBoot系列教程
-								</a></li>
-
-								<li class="sidebar-list-item"><a class="tag tooltipped tooltipped-n"
-																 href="/blog/11230">
-									程序员，你怎么这么忙？
-								</a></li>
-
-								<li class="sidebar-list-item"><a class="tag tooltipped tooltipped-n"
-																 href="/blog/11218">
-									RESTful API实战笔记(接口设计及Java后端实现)
-								</a></li>
-
-								<li class="sidebar-list-item"><a class="tag tooltipped tooltipped-n"
-																 href="/blog/11249">
-									Vue3教程：开发一个 Vue 3 + element-plus 的后台管理系统
-								</a></li>
+								<li class="sidebar-list-item" th:each="article,count:${clickMostArticle}" th:if="${count.count<=10}">
+									<a class="tag tooltipped tooltipped-n" th:href="@{/article/toPost(id=${article.getId()})}" th:text="${article.title}"></a>
+								</li>
 							</ul>
 						</main>
 					</section>
@@ -231,12 +144,14 @@
 
 
 </body>
-<script type="javascript">
+</html>
+<script type="text/javascript">
 	function searchArticle() {
-
+		let val = $('#searchbox').val();
+		let url = '?page=1&keywords='+val;
+		$('#search').attr("href",url);
 	}
 </script>
-</html>
 <style>
 	html,body{
 		height: 100%;

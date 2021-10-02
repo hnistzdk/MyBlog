@@ -85,4 +85,16 @@ public interface ArticleService extends IService<Article> {
      * @return
      */
     Boolean modifyArticle(Article article);
+
+    /**
+     * 获取最新的几篇文章
+     * @return
+     */
+    List<Article> getLatestArticle();
+
+    /**
+     * 获取点击最高文章
+     * @return
+     */
+    List<Article> getClickMostArticle();
 }

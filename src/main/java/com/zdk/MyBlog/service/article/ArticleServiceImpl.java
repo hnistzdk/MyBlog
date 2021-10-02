@@ -113,4 +113,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         metasService.addMetas(article.getId(), article.getTags(), Types.TAG.getType());
         return update>0;
     }
+
+    @Override
+    public List<Article> getLatestArticle() {
+        return lambdaQuery().orderByDesc(Article::getPublishTime).list();
+    }
+
+    @Override
+    public List<Article> getClickMostArticle() {
+        return lambdaQuery().orderByDesc(Article::getReadCount).list();
+    }
 }
