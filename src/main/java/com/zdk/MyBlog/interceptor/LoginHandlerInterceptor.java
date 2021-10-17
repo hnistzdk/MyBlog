@@ -33,25 +33,33 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         logger.info("UserAgent: {}",request.getHeader(USER_AGENT));
         logger.info("用户访问地址: {}, 来路地址: {}",uri, IpKit.getIpAddressByRequest(request));
 
-        String cookieValue = TaleUtils.getCookieValue(WebConst.USERINFO, request);
-        logger.debug("cookieValue: {}",cookieValue);
-
-        //请求拦截处理
-        Object user = redisUtil.hget(WebConst.USERINFO, TaleUtils.getCookieValue(WebConst.USERINFO, request));
-
-//        if (user==null&&uri.startsWith("/user") && !uri.startsWith("/user/login")) {
-//            request.setAttribute("msg", "请先登录");
-//            request.getRequestDispatcher("/user/toLogin").forward(request, response);
-//            return false;
-//        }
-        if (user==null&&uri.startsWith("/admin") && !uri.startsWith("/admin/login")
-                && !uri.startsWith("/admin/css") && !uri.startsWith("/admin/images")
-                && !uri.startsWith("/admin/js") && !uri.startsWith("/admin/plugins")
-                && !uri.startsWith("/admin/editormd")) {
-            request.setAttribute("msg", "请先登录");
-            request.getRequestDispatcher("/admin/login").forward(request, response);
-            return false;
+        //如果是查看博客详情 直接过
+        if (uri.startsWith("/article/toPost") || uri.startsWith("/user/toIndex")){
+            return true;
         }
+        //请求拦截处理
+        String cookieValue = TaleUtils.getCookieValue(WebConst.USERINFO, request);
+        if (cookieValue!=null){
+            Object user = redisUtil.hget(WebConst.USERINFO, cookieValue);
+            if (user==null&&uri.startsWith("/admin") && !uri.startsWith("/admin/login")
+                    && !uri.startsWith("/admin/css") && !uri.startsWith("/admin/images")
+                    && !uri.startsWith("/admin/js") && !uri.startsWith("/admin/plugins")
+                    && !uri.startsWith("/admin/editormd")) {
+                request.setAttribute("msg", "请先登录");
+                request.getRequestDispatcher("/admin/login").forward(request, response);
+                return false;
+            }
+        }else {
+            if (!uri.startsWith("/admin/login")
+                    && !uri.startsWith("/admin/css") && !uri.startsWith("/admin/images")
+                    && !uri.startsWith("/admin/js") && !uri.startsWith("/admin/plugins")
+                    && !uri.startsWith("/admin/editormd")) {
+                request.setAttribute("msg", "请先登录");
+                request.getRequestDispatcher("/admin/login").forward(request, response);
+                return false;
+            }
+        }
+        logger.debug("cookieValue: {}",cookieValue);
         return true;
     }
 

@@ -146,9 +146,15 @@
 </body>
 </html>
 <script type="text/javascript">
+	$(function () {
+		let url ='?page=1&keywords=';
+		$('#search').attr("href",url);
+	})
 	function searchArticle() {
+		let url ='?page=1&keywords=';
 		let val = $('#searchbox').val();
-		let url = '?page=1&keywords='+val;
+		console.log('val',val)
+		url = url + val;
 		$('#search').attr("href",url);
 	}
 </script>
