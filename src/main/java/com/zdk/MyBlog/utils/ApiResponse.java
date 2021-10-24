@@ -7,9 +7,9 @@ package com.zdk.MyBlog.utils;
 public class ApiResponse<T>{
 
     private static final Integer CODE_SUCCESS = 200;
-
     private static final Integer CODE_FAIL = 201;
     private static final String MSG_SUCCESS = "成功";
+    private static final String MSG_FAIL = "失败";
 
     private Integer code;
     private T data;
@@ -51,6 +51,9 @@ public class ApiResponse<T>{
     public static <T> ApiResponse <T> success(){
         return new ApiResponse<>();
     }
+    public static <T> ApiResponse <T> result(Boolean success){
+        return success ? new ApiResponse<>() : fail(MSG_FAIL);
+    }
     public static <T> ApiResponse <T> success(T data){
         return new ApiResponse<>(CODE_SUCCESS, data,MSG_SUCCESS);
     }
@@ -60,7 +63,9 @@ public class ApiResponse<T>{
     public static <T> ApiResponse <T> success(T data,String msg){
         return new ApiResponse<>(data,msg);
     }
-
+    public static <T> ApiResponse <T> fail(){
+        return new ApiResponse<>(CODE_FAIL,MSG_FAIL);
+    }
     public static <T> ApiResponse <T> fail(String msg){
         return new ApiResponse<>(CODE_FAIL, msg);
     }
