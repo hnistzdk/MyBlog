@@ -11,9 +11,7 @@ import com.zdk.MyBlog.model.pojo.Article;
 import com.zdk.MyBlog.model.pojo.User;
 import com.zdk.MyBlog.service.metas.MetasService;
 import com.zdk.MyBlog.service.relationships.RelationshipsService;
-import com.zdk.MyBlog.utils.IparaValidator;
 import com.zdk.MyBlog.utils.ParaValidatorUtil;
-import com.zdk.MyBlog.utils.paraValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -127,10 +125,5 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public List<Article> getClickMostArticle() {
         return lambdaQuery().orderByDesc(Article::getReadCount).list();
-    }
-
-    @Override
-    public boolean isOk(Integer param) {
-        return false;
     }
 }

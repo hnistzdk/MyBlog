@@ -24,6 +24,8 @@ public class RelationshipsServiceImpl extends ServiceImpl<RelationshipsMapper, R
     private static final Logger LOGGER = LoggerFactory.getLogger(RelationshipsServiceImpl.class);
     @Autowired
     private RelationshipsMapper relationshipsMapper;
+    @Autowired
+    ParaValidatorUtil paraValidatorUtil;
 
     @Override
     public int getCountByCondition(Integer articleId, Integer id) {
@@ -40,7 +42,7 @@ public class RelationshipsServiceImpl extends ServiceImpl<RelationshipsMapper, R
 
     @Override
     public List<Relationships> getByMetaId(Integer metaId) {
-        if (ParaValidatorUtil.isOk(metaId)){
+        if (paraValidatorUtil.isOk(metaId)){
             return lambdaQuery().eq(Relationships::getMetaId,metaId).list();
         }
         return null;
@@ -48,7 +50,7 @@ public class RelationshipsServiceImpl extends ServiceImpl<RelationshipsMapper, R
 
     @Override
     public void deleteByMetaId(Integer metaId) {
-        if (ParaValidatorUtil.isOk(metaId)){
+        if (paraValidatorUtil.isOk(metaId)){
             relationshipsMapper.delete(new QueryWrapper<Relationships>().eq("meta_id", metaId));
         }
     }

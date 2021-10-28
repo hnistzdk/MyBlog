@@ -42,10 +42,6 @@ class MyBlogApplicationTests extends BaseController {
 	}
 
 	@Test
-	void test(){
-		System.out.println("isOk(\"\") = " + isOk(null));
-	}
-	@Test
 	void testCond(){
 		ArticleCond articleCond = new ArticleCond().setTag("Java");
 		List<Article> articleList = articleService.getArticleByCondition(articleCond);

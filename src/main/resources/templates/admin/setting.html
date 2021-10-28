@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='系统设置',active='settings'">
-<header th:replace="admin/header::headerFragment(${title},${active})"></header>
-<link th:href="@{/admin/plugins/toggles/toggles.css}" rel="stylesheet"/>
+<header th:replace="admin/header::headerFragment(${title},${active})"></header
 <body class="fixed-left">
 <div id="wrapper">
     <div th:replace="admin/header::header-body"></div>
@@ -173,7 +172,6 @@
     </div>
 </div>
 <div th:replace="admin/footer :: footer"></div>
-<script src="//cdn.bootcss.com/jquery-toggles/2.0.4/toggles.min.js"></script>
 <script type="text/javascript">
     /*<![CDATA[*/
     var tale = new $.tale();

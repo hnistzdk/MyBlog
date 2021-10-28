@@ -7,6 +7,7 @@ import com.zdk.MyBlog.mapper.auth.PermissionMapper;
 import com.zdk.MyBlog.model.pojo.auth.Permission;
 import com.zdk.MyBlog.service.auth.PermissionService;
 import com.zdk.MyBlog.utils.ParaValidatorUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,10 +22,12 @@ import java.util.List;
  */
 @Service
 public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permission> implements PermissionService {
+    @Autowired
+    ParaValidatorUtil paraValidatorUtil;
     @Override
     public PageInfo<Permission> getPermissionPage(Integer pageNumber, Integer pageSize, String keywords) {
         PageHelper.startPage(pageNumber, pageSize, "id");
-        List<Permission> permissionList = lambdaQuery().like(ParaValidatorUtil.isOk(keywords), Permission::getPermissionKey, keywords).list();
+        List<Permission> permissionList = lambdaQuery().like(paraValidatorUtil.isOk(keywords), Permission::getPermissionKey, keywords).list();
         return new PageInfo<>(permissionList);
     }
 }

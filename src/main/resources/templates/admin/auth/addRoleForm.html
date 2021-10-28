@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='角色管理',active='userManage'">
+<header th:replace="admin/header::headerFragment(${title},${active})"></header>
+<body class="fixed-left">
+<div id="wrapper">
+    <div class="content-page">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--                        添加角色模态框-->
+                        <div class="modal-body">
+                            <form class="form-horizontal m-t-20" method="post" id="addRoleForm" onsubmit="return false">
+                                <input class="input-lg input-border" id="user_Id" name="id" type="hidden" required="" placeholder="id"/>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <label class="col-sm-2 col-form-label">角色名</label>
+                                        <input class="input-lg input-border" id="name" name="name" type="text" required="" placeholder="角色名"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+<!--                        <div class="modal-footer">-->
+<!--                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>-->
+<!--                            <button type="button" onclick="addRole()" class="btn btn-primary">保存</button>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript">
+    var tale = new $.tale();
+    //添加角色
+    function addRole() {
+        $.ajax({
+            url:"/admin/roleManage/add",
+            type:"post",
+            data:$('#addRoleForm').serialize(),
+            success:function (data) {
+                if(data.code===200){
+                    tale.alertOkAndReload(data.msg);
+                }else{
+                    tale.alertError(data.msg)
+                }
+            }
+        })
+    }
+
+</script>
+</html>
+

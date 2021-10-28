@@ -3,6 +3,7 @@ package com.zdk.MyBlog.service.auth;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.model.pojo.auth.Role;
+import com.zdk.MyBlog.utils.ApiResponse;
 
 /**
  * <p>
@@ -27,5 +28,5 @@ public interface RoleService extends IService<Role> {
      * @param name
      * @return
      */
-    Boolean addRole(String name);
+    ApiResponse addRole(String name);
 }

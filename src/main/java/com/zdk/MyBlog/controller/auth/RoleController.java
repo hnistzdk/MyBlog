@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2021-10-28
  */
 @Controller
-@RequestMapping("/admin/roleManage")
+@RequestMapping(value = "/admin/roleManage",method = {RequestMethod.POST,RequestMethod.GET})
 public class RoleController extends BaseController {
 
     @Autowired
@@ -47,7 +47,12 @@ public class RoleController extends BaseController {
     @PostMapping("/add")
     @ResponseBody
     public ApiResponse add(@RequestParam(name = "name") String name){
-        return ApiResponse.result(false);
+        return roleService.addRole(name);
+    }
+
+    @GetMapping("/addRoleForm")
+    public String addRoleForm(@RequestParam(name = "name",required = false) String name){
+        return "admin/auth/addRoleForm";
     }
 }
 

@@ -4,9 +4,11 @@ package com.zdk.MyBlog.service.auth.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zdk.MyBlog.constant.ErrorConstant;
 import com.zdk.MyBlog.mapper.auth.RoleMapper;
 import com.zdk.MyBlog.model.pojo.auth.Role;
 import com.zdk.MyBlog.service.auth.RoleService;
+import com.zdk.MyBlog.utils.ApiResponse;
 import com.zdk.MyBlog.utils.ParaValidatorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +36,14 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper,Role> implements Rol
     }
 
     @Override
-    public Boolean addRole(String name) {
-        return saveOrUpdate(new Role().setName(name), lambdaUpdate().ne(Role::getName, name));
+    public ApiResponse addRole(String name) {
+        if (paraValidatorUtil.notOk(name)){
+            return ApiResponse.fail();
+        }
+        Integer count = lambdaQuery().eq(Role::getName, name).count();
+        if (count == 0) {
+            return ApiResponse.result(save(new Role().setName(name)));
+        }
+        return ApiResponse.fail(ErrorConstant.Common.ADD_FAIL);
     }
 }
