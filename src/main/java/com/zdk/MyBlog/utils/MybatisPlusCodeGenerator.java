@@ -65,7 +65,7 @@
 //        //4.策略配置
 //        StrategyConfig strategyConfig = new StrategyConfig();
 //        //设置要(读取)映射的表
-//        strategyConfig.setInclude("blog_attach","blog_comments","blog_logs","blog_metas","blog_online_user","blog_options","blog_relationships","");
+//        strategyConfig.setInclude("blog_permission","blog_role","blog_role_permission");
 //        //设置要去掉的表的前缀
 //        strategyConfig.setTablePrefix("blog_");
 //        strategyConfig.setNaming(NamingStrategy.underline_to_camel);
@@ -75,14 +75,14 @@
 //        //设置逻辑删除
 //        strategyConfig.setLogicDeleteFieldName("deleted");
 //        //设置自动填充
-//        TableFill tableInsert = new TableFill("create_time", FieldFill.INSERT);
-//        TableFill tableUpdate = new TableFill("update_time", FieldFill.INSERT_UPDATE);
-//        ArrayList<TableFill> tableFills = new ArrayList<>();
-//        tableFills.add(tableInsert);
-//        tableFills.add(tableUpdate);
-//        strategyConfig.setTableFillList(tableFills);
+////        TableFill tableInsert = new TableFill("create_time", FieldFill.INSERT);
+////        TableFill tableUpdate = new TableFill("update_time", FieldFill.INSERT_UPDATE);
+////        ArrayList<TableFill> tableFills = new ArrayList<>();
+////        tableFills.add(tableInsert);
+////        tableFills.add(tableUpdate);
+////        strategyConfig.setTableFillList(tableFills);
 //        //乐观锁
-//        strategyConfig.setVersionFieldName("version");
+////        strategyConfig.setVersionFieldName("version");
 //        //设置controller的驼峰命名格式
 //        strategyConfig.setRestControllerStyle(true);
 //        //请求会变成localhost:8080/hello_id_2

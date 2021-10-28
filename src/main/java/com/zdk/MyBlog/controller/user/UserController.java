@@ -6,7 +6,6 @@ import com.zdk.MyBlog.model.dto.MetaDto;
 import com.zdk.MyBlog.model.pojo.Article;
 import com.zdk.MyBlog.service.article.ArticleService;
 import com.zdk.MyBlog.service.metas.MetasService;
-import com.zdk.MyBlog.service.user.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

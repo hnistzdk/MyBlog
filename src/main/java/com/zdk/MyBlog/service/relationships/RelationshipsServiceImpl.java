@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zdk.MyBlog.mapper.RelationshipsMapper;
 import com.zdk.MyBlog.model.pojo.Relationships;
-import com.zdk.MyBlog.utils.ParaValidator;
+import com.zdk.MyBlog.utils.ParaValidatorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class RelationshipsServiceImpl extends ServiceImpl<RelationshipsMapper, R
 
     @Override
     public List<Relationships> getByMetaId(Integer metaId) {
-        if (ParaValidator.isOk(metaId)){
+        if (ParaValidatorUtil.isOk(metaId)){
             return lambdaQuery().eq(Relationships::getMetaId,metaId).list();
         }
         return null;
@@ -48,7 +48,7 @@ public class RelationshipsServiceImpl extends ServiceImpl<RelationshipsMapper, R
 
     @Override
     public void deleteByMetaId(Integer metaId) {
-        if (ParaValidator.isOk(metaId)){
+        if (ParaValidatorUtil.isOk(metaId)){
             relationshipsMapper.delete(new QueryWrapper<Relationships>().eq("meta_id", metaId));
         }
     }

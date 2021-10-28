@@ -12,7 +12,7 @@ import com.zdk.MyBlog.model.pojo.Metas;
 import com.zdk.MyBlog.model.pojo.Relationships;
 import com.zdk.MyBlog.service.article.ArticleService;
 import com.zdk.MyBlog.service.relationships.RelationshipsService;
-import com.zdk.MyBlog.utils.ParaValidator;
+import com.zdk.MyBlog.utils.ParaValidatorUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,9 +37,12 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
     @Autowired
     private ArticleService articleService;
 
+    @Autowired
+    private ParaValidatorUtil paraValidatorUtil;
+
     @Override
     public void addMetas(Integer articleId, String names, String type) {
-        if (ParaValidator.isOk(articleId)){
+        if (paraValidatorUtil.isOk(articleId)){
             if (StringUtils.isNotBlank(names) && StringUtils.isNotBlank(type)) {
                 String[] nameArr = StringUtils.split(names, ",");
                 for (String name : nameArr) {
@@ -93,12 +96,12 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
 
     @Override
     public void saveMeta(String type, String name, Integer mid) {
-        if (ParaValidator.isOk(type)&&ParaValidator.isOk(name)){
+        if (paraValidatorUtil.isOk(type)&& paraValidatorUtil.isOk(name)){
             List<Metas> metas = getMetas(new MetaCond(null,name, type));
             if (metas==null||metas.size()==0){
                 Metas meta = new Metas();
                 meta.setName(name);
-                if(ParaValidator.isOk(mid)){
+                if(paraValidatorUtil.isOk(mid)){
                     Metas entity = lambdaQuery().eq(Metas::getId, mid).list().get(0);
                     if (entity!=null){
                         entity.setName(name);
@@ -117,7 +120,7 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
 
     @Override
     public void deleteMeta(String type, String name, Integer mid) {
-        if (ParaValidator.notOk(mid)){
+        if (paraValidatorUtil.notOk(mid)){
             throw new MyGlobalException(ErrorConstant.Common.INVALID_PARAM);
         }
         Metas metas = metasMapper.selectById(mid);

@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.spring5.processor.SpringUErrorsTagProcessor;
 
 /**
  * @author zdk
@@ -23,7 +22,6 @@ import org.thymeleaf.spring5.processor.SpringUErrorsTagProcessor;
 @Controller
 @RequestMapping("/admin/userManage")
 public class UserManageController extends BaseController {
-
     @Autowired
     private UserService userService;
 
@@ -44,30 +42,20 @@ public class UserManageController extends BaseController {
     @ResponseBody
     public ApiResponse edit(@PathVariable Integer userId){
         User user = userService.getById(userId);
-        if (user!=null){
-            return ApiResponse.success(user);
-        }
-        return ApiResponse.fail("查无此人");
+        return ApiResponse.result(user==null);
     }
 
     @ApiOperation("更新用户信息")
     @PostMapping("/update")
     @ResponseBody
     public ApiResponse update(UserInfoVo userInfoVo){
-        if (userService.editUserInfo(userInfoVo)){
-            return ApiResponse.success();
-        }
-        return ApiResponse.fail("操作失败");
+        return ApiResponse.result(userService.editUserInfo(userInfoVo));
     }
 
     @ApiOperation("删除用户")
     @PostMapping("/delete")
     @ResponseBody
     public ApiResponse delete(Integer id){
-        boolean remove = userService.removeById(id);
-        if (remove){
-            return ApiResponse.success();
-        }
-        return ApiResponse.success(ErrorConstant.Common.DELETE_FAIL);
+        return ApiResponse.result(userService.removeById(id),ErrorConstant.Common.DELETE_FAIL);
     }
 }

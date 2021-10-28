@@ -1,6 +1,5 @@
 package com.zdk.MyBlog.controller.admin;
 
-import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.controller.BaseController;
 import com.zdk.MyBlog.model.pojo.Options;
 import com.zdk.MyBlog.service.logs.LogsService;
@@ -13,10 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import sun.util.resources.es.CurrencyNames_es_UY;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

@@ -1,5 +1,6 @@
 package com.zdk.MyBlog.config;
 
+import com.zdk.MyBlog.interceptor.AuthInterceptor;
 import com.zdk.MyBlog.interceptor.LoginHandlerInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +36,11 @@ public class WebConfig implements WebMvcConfigurer {
         return new LoginHandlerInterceptor();
     }
 
+    @Bean
+    public AuthInterceptor getAuthInterceptor(){
+        return new AuthInterceptor();
+    }
+
     /**
      * Spring-Security密码加密bean
      * @return
@@ -49,8 +55,16 @@ public class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        //登录拦截器
         registry.addInterceptor(getLoginHandlerInterceptor())
                 .addPathPatterns("/**")
+                .excludePathPatterns("/login.html","/","/user/login","/user/toLogin","/user/toIndex")
+                .excludePathPatterns("/admin/login","/admin")
+                .excludePathPatterns("/**/*.html", "/**/*.js", "/**/*.css", "/**/*.json", "/**/*.icon","/**/*.jpg","/**/*.png");
+
+        //权限拦截器
+        registry.addInterceptor(getAuthInterceptor())
+                .addPathPatterns("/api/*")
                 .excludePathPatterns("/login.html","/","/user/login","/user/toLogin","/user/toIndex")
                 .excludePathPatterns("/admin/login","/admin")
                 .excludePathPatterns("/**/*.html", "/**/*.js", "/**/*.css", "/**/*.json", "/**/*.icon","/**/*.jpg","/**/*.png");
@@ -60,7 +74,5 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/static/");
         registry.addResourceHandler("/editor/**").addResourceLocations("classpath:/editor/");
-//        registry.addResourceHandler("/upload/**").addResourceLocations("classpath:/static/upload/image");
-        registry.addResourceHandler("/static/upload/image/**").addResourceLocations("file:F:\\project\\my\\MyBlog\\src\\main\\resources\\static\\upload\\image\\");
     }
 }

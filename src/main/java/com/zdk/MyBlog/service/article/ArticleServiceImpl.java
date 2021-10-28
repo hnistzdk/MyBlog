@@ -11,7 +11,9 @@ import com.zdk.MyBlog.model.pojo.Article;
 import com.zdk.MyBlog.model.pojo.User;
 import com.zdk.MyBlog.service.metas.MetasService;
 import com.zdk.MyBlog.service.relationships.RelationshipsService;
-import com.zdk.MyBlog.utils.ParaValidator;
+import com.zdk.MyBlog.utils.IparaValidator;
+import com.zdk.MyBlog.utils.ParaValidatorUtil;
+import com.zdk.MyBlog.utils.paraValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +27,7 @@ import java.util.Objects;
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService{
+public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
 
     @Autowired
     private ArticleMapper articleMapper;
@@ -34,6 +36,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Autowired
     private MetasService metasService;
 
+    @Autowired
+    private ParaValidatorUtil paraValidatorUtil;
+
     @Override
     public List<Article> getAllArticle() {
         return articleMapper.selectList(null);
@@ -41,7 +46,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public Article getArticleById(Integer id) {
-        if (ParaValidator.notOk(id)){
+        if (paraValidatorUtil.notOk(id)){
             return null;
         }
         return articleMapper.selectById(id);
@@ -49,7 +54,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public List<Article> getArticleByAuthorId(User loginUser) {
-        if (ParaValidator.notOk(loginUser.getId())){
+        if (paraValidatorUtil.notOk(loginUser.getId())){
             return null;
         }
         return lambdaQuery().eq(!Objects.equals(loginUser.getRole(), RoleConst.ADMIN),Article::getAuthorId, loginUser.getId()).list();
@@ -62,7 +67,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public Boolean deleteArticleById(Integer id) {
-        if (ParaValidator.notOk(id)){
+        if (paraValidatorUtil.notOk(id)){
             return null;
         }
         return removeById(id);
@@ -78,8 +83,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public PageInfo<Article> getArticlePageByKeywords(Integer pageNum, Integer pageSize,String keywords) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Article> articles = lambdaQuery().like(ParaValidator.isOk(keywords),Article::getTitle,keywords).
-                or().like(ParaValidator.isOk(keywords),Article::getContent,keywords)
+        List<Article> articles = lambdaQuery().like(paraValidatorUtil.isOk(keywords),Article::getTitle,keywords).
+                or().like(paraValidatorUtil.isOk(keywords),Article::getContent,keywords)
                 .orderByDesc(Article::getUpdateTime).list();
         return new PageInfo<>(articles);
     }
@@ -95,13 +100,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public List<Article> getArticleByCondition(ArticleCond articleCond) {
-        return lambdaQuery().like(ParaValidator.isOk(articleCond.getTag()),Article::getTags, articleCond.getTag())
-                .like(ParaValidator.isOk(articleCond.getCategory()),Article::getCategories, articleCond.getCategory())
-                .eq(ParaValidator.isOk(articleCond.getStatus()),Article::getStatus, articleCond.getStatus())
-                .eq(ParaValidator.isOk(articleCond.getTitle()),Article::getTitle, articleCond.getTitle())
-                .eq(ParaValidator.isOk(articleCond.getContent()),Article::getContent, articleCond.getContent())
-                .eq(ParaValidator.isOk(articleCond.getType()),Article::getType, articleCond.getType())
-                .between(ParaValidator.isOk(articleCond.getStartTime())&&ParaValidator.isOk(articleCond.getEndTime()),Article::getUpdateTime, articleCond.getStartTime(),articleCond.getEndTime())
+        return lambdaQuery().like(paraValidatorUtil.isOk(articleCond.getTag()),Article::getTags, articleCond.getTag())
+                .like(paraValidatorUtil.isOk(articleCond.getCategory()),Article::getCategories, articleCond.getCategory())
+                .eq(paraValidatorUtil.isOk(articleCond.getStatus()),Article::getStatus, articleCond.getStatus())
+                .eq(paraValidatorUtil.isOk(articleCond.getTitle()),Article::getTitle, articleCond.getTitle())
+                .eq(paraValidatorUtil.isOk(articleCond.getContent()),Article::getContent, articleCond.getContent())
+                .eq(paraValidatorUtil.isOk(articleCond.getType()),Article::getType, articleCond.getType())
+                .between(paraValidatorUtil.isOk(articleCond.getStartTime())&& paraValidatorUtil.isOk(articleCond.getEndTime()),Article::getUpdateTime, articleCond.getStartTime(),articleCond.getEndTime())
                 .list();
     }
 
@@ -122,5 +127,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public List<Article> getClickMostArticle() {
         return lambdaQuery().orderByDesc(Article::getReadCount).list();
+    }
+
+    @Override
+    public boolean isOk(Integer param) {
+        return false;
     }
 }

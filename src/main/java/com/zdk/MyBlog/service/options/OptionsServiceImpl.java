@@ -5,16 +5,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.mapper.OptionsMapper;
 import com.zdk.MyBlog.model.pojo.Options;
-import com.zdk.MyBlog.model.pojo.User;
 import com.zdk.MyBlog.utils.ApiResponse;
-import com.zdk.MyBlog.utils.ParaValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Map;
 
 /**

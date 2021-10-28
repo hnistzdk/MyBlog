@@ -77,6 +77,16 @@
                        th:class="${active}=='userManage'?'waves-effect active':'waves-effect'"><i
                             class="fa fa-user" aria-hidden="true"></i><span> 用户管理 </span></a>
                 </li>
+                <li th:if="${@commons.getLoginUser().role=='管理员'}" th:class="${active}=='home'?'active':''">
+                    <a th:href="@{/admin/roleManage}"
+                       th:class="${active}=='roleManage'?'waves-effect active':'waves-effect'"><i
+                            class="fa fa-user" aria-hidden="true"></i><span> 角色管理 </span></a>
+                </li>
+                <li th:if="${@commons.getLoginUser().role=='管理员'}" th:class="${active}=='home'?'active':''">
+                    <a th:href="@{/admin/permissionManage}"
+                       th:class="${active}=='permissionManage'?'waves-effect active':'waves-effect'"><i
+                            class="fa fa-user" aria-hidden="true"></i><span> 权限管理 </span></a>
+                </li>
                 <li th:class="${active}=='publish'?'active':''">
                     <a th:href="@{/admin/article/publish}"
                        th:class="${active}=='publish'?'waves-effect active':'waves-effect'"><i
