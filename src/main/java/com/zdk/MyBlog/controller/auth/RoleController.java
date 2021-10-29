@@ -8,6 +8,7 @@ import com.zdk.MyBlog.model.pojo.auth.Role;
 import com.zdk.MyBlog.service.auth.PermissionService;
 import com.zdk.MyBlog.service.auth.RoleService;
 import com.zdk.MyBlog.utils.ApiResponse;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
  * @author zdk
  * @since 2021-10-28
  */
+@Api("角色管理")
 @Controller
 @RequestMapping(value = "/admin/roleManage",method = {RequestMethod.POST,RequestMethod.GET})
 public class RoleController extends BaseController {
@@ -31,7 +33,7 @@ public class RoleController extends BaseController {
     @Autowired
     private PermissionService permissionService;
 
-    @ApiOperation("用户管理页")
+    @ApiOperation("角色管理页")
     @GetMapping("")
     public String index(Model model,
                         @RequestParam(name = "page",required = false, defaultValue = "1") Integer pageNumber,
@@ -50,6 +52,7 @@ public class RoleController extends BaseController {
         return roleService.addRole(name);
     }
 
+    @ApiOperation("新增角色的弹出框")
     @GetMapping("/addRoleForm")
     public String addRoleForm(@RequestParam(name = "name",required = false) String name){
         return "admin/auth/addRoleForm";
