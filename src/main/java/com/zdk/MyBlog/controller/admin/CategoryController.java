@@ -26,14 +26,14 @@ import java.util.List;
  */
 @Api("分类和标签")
 @Controller
-@RequestMapping("/admin/category",method = {RequestMethod.POST,RequestMethod.GET})
+@RequestMapping(value = "/admin/category",method = {RequestMethod.POST,RequestMethod.GET})
 public class CategoryController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
     @Autowired
     private MetasService metasService;
 
     @ApiOperation("进入标签分类页")
-    @GetMapping("")
+    @GetMapping(value = "")
     public String index(Model model){
         List<MetaDto> categories = metasService.getMetaList(Types.CATEGORY.getType());
         List<MetaDto> tags = metasService.getMetaList(Types.TAG.getType());
@@ -44,7 +44,7 @@ public class CategoryController extends BaseController {
 
 
     @ApiOperation("保存分类")
-    @PostMapping("/save")
+    @PostMapping(value = "/save")
     @ResponseBody
     public ApiResponse save(
             @ApiParam(name = "cname", value = "分类名", required = true)
@@ -68,7 +68,7 @@ public class CategoryController extends BaseController {
     }
 
     @ApiOperation("删除分类")
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete")
     @ResponseBody
     public ApiResponse delete(
             @ApiParam(name = "mid", value = "meta编号", required = false)

@@ -21,13 +21,13 @@ import org.springframework.web.bind.annotation.*;
  */
 @Api("用户管理")
 @Controller
-@RequestMapping("/admin/userManage",method = {RequestMethod.POST,RequestMethod.GET})
+@RequestMapping(value = "/admin/userManage",method = {RequestMethod.POST,RequestMethod.GET})
 public class UserManageController extends BaseController {
     @Autowired
     private UserService userService;
 
     @ApiOperation("用户管理页")
-    @GetMapping("")
+    @GetMapping(value = "")
     public String index(Model model,
                         @RequestParam(name = "page",required = false, defaultValue = "1") Integer pageNumber,
                         @RequestParam(name = "limit",required = false, defaultValue = "5")Integer pageSize,
@@ -39,7 +39,7 @@ public class UserManageController extends BaseController {
 
 
     @ApiOperation("返回用户信息")
-    @GetMapping("/edit/{userId}")
+    @GetMapping(value = "/edit/{userId}")
     @ResponseBody
     public ApiResponse edit(@PathVariable Integer userId){
         User user = userService.getById(userId);
@@ -47,14 +47,14 @@ public class UserManageController extends BaseController {
     }
 
     @ApiOperation("更新用户信息")
-    @PostMapping("/update")
+    @PostMapping(value = "/update")
     @ResponseBody
     public ApiResponse update(UserInfoVo userInfoVo){
         return ApiResponse.result(userService.editUserInfo(userInfoVo),SuccessConstant.Common.SUCCESS,ErrorConstant.Common.UPDATE_FAIL);
     }
 
     @ApiOperation("删除用户")
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete")
     @ResponseBody
     public ApiResponse delete(Integer id){
         return ApiResponse.result(userService.removeById(id), SuccessConstant.Common.SUCCESS,ErrorConstant.Common.DELETE_FAIL);

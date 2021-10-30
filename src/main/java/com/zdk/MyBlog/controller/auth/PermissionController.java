@@ -12,10 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -27,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api("权限管理")
 @Controller
-@RequestMapping("/admin/permissionManage",method = {RequestMethod.POST,RequestMethod.GET})
+@RequestMapping(value = "/admin/permissionManage",method = {RequestMethod.POST,RequestMethod.GET})
 public class PermissionController extends BaseController {
 
     @Autowired
@@ -36,7 +33,7 @@ public class PermissionController extends BaseController {
     private PermissionService permissionService;
 
     @ApiOperation("权限管理页")
-    @GetMapping("")
+    @GetMapping(value = "")
     public String index(Model model,
                         @RequestParam(name = "page",required = false, defaultValue = "1") Integer pageNumber,
                         @RequestParam(name = "limit",required = false, defaultValue = "10")Integer pageSize,

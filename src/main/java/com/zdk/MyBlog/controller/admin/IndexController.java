@@ -34,7 +34,7 @@ import java.util.List;
  */
 @Api("管理端首页")
 @Controller
-@RequestMapping("/admin",method = {RequestMethod.POST,RequestMethod.GET})
+@RequestMapping(value = "/admin")
 public class IndexController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
 
@@ -55,13 +55,13 @@ public class IndexController extends BaseController {
 
 
     @ApiOperation("进入管理端登录页面")
-    @GetMapping("/login")
+    @GetMapping(value = "/login")
     public String login(){
         return "admin/login";
     }
 
     @ApiOperation("进入首页")
-    @GetMapping("/index")
+    @GetMapping(value = "/index")
     public String index(Model model){
 
         //articles
@@ -85,7 +85,7 @@ public class IndexController extends BaseController {
      * 个人设置页面
      */
     @ApiOperation("进入个人设置")
-    @GetMapping(value = "/profile")
+    @GetMapping("/profile")
     public String profile(Model model) {
         User user = userService.getById(getLoginUser().getId());
         model.addAttribute("user", user);
@@ -96,7 +96,7 @@ public class IndexController extends BaseController {
      * 保存个人信息
      */
     @ApiOperation("保存个人信息")
-    @PostMapping(value = "/profile")
+    @PostMapping("/profile")
     @ResponseBody
     public ApiResponse saveProfile(@RequestParam String nickName, @RequestParam String email) {
         User user = getLoginUser();
@@ -137,7 +137,7 @@ public class IndexController extends BaseController {
     }
 
     @ApiOperation("注销登录")
-    @GetMapping ("/logout")
+    @GetMapping (value = "/logout")
     public String logout() {
         redisUtil.hdel(WebConst.USERINFO, TaleUtils.getCookieValue(WebConst.USERINFO, request));
         Logs logs = new Logs().setAction(LogActions.LOGOUT.getAction()).setAuthorId(getLoginUser().getId())

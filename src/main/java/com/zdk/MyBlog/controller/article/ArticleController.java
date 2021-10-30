@@ -108,7 +108,7 @@ public class ArticleController extends BaseController {
     }
 
     @ApiOperation("修改文章")
-    @PostMapping("/modify")
+    @PostMapping(value = "/modify")
     @ResponseBody
     public ApiResponse modifyArticle(Article article){
         //去除文章储存时的多余逗号
@@ -119,7 +119,7 @@ public class ArticleController extends BaseController {
     }
 
     @ApiOperation("删除文章")
-    @GetMapping("/delete")
+    @GetMapping(value = "/delete")
     @ResponseBody
     public ApiResponse deleteArticle(Integer id){
         Boolean result = articleService.deleteArticleById(id);

@@ -12,10 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +24,7 @@ import java.util.Map;
  */
 @Api("系统设置")
 @Controller
-@RequestMapping("/admin/setting",method = {RequestMethod.POST,RequestMethod.GET})
+@RequestMapping(value = "/admin/setting",method = {RequestMethod.POST,RequestMethod.GET})
 public class SettingController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SettingController.class);
     @Autowired
@@ -37,7 +34,7 @@ public class SettingController extends BaseController {
     private LogsService logsService;
 
     @ApiOperation("设置页")
-    @GetMapping("")
+    @GetMapping(value = "")
     public String index(Model model){
         List<Options> list = optionsService.list();
         HashMap<String, String> options = new HashMap<>(16);
@@ -47,7 +44,7 @@ public class SettingController extends BaseController {
     }
 
     @ApiOperation("保存全局设置和个性化设置")
-    @PostMapping("/globalAndIndividual")
+    @PostMapping(value = "/globalAndIndividual")
     @ResponseBody
     public ApiResponse saveGlobal(){
         Map<String, String[]> parameterMap = request.getParameterMap();

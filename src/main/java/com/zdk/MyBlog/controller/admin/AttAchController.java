@@ -34,7 +34,7 @@ import java.util.List;
  */
 @Api("附件")
 @Controller
-@RequestMapping("/admin/attach",method = {RequestMethod.POST,RequestMethod.GET})
+@RequestMapping(value = "/admin/attach",method = {RequestMethod.POST,RequestMethod.GET})
 public class AttAchController extends BaseController {
     public static final String CLASSPATH = TaleUtils.getUplodFilePath();
     private static final Logger LOGGER = LoggerFactory.getLogger(AttAchController.class);
@@ -45,7 +45,7 @@ public class AttAchController extends BaseController {
     private UpYunUtil upYunUtil;
 
     @ApiOperation("附件管理首页")
-    @GetMapping("")
+    @GetMapping(value = "")
     public String index(Model model,
                         @RequestParam(name = "page",required = false, defaultValue = "1") Integer pageNum,
                         @RequestParam(name = "limit",required = false, defaultValue = "5")Integer pageSize){
@@ -57,7 +57,7 @@ public class AttAchController extends BaseController {
     }
 
     @ApiOperation("多文件上传")
-    @PostMapping("/upload")
+    @PostMapping(value = "/upload")
     @ResponseBody
     public ApiResponse upload(@RequestParam(name = "file")MultipartFile[] files) throws IOException, NoSuchAlgorithmException, SignatureException, InvalidKeyException {
         List<byte[]> uploadFiles = new ArrayList<>();
@@ -81,7 +81,7 @@ public class AttAchController extends BaseController {
     }
 
     @ApiOperation("删除附件")
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete")
     @ResponseBody
     public ApiResponse delete(Integer id) throws UpException, IOException {
         Boolean result = attachService.deleteAttachById(id);

@@ -46,7 +46,7 @@ public class AdminArticleController extends BaseController {
     }
 
     @ApiOperation("跳转到文章列表页面")
-    @GetMapping("")
+    @GetMapping(value = "")
     public String article(Model model,
                           @RequestParam(name = "page",required = false, defaultValue = "1") Integer pageNum,
                           @RequestParam(name = "limit",required = false, defaultValue = "5")Integer pageSize){

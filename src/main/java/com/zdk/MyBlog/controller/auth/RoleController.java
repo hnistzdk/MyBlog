@@ -34,7 +34,7 @@ public class RoleController extends BaseController {
     private PermissionService permissionService;
 
     @ApiOperation("角色管理页")
-    @GetMapping("")
+    @GetMapping(value = "")
     public String index(Model model,
                         @RequestParam(name = "page",required = false, defaultValue = "1") Integer pageNumber,
                         @RequestParam(name = "limit",required = false, defaultValue = "10")Integer pageSize,
@@ -46,14 +46,14 @@ public class RoleController extends BaseController {
     }
 
     @ApiOperation("新增角色")
-    @PostMapping("/add")
+    @PostMapping(value = "/add")
     @ResponseBody
     public ApiResponse add(@RequestParam(name = "name") String name){
         return roleService.addRole(name);
     }
 
     @ApiOperation("新增角色的弹出框")
-    @GetMapping("/addRoleForm")
+    @GetMapping(value = "/addRoleForm")
     public String addRoleForm(@RequestParam(name = "name",required = false) String name){
         return "admin/auth/addRoleForm";
     }

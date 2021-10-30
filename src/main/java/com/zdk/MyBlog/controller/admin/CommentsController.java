@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -20,13 +21,13 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Api("评论")
 @Controller
-@RequestMapping("/admin/comments",method = {RequestMethod.POST,RequestMethod.GET})
+@RequestMapping(value = "/admin/comments",method = {RequestMethod.POST,RequestMethod.GET})
 public class CommentsController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommentsController.class);
     @Autowired
     private CommentsService commentsService;
 
-    @GetMapping("")
+    @GetMapping(value = "")
     public String index(Model model,
                         @RequestParam(name = "page",required = false, defaultValue = "1") Integer pageNum,
                         @RequestParam(name = "limit",required = false, defaultValue = "5")Integer pageSize){

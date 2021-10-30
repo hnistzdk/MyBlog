@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author zdk
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Api("友情链接")
 @Controller
-@RequestMapping("/admin/links",method = {RequestMethod.POST,RequestMethod.GET})
+@RequestMapping(value = "/admin/links",method = {RequestMethod.POST,RequestMethod.GET})
 public class LinksController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(LinksController.class);
     @Autowired

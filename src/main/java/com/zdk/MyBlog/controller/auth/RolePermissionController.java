@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-10-28
  */
 @RestController
-@RequestMapping("/genCode/role-permission",method = {RequestMethod.POST,RequestMethod.GET})
+@RequestMapping(value = "/genCode/role-permission",method = {RequestMethod.POST,RequestMethod.GET})
 public class RolePermissionController {
 
 }
