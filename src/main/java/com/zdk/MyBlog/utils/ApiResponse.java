@@ -3,6 +3,7 @@ package com.zdk.MyBlog.utils;
 /**
  * @author zdk
  * @date 2021/7/20 18:40
+ * 统一响应结果类
  */
 public class ApiResponse<T>{
 
@@ -80,23 +81,26 @@ public class ApiResponse<T>{
         return msg;
     }
 
-    public void setMsg(String msg) {
+    public ApiResponse setMsg(String msg) {
         this.msg = msg;
+        return this;
     }
 
     public Integer getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public ApiResponse setCode(Integer code) {
         this.code = code;
+        return this;
     }
 
     public T getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public ApiResponse<T> setData(T data) {
         this.data = data;
+        return this;
     }
 }

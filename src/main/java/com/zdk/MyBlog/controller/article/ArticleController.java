@@ -3,6 +3,7 @@ package com.zdk.MyBlog.controller.article;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.upyun.Result;
+import com.zdk.MyBlog.constant.ErrorConstant;
 import com.zdk.MyBlog.constant.Types;
 import com.zdk.MyBlog.controller.BaseController;
 import com.zdk.MyBlog.model.dto.MetaDto;
@@ -114,10 +115,7 @@ public class ArticleController extends BaseController {
         article.setContent(article.getContent().replaceAll("^,", ""));
         article.setCategories(article.getCategories().replaceAll("^,", ""));
         boolean update = articleService.modifyArticle(article);
-        if(update){
-            return ApiResponse.success("保存成功");
-        }
-        return ApiResponse.fail("保存失败");
+        return ApiResponse.result(update, ErrorConstant.Article.UPDATE_ARTICLE_FAIL);
     }
 
     @ApiOperation("删除文章")
@@ -125,10 +123,7 @@ public class ArticleController extends BaseController {
     @ResponseBody
     public ApiResponse deleteArticle(Integer id){
         Boolean result = articleService.deleteArticleById(id);
-        if(result){
-            return ApiResponse.success("删除成功");
-        }
-        return ApiResponse.fail("删除失败");
+        return ApiResponse.result(result,ErrorConstant.Common.DELETE_FAIL);
     }
 
     @ApiOperation("图片上传")
