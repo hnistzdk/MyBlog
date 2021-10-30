@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Api("评论")
 @Controller
-@RequestMapping("/admin/comments")
+@RequestMapping("/admin/comments",method = {RequestMethod.POST,RequestMethod.GET})
 public class CommentsController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommentsController.class);
     @Autowired

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Api("在线用户")
 @Controller
-@RequestMapping("/admin/onlineUser")
+@RequestMapping("/admin/onlineUser",method = {RequestMethod.POST,RequestMethod.GET})
 public class OnlineUserController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(OnlineUserController.class);
     @Autowired

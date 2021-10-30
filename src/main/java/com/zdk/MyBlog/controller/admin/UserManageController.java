@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Api("用户管理")
 @Controller
-@RequestMapping("/admin/userManage")
+@RequestMapping("/admin/userManage",method = {RequestMethod.POST,RequestMethod.GET})
 public class UserManageController extends BaseController {
     @Autowired
     private UserService userService;

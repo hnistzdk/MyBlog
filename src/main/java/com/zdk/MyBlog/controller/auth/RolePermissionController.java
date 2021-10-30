@@ -2,6 +2,7 @@ package com.zdk.MyBlog.controller.auth;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-10-28
  */
 @RestController
-@RequestMapping("/genCode/role-permission")
+@RequestMapping("/genCode/role-permission",method = {RequestMethod.POST,RequestMethod.GET})
 public class RolePermissionController {
 
 }

@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Api("分类和标签")
 @Controller
-@RequestMapping("/admin/category")
+@RequestMapping("/admin/category",method = {RequestMethod.POST,RequestMethod.GET})
 public class CategoryController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
     @Autowired

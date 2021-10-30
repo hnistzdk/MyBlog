@@ -34,7 +34,7 @@ import java.util.List;
  */
 @Api("管理端首页")
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin",method = {RequestMethod.POST,RequestMethod.GET})
 public class IndexController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
 

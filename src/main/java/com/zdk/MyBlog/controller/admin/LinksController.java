@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Api("友情链接")
 @Controller
-@RequestMapping("/admin/links")
+@RequestMapping("/admin/links",method = {RequestMethod.POST,RequestMethod.GET})
 public class LinksController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(LinksController.class);
     @Autowired
