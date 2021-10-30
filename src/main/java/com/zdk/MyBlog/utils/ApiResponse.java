@@ -58,6 +58,10 @@ public class ApiResponse<T>{
     public static <T> ApiResponse <T> result(Boolean success,String failMsg){
         return success ? new ApiResponse<>() : fail(failMsg);
     }
+    public static <T> ApiResponse <T> result(Boolean success,String successMsg,String failMsg){
+        return success ? success(successMsg) : fail(failMsg);
+    }
+
     public static <T> ApiResponse <T> success(T data){
         return new ApiResponse<>(CODE_SUCCESS, data,MSG_SUCCESS);
     }

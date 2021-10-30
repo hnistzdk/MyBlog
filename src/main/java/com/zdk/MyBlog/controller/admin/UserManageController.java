@@ -2,6 +2,7 @@ package com.zdk.MyBlog.controller.admin;
 
 import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.constant.ErrorConstant;
+import com.zdk.MyBlog.constant.SuccessConstant;
 import com.zdk.MyBlog.controller.BaseController;
 import com.zdk.MyBlog.model.pojo.User;
 import com.zdk.MyBlog.model.vo.UserInfoVo;
@@ -49,13 +50,13 @@ public class UserManageController extends BaseController {
     @PostMapping("/update")
     @ResponseBody
     public ApiResponse update(UserInfoVo userInfoVo){
-        return ApiResponse.result(userService.editUserInfo(userInfoVo));
+        return ApiResponse.result(userService.editUserInfo(userInfoVo),SuccessConstant.Common.SUCCESS,ErrorConstant.Common.UPDATE_FAIL);
     }
 
     @ApiOperation("删除用户")
     @PostMapping("/delete")
     @ResponseBody
     public ApiResponse delete(Integer id){
-        return ApiResponse.result(userService.removeById(id),ErrorConstant.Common.DELETE_FAIL);
+        return ApiResponse.result(userService.removeById(id), SuccessConstant.Common.SUCCESS,ErrorConstant.Common.DELETE_FAIL);
     }
 }

@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.upyun.Result;
 import com.upyun.UpException;
 import com.zdk.MyBlog.constant.ErrorConstant;
+import com.zdk.MyBlog.constant.SuccessConstant;
 import com.zdk.MyBlog.controller.BaseController;
 import com.zdk.MyBlog.model.dto.UpYunDto;
 import com.zdk.MyBlog.model.pojo.Attach;
@@ -76,7 +77,7 @@ public class AttAchController extends BaseController {
                     .setAuthorId(getLoginUser().getId());
             attaches.add(attach);
         }
-        return ApiResponse.result(attachService.batchSave(attaches),ErrorConstant.Att.UPLOAD_FILE_FAIL);
+        return ApiResponse.result(attachService.batchSave(attaches), SuccessConstant.Att.UPLOAD_FILE_SUCCESS,ErrorConstant.Att.UPLOAD_FILE_FAIL);
     }
 
     @ApiOperation("删除附件")
@@ -84,7 +85,7 @@ public class AttAchController extends BaseController {
     @ResponseBody
     public ApiResponse delete(Integer id) throws UpException, IOException {
         Boolean result = attachService.deleteAttachById(id);
-        return ApiResponse.result(result,ErrorConstant.Common.DELETE_FAIL);
+        return ApiResponse.result(result,SuccessConstant.Att.DELETE_ATT_SUCCESS,ErrorConstant.Common.DELETE_FAIL);
     }
 
 
