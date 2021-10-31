@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='角色管理',active='userManage'">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='角色管理',active='roleManage'">
 <header th:replace="admin/header::headerFragment(${title},${active})"></header>
 <body class="fixed-left">
 <div id="wrapper">
@@ -35,24 +35,31 @@
                                         <th:block th:text="${role.name}"/>
                                     </td>
                                     <td>
-                                        <a  tooltip  title="添加子角色" th:href="@{'/admin/roleManage/addItem/'+${role.id}}" th:onclick="'addItemDialog('+${role.id}+');'"
-                                            th:data-title="'添加【'+${role.name}+'】的子角色'" data-area="600,300" class="jbolt_table_editbtn">
+                                        <a tooltip title="添加子角色" th:onclick="'addChildDialog('+${role.id}+');'"
+                                           th:data-title="'添加【'+${role.name}+'】的子角色'" data-area="600,300"
+                                           class="jbolt_table_editbtn">
                                             <i class="fa fa-plus c-info"></i></a>
-                                        <a  tooltip  title="编辑"  href="admin/role/edit/${id}" data-scroll="yes" data-handler="refreshJBoltTable"
-                                            data-title="编辑" data-area="400,260" class="jbolt_table_editbtn"><i class="fa fa-pencil c-primary"></i>
+                                        <a tooltip title="编辑" th:onclick="'editRoleDialog('+${role.id}+');'" data-scroll="yes"
+                                           data-handler="refreshJBoltTable" th:data-title="'编辑【'+${role.name}+'】'"
+                                           data-title="编辑" class="jbolt_table_editbtn"><i
+                                                class="fa fa-pencil c-primary"></i>
                                         </a>
-                                        <a  tooltip  title="删除"  href="admin/role/delete/${id}" data-handler="refreshJBoltTable" class="jbolt_table_delbtn">
+                                        <a tooltip title="删除" th:onclick="'deleteRole('+${role.id}+');'"
+                                           data-handler="refreshJBoltTable" class="jbolt_table_delbtn">
                                             <i class="fa fa-remove c-danger"></i>
                                         </a>
-                                        <a  tooltip  href="admin/rolepermission/settingTree/${id}" data-dialogbtn data-scroll="yes"  data-title="为角色【${name}】设置权限"
-                                            data-area="700,90%"  class="jbolt_table_btn"><i class="fa fa-cogs c-info"></i>
+                                        <a tooltip href="admin/rolepermission/settingTree/${id}" data-dialogbtn
+                                           data-scroll="yes" data-title="为角色【${name}】设置权限"
+                                           data-area="700,90%" class="jbolt_table_btn"><i class="fa fa-cogs c-info"></i>
                                         </a>
-                                        <a  tooltip  href="admin/role/users/${id}" data-dialogbtn data-btn="close" data-scroll="yes"  data-title="角色【${name}】-用户列表"
-                                            data-area="980,80%" class="jbolt_table_btn"><i class="fa fa-users c-danger"></i>
+                                        <a tooltip href="admin/role/users/${id}" data-dialogbtn data-btn="close"
+                                           data-scroll="yes" data-title="角色【${name}】-用户列表"
+                                           data-area="980,80%" class="jbolt_table_btn"><i
+                                                class="fa fa-users c-danger"></i>
                                         </a>
-<!--                                        <a id="modalLayer" th:onclick="'editUser('+${user.id}+');'"-->
+                                        <!--                                        <a id="modalLayer" th:onclick="'editUser('+${user.id}+');'"-->
                                         <button id="modalLayer" th:onclick="'editUser('+${user.id}+');'"
-                                           class="btn btn-primary btn-sm waves-effect waves-light m-b-5"><i
+                                                class="btn btn-primary btn-sm waves-effect waves-light m-b-5"><i
                                                 class="fa fa-edit"></i> <span>编辑</span></button>
                                         <a href="javascript:void(0)" th:onclick="'deleteUser('+${user.id}+');'"
                                            class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
@@ -63,22 +70,28 @@
 
                             </tbody>
                         </table>
-<!--                        添加角色模态框-->
-                        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+                        <!--                        添加角色模态框-->
+                        <div class="modal fade" id="addModal" tabindex="-1" role="dialog"
+                             aria-labelledby="addModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                            &times;
+                                        </button>
                                         <h4 class="modal-title text-center" id="addModalLabel">新增角色</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <form class="form-horizontal m-t-20" method="post" id="addRoleForm" onsubmit="return false">
-                                            <input class="input-lg input-border" id="user_Id" name="id" type="hidden" required=""
+                                        <form class="form-horizontal m-t-20" method="post" id="addRoleForm"
+                                              onsubmit="return false">
+                                            <input class="input-lg input-border" id="user_Id" name="id" type="hidden"
+                                                   required=""
                                                    placeholder="id"/>
                                             <div class="form-group">
                                                 <div class="col-xs-12">
                                                     <label class="col-sm-2 col-form-label">角色名</label>
-                                                    <input class="input-lg input-border" id="name" name="name" type="text" required=""
+                                                    <input class="input-lg input-border" id="name" name="name"
+                                                           type="text" required=""
                                                            placeholder="角色名"/>
                                                 </div>
                                             </div>
@@ -92,21 +105,26 @@
                             </div><!-- /.modal -->
                         </div>
                         <!--添加子角色模态框-->
-                        <div class="modal fade" id="addChildModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="addChildModal" tabindex="-1" role="dialog"
+                             aria-labelledby="addModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                            &times;
+                                        </button>
                                         <h4 class="modal-title text-center" id="addChildModalLabel">新增角色</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <form class="form-horizontal m-t-20" method="post" id="addChildRoleForm" onsubmit="return false">
+                                        <form class="form-horizontal m-t-20" method="post" id="addChildRoleForm"
+                                              onsubmit="return false">
                                             <input class="input-lg input-border" name="id" type="hidden" required=""
                                                    placeholder="id"/>
                                             <div class="form-group">
                                                 <div class="col-xs-12">
                                                     <label class="col-sm-2 col-form-label">角色名</label>
-                                                    <input class="input-lg input-border" id="roleName" name="name" type="text" required=""
+                                                    <input class="input-lg input-border" id="roleName" name="name"
+                                                           type="text" required=""
                                                            placeholder="角色名"/>
                                                 </div>
                                             </div>
@@ -119,62 +137,6 @@
                                 </div><!-- /.modal-content -->
                             </div><!-- /.modal -->
                         </div>
-
-<!--                        <div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="modifyModalLabel" aria-hidden="true">-->
-<!--                            <div class="modal-dialog">-->
-<!--                                <div class="modal-content">-->
-<!--                                    <div class="modal-header">-->
-<!--                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
-<!--                                        <h4 class="modal-title text-center" id="modifyModalLabel">编辑用户信息</h4>-->
-<!--                                    </div>-->
-<!--                                    <div class="modal-body">-->
-<!--                                        <form class="form-horizontal m-t-20" method="post" id="editForm" onsubmit="return false">-->
-<!--                                            <input class="input-lg input-border" id="userId" name="id" type="hidden" required=""-->
-<!--                                                   placeholder="id"/>-->
-<!--                                            <div class="form-group">-->
-<!--                                                <div class="col-xs-12">-->
-<!--                                                    <label class="col-sm-2 col-form-label">昵称</label>-->
-<!--                                                    <input class="input-lg input-border" id="nickname" name="nickname" type="text" required=""-->
-<!--                                                           placeholder="昵称"/>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="form-group">-->
-<!--                                                <div class="col-xs-12">-->
-<!--                                                    <label class="col-sm-2 col-form-label">性别</label>-->
-<!--                                                    <input class="input-lg input-border" id="gender" name="gender" required=""-->
-<!--                                                           placeholder="性别"/>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="form-group">-->
-<!--                                                <div class="col-xs-12">-->
-<!--                                                    <label class="col-sm-2 col-form-label">真实姓名</label>-->
-<!--                                                    <input class="input-lg input-border" id="trueName" name="trueName" type="text" required=""-->
-<!--                                                           placeholder="真实姓名"/>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="form-group">-->
-<!--                                                <div class="col-xs-12">-->
-<!--                                                    <label class="col-sm-2 col-form-label">邮箱</label>-->
-<!--                                                    <input class="input-lg input-border" id="email" name="email" type="text" required=""-->
-<!--                                                           placeholder="邮箱"/>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="form-group">-->
-<!--                                                <div class="col-xs-12">-->
-<!--                                                    <label class="col-sm-2 col-form-label">角色</label>-->
-<!--                                                    <input readonly class="input-lg input-border" id="role" name="role" type="text" required=""-->
-<!--                                                           placeholder="角色"/>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </form>-->
-<!--                                    </div>-->
-<!--                                    <div class="modal-footer">-->
-<!--                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>-->
-<!--                                        <button type="button" onclick="userInfoSubmit()" class="btn btn-primary">保存</button>-->
-<!--                                    </div>-->
-<!--                                </div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
-<!--                            </div>&lt;!&ndash; /.modal &ndash;&gt;-->
-<!--                        </div>-->
                         <div th:replace="comm/macros :: pageAdminNav(${rolePage})"></div>
                     </div>
                 </div>
@@ -183,42 +145,15 @@
         </div>
     </div>
 </div>
-
-
-<div th:replace="admin/footer :: footer"></div>
 <script type="text/javascript">
-    var tale = new $.tale();
-    function editUser(id) {
-        $("#modifyModal").modal({
-            backdrop: false, // 相当于data-backdrop
-            keyboard: false, // 相当于data-keyboard
-            show: true, // 相当于data-show
-            remote: "" // 相当于a标签作为触发器的href
-        });
-        $.ajax({
-            url:'/admin/userManage/edit/'+id,
-            type:"get",
-            success:function (res) {
-                if (res.code===200){
-                    $('#userId').val(res.data.id);
-                    $('#nickname').val(res.data.nickname);
-                    $('#gender').val(res.data.gender);
-                    $('#trueName').val(res.data.trueName);
-                    $('#email').val(res.data.email);
-                    $('#role').val(res.data.role);
-                }else{
-                    tale.alertError("获取用户信息失败")
-                }
-            }
-        })
-    }
-    function deleteUser(id) {
+    let tale = new $.tale();
+    function deleteRole(id) {
         tale.alertConfirm({
             title: '确定删除该用户吗?',
             then: function () {
                 $.ajax({
-                    url: '/admin/userManage/delete',
-                    type:"post",
+                    url: '/admin/roleManage/delete',
+                    type: "post",
                     data: {id: id},
                     success: function (result) {
                         if (result && result.code === 200) {
@@ -232,77 +167,34 @@
         });
     }
 
-
-    function userInfoSubmit() {
-        $.ajax({
-            url:"/admin/userManage/update",
-            type:"post",
-            data:$('#editForm').serialize(),
-            success:function (data) {
-                if(data.code===200){
-                    tale.alertOkAndReload(data.msg);
-                }else{
-                    tale.alertError(data.msg)
-                }
-            }
-        })
-    }
-
     //添加角色弹出框
     function addRoleDialog() {
-        layer.open({
-            type:2,
-            tile:'角色添加',
-            maxmin:true,
-            area:['800px','500px'],
-            content:'/admin/roleManage/addRoleForm',
-            btn: ['yes', 'no'],
-            yes:function (index, layero) {
-                alert("确定")
-            }
+        DialogUtil.openNewDialog({
+            title: "添加角色",
+            width: "1200",
+            height: "800",
+            url: "/admin/roleManage/addRoleForm",
         })
     }
 
-    //添加角色
-    function addRole() {
-        $.ajax({
-            url:"/admin/roleManage/add",
-            type:"post",
-            data:$('#addRoleForm').serialize(),
-            success:function (data) {
-                if(data.code===200){
-                    tale.alertOkAndReload(data.msg);
-                }else{
-                    tale.alertError(data.msg)
-                }
-            }
-        })
-    }
     //添加子角色弹框
-    function addItemDialog() {
-        $("#addChildModal").modal({
-            backdrop: false, // 相当于data-backdrop
-            keyboard: false, // 相当于data-keyboard
-            show: true, // 相当于data-show
-            remote: "" // 相当于a标签作为触发器的href
-        });
-    }
-    //添加子角色
-    function addRole() {
-        $.ajax({
-            url:"/admin/roleManage/add",
-            type:"post",
-            data:$('#addRoleForm').serialize(),
-            success:function (data) {
-                if(data.code===200){
-                    tale.alertOkAndReload(data.msg);
-                }else{
-                    tale.alertError(data.msg)
-                }
-            }
+    function addChildDialog(id) {
+        DialogUtil.openNewDialog({
+            title: "添加子角色",
+            width: "1200",
+            height: "800",
+            url: "/admin/roleManage/addChileRoleForm/"+id,
         })
     }
-
+    //编辑角色弹框
+    function editRoleDialog(id) {
+        DialogUtil.openNewDialog({
+            title: "编辑角色",
+            width: "1200",
+            height: "800",
+            url: "/admin/roleManage/editRoleForm/"+id,
+        })
+    }
 </script>
 </body>
 </html>

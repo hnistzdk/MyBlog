@@ -40,21 +40,26 @@ public interface ErrorConstant {
     }
 
     interface Option {
-        static final String DELETE_OPTION_FAIL = "删除配置失败";
+        String DELETE_OPTION_FAIL = "删除配置失败";
         static final String UPDATE_OPTION_FAIL = "更新配置失败";
     }
 
     interface Meta {
-        static final String ADD_META_FAIL = "添加项目信息失败";
-        static final String UPDATE_META_FAIL = "更新项目信息失败";
-        static final String DELETE_META_FAIL = "删除项目信息失败";
-        static final String NOT_ONE_RESULT = "获取的项目的数量不止一个";
-        static final String META_IS_EXIST = "该项目已经存在";
+        String ADD_META_FAIL = "添加项目信息失败";
+        String UPDATE_META_FAIL = "更新项目信息失败";
+        String DELETE_META_FAIL = "删除项目信息失败";
+        String NOT_ONE_RESULT = "获取的项目的数量不止一个";
+        String META_IS_EXIST = "该项目已经存在";
     }
 
     interface Auth {
-        static final String USERNAME_PASSWORD_IS_EMPTY = "用户名和密码不可为空";
-        static final String USERNAME_PASSWORD_ERROR = "用户名不存在或密码错误";
-        static final String NOT_LOGIN = "用户未登录";
+        String USERNAME_PASSWORD_IS_EMPTY = "用户名和密码不可为空";
+        String USERNAME_PASSWORD_ERROR = "用户名不存在或密码错误";
+        String NOT_LOGIN = "用户未登录";
+    }
+
+    interface Role {
+        String ROLE_IS_EXIST = "该角色已存在";
+        String ADD_ROLE_FAIL = "添加角色失败";
     }
 }

@@ -10,6 +10,8 @@ import com.zdk.MyBlog.service.auth.RoleService;
 import com.zdk.MyBlog.utils.ApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +30,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/admin/roleManage",method = {RequestMethod.POST,RequestMethod.GET})
 public class RoleController extends BaseController {
 
+    private static final Logger log = LoggerFactory.getLogger(RoleController.class);
+
     @Autowired
     private RoleService roleService;
     @Autowired
@@ -45,17 +49,46 @@ public class RoleController extends BaseController {
         return "admin/auth/roleManage";
     }
 
-    @ApiOperation("新增角色")
+    @ApiOperation("新增角色或子角色")
     @PostMapping(value = "/add")
     @ResponseBody
-    public ApiResponse add(@RequestParam(name = "name") String name){
-        return roleService.addRole(name);
+    public ApiResponse add(@RequestParam(name = "name") String name,@RequestParam(name = "pid",required = false) Integer pid){
+        return roleService.addRole(name,pid);
     }
 
     @ApiOperation("新增角色的弹出框")
     @GetMapping(value = "/addRoleForm")
-    public String addRoleForm(@RequestParam(name = "name",required = false) String name){
+    public String addRoleForm(){
         return "admin/auth/addRoleForm";
+    }
+
+    @ApiOperation("新增子角色的弹出框")
+    @GetMapping(value = "/addChileRoleForm/{id}")
+    public String addChileRoleForm(@PathVariable Integer id,Model model){
+        model.addAttribute("pid",id);
+        return "admin/auth/addRoleForm";
+    }
+
+    @ApiOperation("编辑角色的弹出框")
+    @GetMapping(value = "/editRoleForm/{id}")
+    public String editRoleForm(@PathVariable Integer id,Model model){
+        Role role = roleService.getById(id);
+        model.addAttribute("role",role);
+        return "admin/auth/editRoleForm";
+    }
+
+    @ApiOperation("编辑角色")
+    @PostMapping(value = "/edit")
+    @ResponseBody
+    public ApiResponse edit(Role role){
+        return ApiResponse.result(roleService.saveOrUpdate(role));
+    }
+
+    @ApiOperation("删除角色")
+    @PostMapping(value = "/delete")
+    @ResponseBody
+    public ApiResponse delete(@RequestParam(name = "id")Integer id){
+        return ApiResponse.result(roleService.removeById(id));
     }
 }
 

@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -28,7 +31,6 @@ import java.io.Serializable;
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     /**
      * 主键
      */
@@ -45,5 +47,5 @@ public class Role implements Serializable {
      */
     private Integer pid;
 
-
+    private Map<String, Object> items;
 }

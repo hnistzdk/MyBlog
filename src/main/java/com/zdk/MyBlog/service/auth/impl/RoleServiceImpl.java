@@ -10,6 +10,7 @@ import com.zdk.MyBlog.model.pojo.auth.Role;
 import com.zdk.MyBlog.service.auth.RoleService;
 import com.zdk.MyBlog.utils.ApiResponse;
 import com.zdk.MyBlog.utils.ParaValidatorUtil;
+import com.zdk.MyBlog.utils.TreeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,23 +28,29 @@ import java.util.List;
 public class RoleServiceImpl extends ServiceImpl<RoleMapper,Role> implements RoleService{
     @Autowired
     private ParaValidatorUtil paraValidatorUtil;
+    @Autowired
+    private TreeUtil treeUtil;
 
     @Override
     public PageInfo<Role> getRolePage(Integer pageNumber, Integer pageSize, String keywords) {
         PageHelper.startPage(pageNumber, pageSize, "id");
         List<Role> roleList = lambdaQuery().like(paraValidatorUtil.isOk(keywords), Role::getName, keywords).list();
+//        treeUtil.convertToModelTree(roleList,(m)-> m.getPid()==null);
         return new PageInfo<>(roleList);
     }
 
     @Override
-    public ApiResponse addRole(String name) {
+    public ApiResponse addRole(String name,Integer pid) {
         if (paraValidatorUtil.notOk(name)){
-            return ApiResponse.fail();
+            return ApiResponse.fail(ErrorConstant.Common.INVALID_PARAM);
         }
         Integer count = lambdaQuery().eq(Role::getName, name).count();
-        if (count == 0) {
+        if (count != 0) {
+            return ApiResponse.fail(ErrorConstant.Role.ROLE_IS_EXIST);
+        }
+        if (pid == null){
             return ApiResponse.result(save(new Role().setName(name)));
         }
-        return ApiResponse.fail(ErrorConstant.Common.ADD_FAIL);
+        return ApiResponse.result(save(new Role().setName(name).setPid(pid)));
     }
 }

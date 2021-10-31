@@ -26,7 +26,8 @@ public interface RoleService extends IService<Role> {
     /**
      * 根据角色名称添加角色
      * @param name
+     * @param pid
      * @return
      */
-    ApiResponse addRole(String name);
+    ApiResponse addRole(String name,Integer pid);
 }

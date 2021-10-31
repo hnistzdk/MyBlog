@@ -22,6 +22,7 @@
     <link th:href="@{/admin/plugins/select2.dist.css/select2-bootstrap.css}" rel="stylesheet"/>
 
     <script  th:src="@{/assets/plugins/jquery-3.5.1.js}"></script>
+    <script  th:src="@{/assets/plugins/jbolt-admin.js}"></script>
     <script  th:src="@{/assets/plugins/bootstrap/js/bootstrap.js}"></script>
     <script  th:src="@{/assets/plugins/bootstrap.jDialog.js}"></script>
     <script  th:src="@{/assets/plugins/layer/layer.js}"></script>
@@ -33,6 +34,9 @@
     <script th:src="@{/admin/js/base.js}"></script>
     <script th:src="@{/admin/js/jquery.app.js}"></script>
 
+
+    <script th:src="@{//cdn.bootcss.com/limonte-sweetalert2/6.4.1/sweetalert2.min.js}"></script>
+    <script th:src="@{/admin/js/base.js}"></script>
 
     <link href="//cdn.bootcss.com/multi-select/0.9.12/css/multi-select.css" rel="stylesheet"/>
     <link href="//cdn.bootcss.com/select2/3.4.8/select2.min.css" rel="stylesheet"/>
@@ -103,17 +107,17 @@
                        th:class="${active}=='home'?'waves-effect active':'waves-effect'"><i
                             class="fa fa-dashboard" aria-hidden="true"></i><span> 仪表盘 </span></a>
                 </li>
-                <li th:if="${@commons.getLoginUser().role=='管理员'}" th:class="${active}=='home'?'active':''">
+                <li th:if="${@commons.getLoginUser().role=='管理员'}" th:class="${active}=='userManage'?'active':''">
                     <a th:href="@{/admin/userManage}"
                        th:class="${active}=='userManage'?'waves-effect active':'waves-effect'"><i
                             class="fa fa-user" aria-hidden="true"></i><span> 用户管理 </span></a>
                 </li>
-                <li th:if="${@commons.getLoginUser().role=='管理员'}" th:class="${active}=='home'?'active':''">
+                <li th:if="${@commons.getLoginUser().role=='管理员'}" th:class="${active}=='roleManage'?'active':''">
                     <a th:href="@{/admin/roleManage}"
                        th:class="${active}=='roleManage'?'waves-effect active':'waves-effect'"><i
                             class="fa fa-user" aria-hidden="true"></i><span> 角色管理 </span></a>
                 </li>
-                <li th:if="${@commons.getLoginUser().role=='管理员'}" th:class="${active}=='home'?'active':''">
+                <li th:if="${@commons.getLoginUser().role=='管理员'}" th:class="${active}=='permissionManage'?'active':''">
                     <a th:href="@{/admin/permissionManage}"
                        th:class="${active}=='permissionManage'?'waves-effect active':'waves-effect'"><i
                             class="fa fa-user" aria-hidden="true"></i><span> 权限管理 </span></a>
