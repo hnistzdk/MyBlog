@@ -46,6 +46,4 @@ public class Role implements Serializable {
      * 父级角色ID
      */
     private Integer pid;
-
-    private Map<String, Object> items;
 }

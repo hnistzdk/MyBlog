@@ -10,7 +10,6 @@ import com.zdk.MyBlog.model.pojo.auth.Role;
 import com.zdk.MyBlog.service.auth.RoleService;
 import com.zdk.MyBlog.utils.ApiResponse;
 import com.zdk.MyBlog.utils.ParaValidatorUtil;
-import com.zdk.MyBlog.utils.TreeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,14 +27,11 @@ import java.util.List;
 public class RoleServiceImpl extends ServiceImpl<RoleMapper,Role> implements RoleService{
     @Autowired
     private ParaValidatorUtil paraValidatorUtil;
-    @Autowired
-    private TreeUtil treeUtil;
 
     @Override
     public PageInfo<Role> getRolePage(Integer pageNumber, Integer pageSize, String keywords) {
         PageHelper.startPage(pageNumber, pageSize, "id");
         List<Role> roleList = lambdaQuery().like(paraValidatorUtil.isOk(keywords), Role::getName, keywords).list();
-//        treeUtil.convertToModelTree(roleList,(m)-> m.getPid()==null);
         return new PageInfo<>(roleList);
     }
 
