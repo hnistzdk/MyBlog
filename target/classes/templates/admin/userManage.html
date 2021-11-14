@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='用户管理',active='userManage'">
+<header th:replace="admin/header::headerFragment(${title},${active})">
+</header>
+<body class="fixed-left">
+<div id="wrapper">
+    <div th:replace="admin/header::header-body"></div>
+    <div class="content-page">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4 class="page-title">用户管理</h4>
+                    </div>
+                    <div class="col-md-12">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th width="8%">id</th>
+                                <th width="8%">用户名</th>
+                                <th width="10%">用户昵称</th>
+                                <th width="10%">真实姓名</th>
+                                <th width="10%">性别</th>
+                                <th width="15%">上一次登录时间</th>
+                                <th width="15%">邮箱</th>
+                                <th width="6%">用户角色</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <th:block th:each="user:${userPage.list}">
+                                <tr th:id="${user.id}">
+                                    <td>
+                                        <th:block th:text="${user.id}"/>
+                                    </td>
+                                    <td>
+                                        <th:block th:text="${user.username}"/>
+                                    </td>
+                                    <td>
+                                        <th:block th:text="${user.nickname}"/>
+                                    </td>
+                                    <td>
+                                        <th:block th:text="${user.trueName}"/>
+                                    </td>
+                                    <td>
+                                        <th:block th:text="${user.gender}"/>
+                                    </td>
+                                    <td>
+                                        <th:block th:text="${user.loginDate}"/>
+                                    </td>
+                                    <td>
+                                        <th:block th:text="${user.email}"/>
+                                    </td>
+                                    <td>
+                                        <th:block th:text="${user.role}"/>
+                                    </td>
+                                    <td>
+<!--                                        <a id="modalLayer" th:onclick="'editUser('+${user.id}+');'"-->
+                                        <button id="modalLayer" th:onclick="'editUser('+${user.id}+');'"
+                                           class="btn btn-primary btn-sm waves-effect waves-light m-b-5"><i
+                                                class="fa fa-edit"></i> <span>编辑</span></button>
+                                        <a href="javascript:void(0)" th:onclick="'deleteUser('+${user.id}+');'"
+                                           class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
+                                                class="fa fa-trash-o"></i> <span>删除</span></a>
+                                    </td>
+                                </tr>
+                            </th:block>
+
+                            </tbody>
+                        </table>
+
+<!--                        <button id="myModalBt" class="btn btn-primary btn-lg">开始演示模态框</button>-->
+
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title text-center" id="myModalLabel">编辑用户信息</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="form-horizontal m-t-20" method="post" id="editForm" onsubmit="return false">
+                                            <input class="input-lg input-border" id="userId" name="id" type="hidden" required=""
+                                                   placeholder="id"/>
+                                            <div class="form-group">
+                                                <div class="col-xs-12">
+                                                    <label class="col-sm-2 col-form-label">昵称</label>
+                                                    <input class="input-lg input-border" id="nickname" name="nickname" type="text" required=""
+                                                           placeholder="昵称"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-xs-12">
+                                                    <label class="col-sm-2 col-form-label">性别</label>
+                                                    <input class="input-lg input-border" id="gender" name="gender" required=""
+                                                           placeholder="性别"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-xs-12">
+                                                    <label class="col-sm-2 col-form-label">真实姓名</label>
+                                                    <input class="input-lg input-border" id="trueName" name="trueName" type="text" required=""
+                                                           placeholder="真实姓名"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-xs-12">
+                                                    <label class="col-sm-2 col-form-label">邮箱</label>
+                                                    <input class="input-lg input-border" id="email" name="email" type="text" required=""
+                                                           placeholder="邮箱"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-xs-12">
+                                                    <label class="col-sm-2 col-form-label">角色</label>
+                                                    <input readonly class="input-lg input-border" id="role" name="role" type="text" required=""
+                                                           placeholder="角色"/>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                        <button type="button" onclick="userInfoSubmit()" class="btn btn-primary">保存</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal -->
+                        </div>
+                        <div th:replace="comm/macros :: pageAdminNav(${userPage})"></div>
+                    </div>
+                </div>
+                <div th:replace="admin/footer :: footer-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="admin/footer :: footer"></div>
+<script type="text/javascript">
+    var tale = new $.tale();
+
+    function editUser(id) {
+        $("#myModal").modal({
+            backdrop: false, // 相当于data-backdrop
+            keyboard: false, // 相当于data-keyboard
+            show: true, // 相当于data-show
+            remote: "" // 相当于a标签作为触发器的href
+        });
+        $.ajax({
+            url:'/admin/userManage/edit/'+id,
+            type:"get",
+            success:function (res) {
+                if (res.code===200){
+                    $('#userId').val(res.data.id);
+                    $('#nickname').val(res.data.nickname);
+                    $('#gender').val(res.data.gender);
+                    $('#trueName').val(res.data.trueName);
+                    $('#email').val(res.data.email);
+                    $('#role').val(res.data.role);
+                }else{
+                    tale.alertError("获取用户信息失败")
+                }
+            }
+        })
+    }
+    function deleteUser(id) {
+        tale.alertConfirm({
+            title: '确定删除该用户吗?',
+            then: function () {
+                $.ajax({
+                    url: '/admin/userManage/delete',
+                    type:"post",
+                    data: {id: id},
+                    success: function (result) {
+                        if (result && result.code === 200) {
+                            tale.alertOkAndReload('删除成功');
+                        } else {
+                            tale.alertError(result.msg || '删除失败');
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    function userInfoSubmit() {
+        $.ajax({
+            url:"/admin/userManage/update",
+            type:"post",
+            data:$('#editForm').serialize(),
+            success:function (data) {
+                if(data.code===200){
+                    tale.alertOkAndReload(data.msg);
+                }else{
+                    tale.alertError(data.msg)
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

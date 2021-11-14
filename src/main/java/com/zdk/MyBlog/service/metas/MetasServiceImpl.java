@@ -1,6 +1,8 @@
 package com.zdk.MyBlog.service.metas;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.constant.ErrorConstant;
 import com.zdk.MyBlog.constant.Types;
 import com.zdk.MyBlog.exception.MyGlobalException;
@@ -155,5 +157,12 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
             return stringBuilder.substring(1);
         }
         return "";
+    }
+
+    @Override
+    public PageInfo<Metas> getLinksPage(Integer pageNumber, Integer pageSize) {
+        PageHelper.startPage(pageNumber, pageSize, "sort");
+        List<Metas> list = lambdaQuery().eq(Metas::getType, "link").list();
+        return new PageInfo<>(list);
     }
 }

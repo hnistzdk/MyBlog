@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='角色管理',active='roleManage'">
+<header th:replace="admin/header::headerFragment(${title},${active})"></header>
+<body class="fixed-left">
+<div id="wrapper">
+    <div class="content-page">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="tab-pane show active">
+                            <form class="form-horizontal m-t-20" method="post" id="addRoleForm" onsubmit="return false">
+                                <input th:if="${role!=null}" th:value="${role.id}" class="input-lg input-border" name="id" type="hidden"/>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <label class="col-sm-2 col-form-label">角色名</label>
+                                        <input class="input-lg input-border" name="name" th:value="${role.name!=null?role.name:''}" type="text" required="" placeholder="角色名"/>
+                                    </div>
+                                </div>
+                                <input th:if="${role!=null&&role.pid!=null}" th:value="${role.pid}" class="input-lg input-border" name="pid" type="hidden"/>
+                                <input th:if="${pid!=null}" th:value="${pid}" class="input-lg input-border" name="pid" type="hidden"/>
+                            </form>
+                            <div class="form-group text-center">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="button" onclick="editRole()" class="btn btn-primary">保存</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    let tale = new $.tale();
+    //编辑角色
+    function editRole() {
+        $.ajax({
+            url:"/admin/roleManage/edit",
+            type:"post",
+            data:$('#addRoleForm').serialize(),
+            success:function (data) {
+                if(data.code===200){
+                    tale.alertOk({
+                        text:data.msg,
+                        then:function () {
+                            setTimeout(function () {
+                                parent.reloadCurrentPage()
+                            }, 500);
+                        }
+                    })
+                }else{
+                    tale.alertError({
+                        text:data.msg,
+                        then:function () {
+                            setTimeout(function () {
+                                parent.reloadCurrentPage()
+                            }, 500);
+                        }
+                    })
+                }
+            }
+        })
+    }
+
+</script>
+</html>
+

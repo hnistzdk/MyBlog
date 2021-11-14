@@ -1,6 +1,7 @@
 package com.zdk.MyBlog.service.metas;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.model.dto.MetaDto;
 import com.zdk.MyBlog.model.dto.cond.MetaCond;
 import com.zdk.MyBlog.model.pojo.Metas;
@@ -62,4 +63,12 @@ public interface MetasService extends IService<Metas> {
      * @return
      */
     void deleteMeta(String type,String name,Integer mid);
+
+    /**
+     * 友链分页
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    PageInfo<Metas> getLinksPage(Integer pageNumber,Integer pageSize);
 }
