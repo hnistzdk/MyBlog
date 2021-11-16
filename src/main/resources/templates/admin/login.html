@@ -6,7 +6,7 @@
     <script th:src="@{/assets/plugins/jquery-3.5.1.js}"></script>
     <link rel="stylesheet" th:href="@{/assets/plugins/bootstrap/css/bootstrap.css}">
     <link th:href="@{//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
-    <link th:href="@{//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+<!--    <link th:href="@{//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>-->
     <link th:href="@{/static/admin/css/style.min.css}" rel="stylesheet" type="text/css"/>
     <link th:href="@{//cdn.bootcss.com/limonte-sweetalert2/6.4.1/sweetalert2.min.css}" rel="stylesheet"/>
 
@@ -22,17 +22,7 @@
             -webkit-box-shadow: 0px 0px 10px 0px rgba(39, 49, 65, 0.1);
             box-shadow: 0px 0px 10px 0px rgba(39, 49, 65, 0.1);
         }
-        .bg-overlay {
-            -moz-border-radius: 6px 6px 0 0;
-            -webkit-border-radius: 6px 6px 0 0;
-            background-color: rgba(47, 51, 62, 0.3);
-            border-radius: 6px 6px 0 0;
-            height: 100%;
-            left: 0;
-            position: absolute;
-            top: 0;
-            width: 100%;
-        }
+
         .input-border {
             font-size: 14px;
             width: 100%;
@@ -47,7 +37,6 @@
             background-size: 100% 100%;
             /*background-image: url("static/admin/images/bg/4.png");*/
             width: 100%;
-            /*height: 935px;*/
             height: 100%;
         }
         .bg-img > h3 {
@@ -61,7 +50,7 @@
 <div style="margin: 0 auto; padding-bottom: 0%; padding-top: 0%;  height: 800px; width: 380px;">
     <div class="panel panel-color panel-danger panel-pages panel-shadow" style="margin-top:0;position: absolute;top: 25%;width: 25%" >
         <div class="panel-heading bg-img">
-            <h3 class="text-center m-t-10"> Login My Blog</h3>
+            <h3 class="text-center m-t-10">博客后台管理</h3>
         </div>
         <div class="panel-body">
             <form class="form-horizontal m-t-20" method="post" id="loginForm" onsubmit="return false">
@@ -114,7 +103,7 @@
                         text: data.msg,
                         then: function () {
                             setTimeout(function () {
-                                window.location.href = '/user/toIndex';
+                                window.location.href = '/admin/index';
                             }, 500);
                         }
                     })

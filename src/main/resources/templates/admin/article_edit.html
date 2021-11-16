@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='保存文章',active='publish'">
 <header th:replace="admin/header::headerFragment(${title},${active})"></header>
-<link th:href="@{/admin/plugins/tagsinput/jquery.tagsinput.css}" rel="stylesheet"/>
-<link th:href="@{/admin/plugins/select2.dist.css/select2-bootstrap.css}" rel="stylesheet"/>
-<link th:href="@{/admin/plugins/toggles/toggles.css}" rel="stylesheet"/>
-
-<link href="//cdn.bootcss.com/multi-select/0.9.12/css/multi-select.css" rel="stylesheet"/>
-<link href="//cdn.bootcss.com/select2/3.4.8/select2.min.css" rel="stylesheet"/>
-<link th:href="@{/admin/plugins/md/css/style.css}" rel="stylesheet"/>
-<!-- editor.md -->
-<link th:href="@{/admin/editormd/css/editormd.css}" rel="stylesheet"/>
 <style>
     #tags_tagsinput {
         background-color: #fafafa;
@@ -24,9 +15,9 @@
         margin-top: -5px;
     }
 </style>
-<body>
+<body class="fixed-left">
 <div id="wrapper">
-<!--    <div th:replace="admin/header::header-body"></div>-->
+        <div th:replace="admin/header::header-body"></div>
     <div class="content-page">
         <div class="content">
             <div class="container">
@@ -43,8 +34,9 @@
                     </div>
                     <div class="col-md-12">
                         <form id="articleForm" role="form" novalidate="novalidate">
-                            <input type="hidden" name="userId" id="userId" th:value="${user.getId()}"/>
+                            <input type="hidden" name="userId" th:value="${user.getId()}">
                             <input type="hidden" name="authorName" th:value="${article!=null?article.getAuthorName():user.getNickname()}">
+<!--                            <input type="hidden" name="type" id="type"/>-->
                             <input type="hidden" name="id"
                                    th:value="${article!=null and article.id!=null}?${article.id}: ''" id="id"/>
                             <input type="hidden" name="status"
@@ -156,7 +148,7 @@
                         </form>
                     </div>
                 </div>
-<!--                <div th:replace="admin/footer :: footer-content"></div>-->
+                <div th:replace="admin/footer :: footer-content"></div>
             </div>
         </div>
     </div>
@@ -230,7 +222,7 @@
                         text: data.msg,
                         then: function () {
                             setTimeout(function () {
-                                window.location.href = '/user/toIndex';
+                                window.location.href = '/admin/article';
                             }, 500);
                         }
                     })
