@@ -58,13 +58,13 @@ spring:
       max-pool-prepared-statement-per-connection-size: 20
 
   #thymeleaf配置
-  thymeleaf:
-    prefix: classpath:/templates/
-    check-template-location: true
-    suffix: .html
-    encoding: UTF-8
-    mode: HTML
-    cache: false
+#  thymeleaf:
+#    prefix: classpath:/templates/
+#    check-template-location: true
+#    suffix: .html
+#    encoding: UTF-8
+#    mode: HTML
+#    cache: false
 
   #aop配置
   aop:
