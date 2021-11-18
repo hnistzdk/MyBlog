@@ -29,7 +29,7 @@ import javax.servlet.http.Cookie;
  */
 @Api("登录相关接口")
 @Controller
-@RequestMapping(value = "/user",method = {RequestMethod.POST,RequestMethod.GET})
+@RequestMapping(value = "/user")
 public class LoginController extends BaseController {
     @Autowired
     private RedisUtil redisUtil;

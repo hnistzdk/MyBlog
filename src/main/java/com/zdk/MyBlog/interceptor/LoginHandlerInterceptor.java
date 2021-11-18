@@ -37,6 +37,10 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         if (uri.startsWith("/article/toPost") || uri.startsWith("/user/toIndex")){
             return true;
         }
+        //用于测试接口时
+        if (request.getParameter("token")!=null){
+            return true;
+        }
         //请求拦截处理
         String cookieValue = TaleUtils.getCookieValue(WebConst.USERINFO, request);
         if (cookieValue!=null){

@@ -24,7 +24,7 @@ import java.util.Map;
  */
 @Api("系统设置")
 @Controller
-@RequestMapping(value = "/admin/setting",method = {RequestMethod.POST,RequestMethod.GET})
+@RequestMapping(value = "/admin/setting")
 public class SettingController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SettingController.class);
     @Autowired

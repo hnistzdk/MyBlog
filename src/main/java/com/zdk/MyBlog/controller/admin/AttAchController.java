@@ -34,7 +34,7 @@ import java.util.List;
  */
 @Api("附件")
 @Controller
-@RequestMapping(value = "/admin/attach",method = {RequestMethod.POST,RequestMethod.GET})
+@RequestMapping(value = "/admin/attach")
 public class AttAchController extends BaseController {
     public static final String CLASSPATH = TaleUtils.getUplodFilePath();
     private static final Logger LOGGER = LoggerFactory.getLogger(AttAchController.class);

@@ -39,7 +39,7 @@ import java.util.UUID;
  */
 @Api("博客端文章接口")
 @Controller
-@RequestMapping(value = "/article",method = {RequestMethod.POST,RequestMethod.GET})
+@RequestMapping(value = "/article")
 public class ArticleController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ArticleController.class);

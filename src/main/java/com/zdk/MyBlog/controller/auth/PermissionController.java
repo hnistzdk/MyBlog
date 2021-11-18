@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Api("权限管理")
 @Controller
-@RequestMapping(value = "/admin/permissionManage",method = {RequestMethod.POST,RequestMethod.GET})
+@RequestMapping(value = "/admin/permissionManage")
 public class PermissionController extends BaseController {
 
     @Autowired

@@ -107,4 +107,13 @@ public class ApiResponse<T>{
         this.data = data;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "ApiResponse{" +
+                "code=" + code +
+                ", data=" + data +
+                ", msg='" + msg + '\'' +
+                '}';
+    }
 }

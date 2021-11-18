@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Api("管理端文章接口")
 @Controller
-@RequestMapping(value = "/admin/article",method = {RequestMethod.POST,RequestMethod.GET})
+@RequestMapping(value = "/admin/article")
 public class AdminArticleController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminArticleController.class);
 

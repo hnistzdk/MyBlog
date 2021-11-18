@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Api("用户相关接口")
 @Controller
-@RequestMapping(value ="/user",method = {RequestMethod.POST,RequestMethod.GET})
+@RequestMapping(value ="/user")
 public class UserController extends BaseController {
     @Autowired
     private ArticleService articleService;
