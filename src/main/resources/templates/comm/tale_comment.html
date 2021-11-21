@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="tale_comment">
 <body>
+<div th:replace="admin/header::header-body"></div>
 <script type="text/javascript">
     /*<![CDATA[*/
     (function () {
@@ -15,27 +16,32 @@
                 }
                 return el;
             },
-            reply: function (coid) {
-                $('#comment-form input[name=coid]').val(coid);
+            reply: function (id) {
+                $('#comment-form input[name=id]').val(id);
                 $("html,body").animate({scrollTop: $('div.comment-container').offset().top}, 500);
                 $('#comment-form #textarea').focus();
             },
             subComment: function () {
+                console.log('进入提交函数')
                 $.ajax({
                     type: 'post',
-                    url: '/blog/comment',
+                    url: '/article/comment',
                     data: $('#comment-form').serialize(),
-                    async: false,
-                    dataType: 'json',
                     success: function (result) {
-                        $('#comment-form input[name=coid]').val('');
-                        if (result && result.code == 'success') {
-                            alert("评论已提交至后台审核!");
-                            window.location.reload();
+                        console.log('进入提交评论')
+                        let articleId = $('#comment-form input[name=articleId]').val();
+                        $('#comment-form input[name=id]').val('')
+                        if (result && result.code == 200) {
+                            tale.alertOk({
+                                text:'评论已提交至后台审核',
+                                then: function () {
+                                    setTimeout(function () {
+                                        window.location.href = "/article/toPost/"+articleId;
+                                    }, 500);
+                                }
+                            });
                         } else {
-                            if (result.msg) {
-                                alert(result.msg);
-                            }
+                            tale.alertError(result.msg)
                         }
                     }
                 });
@@ -52,7 +58,7 @@
     }
     function addCommentInputValue() {
         document.getElementById('author').value = getCommentCookie('tale_remember_author');
-        document.getElementById('mail').value = getCommentCookie('tale_remember_mail');
+        document.getElementById('email').value = getCommentCookie('tale_remember_email');
         document.getElementById('url').value = getCommentCookie('tale_remember_url');
     }
     addCommentInputValue();

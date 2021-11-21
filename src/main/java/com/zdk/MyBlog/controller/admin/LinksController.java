@@ -1,7 +1,10 @@
 package com.zdk.MyBlog.controller.admin;
 
+import com.github.pagehelper.PageInfo;
+import com.zdk.MyBlog.constant.Types;
 import com.zdk.MyBlog.controller.BaseController;
 import com.zdk.MyBlog.model.dto.LinkDto;
+import com.zdk.MyBlog.model.pojo.Metas;
 import com.zdk.MyBlog.service.metas.MetasService;
 import com.zdk.MyBlog.utils.ApiResponse;
 import io.swagger.annotations.Api;
@@ -31,6 +34,8 @@ public class LinksController extends BaseController {
                         @RequestParam(name = "page",required = false, defaultValue = "1") Integer pageNumber,
                         @RequestParam(name = "limit",required = false, defaultValue = "10")Integer pageSize){
 
+        PageInfo<Metas> links = metasService.getLinksPage(pageNumber, pageSize);
+        model.addAttribute("links",links);
         return "admin/links";
     }
 
@@ -38,6 +43,13 @@ public class LinksController extends BaseController {
     @PostMapping("/save")
     @ResponseBody
     public ApiResponse save(LinkDto link){
-        return ApiResponse.success(link);
+        return ApiResponse.success(metasService.addLink(link));
+    }
+
+    @ApiOperation("删除友链")
+    @PostMapping("/delete")
+    @ResponseBody
+    public ApiResponse delete(Integer id){
+        return ApiResponse.result(metasService.removeById(id));
     }
 }

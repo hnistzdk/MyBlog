@@ -14,7 +14,7 @@ public class LinkDto {
     /**
      * 文章id
      */
-    private Integer mid;
+    private Integer id;
     /**
      * 链接标题
      */

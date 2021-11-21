@@ -6,10 +6,12 @@ import com.upyun.Result;
 import com.zdk.MyBlog.constant.ErrorConstant;
 import com.zdk.MyBlog.constant.Types;
 import com.zdk.MyBlog.controller.BaseController;
+import com.zdk.MyBlog.model.dto.CommentsDto;
 import com.zdk.MyBlog.model.dto.MetaDto;
 import com.zdk.MyBlog.model.pojo.Article;
 import com.zdk.MyBlog.model.pojo.User;
 import com.zdk.MyBlog.service.article.ArticleService;
+import com.zdk.MyBlog.service.comments.CommentsService;
 import com.zdk.MyBlog.service.metas.MetasService;
 import com.zdk.MyBlog.utils.ApiResponse;
 import com.zdk.MyBlog.utils.UpYunUtil;
@@ -49,6 +51,8 @@ public class ArticleController extends BaseController {
     private ArticleService articleService;
     @Autowired
     private MetasService metasService;
+    @Autowired
+    private CommentsService commentsService;
     @Autowired
     private UpYunUtil upYunUtil;
 
@@ -149,5 +153,12 @@ public class ArticleController extends BaseController {
         result.put("link", url);
         result.put("url", url);
         return result;
+    }
+
+    @ApiOperation("添加评论")
+    @PostMapping("/comment")
+    @ResponseBody
+    public ApiResponse comment(CommentsDto comments){
+        return commentsService.comment(comments, request);
     }
 }

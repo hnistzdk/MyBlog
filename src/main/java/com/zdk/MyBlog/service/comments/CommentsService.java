@@ -3,9 +3,12 @@ package com.zdk.MyBlog.service.comments;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
+import com.zdk.MyBlog.model.dto.CommentsDto;
 import com.zdk.MyBlog.model.pojo.Comments;
 import com.zdk.MyBlog.model.pojo.User;
+import com.zdk.MyBlog.utils.ApiResponse;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.List;
 
@@ -74,4 +77,12 @@ public interface CommentsService extends IService<Comments> {
      * @return
      */
     PageInfo<Comments> getCommentsPage(Integer pageNum,Integer pageSize,User loginUser);
+
+    /**
+     * 添加评论
+     * @param comments
+     * @param request
+     * @return
+     */
+    ApiResponse comment(CommentsDto comments, HttpServletRequest request);
 }

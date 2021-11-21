@@ -7,6 +7,7 @@ import com.zdk.MyBlog.constant.ErrorConstant;
 import com.zdk.MyBlog.constant.Types;
 import com.zdk.MyBlog.exception.MyGlobalException;
 import com.zdk.MyBlog.mapper.MetasMapper;
+import com.zdk.MyBlog.model.dto.LinkDto;
 import com.zdk.MyBlog.model.dto.MetaDto;
 import com.zdk.MyBlog.model.dto.cond.MetaCond;
 import com.zdk.MyBlog.model.pojo.Article;
@@ -14,6 +15,7 @@ import com.zdk.MyBlog.model.pojo.Metas;
 import com.zdk.MyBlog.model.pojo.Relationships;
 import com.zdk.MyBlog.service.article.ArticleService;
 import com.zdk.MyBlog.service.relationships.RelationshipsService;
+import com.zdk.MyBlog.utils.ApiResponse;
 import com.zdk.MyBlog.utils.ParaValidatorUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -162,7 +164,24 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
     @Override
     public PageInfo<Metas> getLinksPage(Integer pageNumber, Integer pageSize) {
         PageHelper.startPage(pageNumber, pageSize, "sort");
-        List<Metas> list = lambdaQuery().eq(Metas::getType, "link").list();
+        List<Metas> list = lambdaQuery().eq(Metas::getType, Types.LINK.getType()).list();
         return new PageInfo<>(list);
+    }
+
+    @Override
+    public ApiResponse addLink(LinkDto link) {
+        if (link == null){
+            return ApiResponse.fail(ErrorConstant.Common.PARAM_IS_EMPTY);
+        }
+        Metas metas = new Metas();
+        metas.setName(link.getTitle());
+        metas.setSlug(link.getUrl());
+        metas.setDescription(link.getLogo());
+        metas.setSort(link.getSort());
+        metas.setType(Types.LINK.getType());
+        if (link.getId() != null){
+            metas.setId(link.getId());
+        }
+        return ApiResponse.result(saveOrUpdate(metas), ErrorConstant.Common.ADD_FAIL);
     }
 }
