@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='系统设置',active='settings'">
-<header th:replace="admin/header::headerFragment(${title},${active})"></header
+<header th:replace="admin/header::headerFragment(${title},${active})"></header>
 <body class="fixed-left">
 <div id="wrapper">
     <div th:replace="admin/header::header-body"></div>
@@ -82,17 +82,17 @@
                             <div class="panel-body">
                                 <form id="indivi-form" class="form-horizontal" role="form">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">CSDN博客</label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" name="socialCsdn" th:value="${options.socialCsdn}"
-                                                   placeholder="CSDN博客，不输入则不显示"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
                                         <label class="col-md-3 control-label">简历</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="socialResume" th:value="${options.socialResume}"
                                                    placeholder="简历地址，不输入则不显示"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">CSDN博客</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="socialCsdn" th:value="${options.socialCsdn}"
+                                                   placeholder="CSDN博客，不输入则不显示"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -124,10 +124,24 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Twitter账号</label>
+                                        <label class="col-md-3 control-label">Gitee账号</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="socialTwitter"
-                                                   th:value="${options.socialTwitter}" placeholder="Twitter账号，不输入则不显示"/>
+                                            <input type="text" class="form-control" name="socialGitee"
+                                                   th:value="${options.socialGitee}" placeholder="Gitee账号，不输入则不显示"/>
+                                        </div>
+                                    </div>
+<!--                                    <div class="form-group">-->
+<!--                                        <label class="col-md-3 control-label">Twitter账号</label>-->
+<!--                                        <div class="col-md-9">-->
+<!--                                            <input type="text" class="form-control" name="socialTwitter"-->
+<!--                                                   th:value="${options.socialTwitter}" placeholder="Twitter账号，不输入则不显示"/>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">QQ账号</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="socialQQ"
+                                                   th:value="${options.socialQQ}" placeholder="QQ账号，不输入则不显示"/>
                                         </div>
                                     </div>
                                     <div class="clearfix pull-right">
@@ -230,7 +244,7 @@
      * 系统备份
      * @param type
      */
-    function backup(type) {
+    /*function backup(type) {
         var param = {
             bk_type: type,
             bk_path: $('#backup_dir').val()
@@ -269,7 +283,7 @@
             off: '关闭'
         }
     });
-    /*]]>*/
+    /!*]]>*!/*/
 </script>
 </body>
 </html>

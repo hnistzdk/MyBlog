@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="tale_comment">
 <body>
-<div th:replace="admin/header::header-body"></div>
+<div th:replace="admin/header::headerFragment(title,active)"></div>
 <script type="text/javascript">
     /*<![CDATA[*/
     (function () {
@@ -22,6 +22,7 @@
                 $('#comment-form #textarea').focus();
             },
             subComment: function () {
+                var tale = new $.tale();
                 console.log('进入提交函数')
                 $.ajax({
                     type: 'post',
