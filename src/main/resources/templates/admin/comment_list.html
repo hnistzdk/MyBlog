@@ -28,7 +28,7 @@
                             <th:block th:each="comment : ${comments.list}">
                                 <tr th:attr="cid=${comment.id}">
                                     <td>
-                                        <a th:href="@{@commons.getSiteUrl('/blog/article/')+${comment.articleId}+'#comments-content'}"
+                                        <a th:href="${@commons.getSiteUrl('/article/toPost/')}+${comment.articleId}+'#comments-content'"
                                            target="_blank" th:utext="${comment.content}"></a>
                                     </td>
                                     <td th:text="${comment.author}"></td>

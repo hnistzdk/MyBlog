@@ -6,9 +6,12 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zdk.MyBlog.utils.ControllerKit;
 import com.zdk.MyBlog.utils.IParaValidator;
+import com.zdk.MyBlog.utils.RedisUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.*;
@@ -19,6 +22,27 @@ import java.util.*;
  * 封装Controller层常用方法
  */
 public class CommonController implements IParaValidator {
+    @Autowired
+    public HttpServletRequest request;
+    @Autowired
+    public HttpServletResponse response;
+
+    public HttpServletRequest getRequest() {
+        return request;
+    }
+
+    public void setRequest(HttpServletRequest request) {
+        this.request = request;
+    }
+
+    public HttpServletResponse getResponse() {
+        return response;
+    }
+
+    public void setResponse(HttpServletResponse response) {
+        this.response = response;
+    }
+
     /**
      * 判断Integer参数有效性
      *
@@ -508,14 +532,14 @@ public class CommonController implements IParaValidator {
      * 获取Json数据
      * @return
      */
-    public JSONObject getJSONObject(HttpServletRequest request) {
+    public JSONObject getJSONObject() {
         return ControllerKit.getJSONObject(request);
     }
     /**
      * 获取Json数据转为JSonArray
      * @return
      */
-    public JSONArray getJSONArray(HttpServletRequest request) {
+    public JSONArray getJSONArray() {
         return ControllerKit.getJSONArray(request);
     }
 
@@ -523,14 +547,14 @@ public class CommonController implements IParaValidator {
      * 获取Json数据转为JSonArray
      * @return
      */
-    public List<JSONObject> getJSONObjectList(HttpServletRequest request) {
+    public List<JSONObject> getJSONObjectList() {
         return ControllerKit.getJSONObjectList(request);
     }
     /**
      * 获取Json数据 转为Java List
      * @return
      */
-    public <T> List<T> getJSONList(HttpServletRequest request,Class<T> clazz) {
+    public <T> List<T> getJSONList(Class<T> clazz) {
         return ControllerKit.getJSONList(request,clazz);
     }
     /**
@@ -539,7 +563,7 @@ public class CommonController implements IParaValidator {
      * @return
      */
 
-    public JSONObject getJSONObject(HttpServletRequest request,String key) {
+    public JSONObject getJSONObject(String key) {
         return ControllerKit.getJSONObject(request,key);
     }
 
@@ -549,7 +573,7 @@ public class CommonController implements IParaValidator {
      * @return
      */
 
-    public JSONArray getJSONArray(HttpServletRequest request,String key) {
+    public JSONArray getJSONArray(String key) {
         return ControllerKit.getJSONArray(request,key);
     }
     /**
@@ -558,7 +582,7 @@ public class CommonController implements IParaValidator {
      * @return
      */
 
-    public List<JSONObject> getJSONObjectList(HttpServletRequest request,String key) {
+    public List<JSONObject> getJSONObjectList(String key) {
         return ControllerKit.getJSONObjectList(request, key);
     }
     /**
@@ -567,7 +591,7 @@ public class CommonController implements IParaValidator {
      * @return
      */
 
-    public <T> List<T> getJSONList(HttpServletRequest request,String key,Class<T> clazz) {
+    public <T> List<T> getJSONList(String key,Class<T> clazz) {
         return ControllerKit.getJSONList(request,key,clazz);
     }
 }

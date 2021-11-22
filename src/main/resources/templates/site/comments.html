@@ -19,9 +19,9 @@
                         <section>
                             <h4><a th:href="${comment.url}" target="blank" th:text="${comment.author}"></a></h4>
                             <div class="date-pan">
-                                <th:block th:text="${commons.fmtdate(comment.created)}"></th:block>
+                                <th:block th:text="${comment.created}"></th:block>
                             </div>
-                            <th:block th:utext="${commons.article(comment.content)}"></th:block>
+                            <th:block th:utext="${comment.content}"></th:block>
                         </section>
                     </li>
                 </th:block>

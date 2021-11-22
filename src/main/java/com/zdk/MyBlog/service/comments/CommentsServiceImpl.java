@@ -41,6 +41,8 @@ public class CommentsServiceImpl extends ServiceImpl<CommentsMapper, Comments> i
     @Autowired
     private ParaValidatorUtil paraValidatorUtil;
     @Autowired
+    private RedisUtil redisUtil;
+    @Autowired
     private ArticleService articleService;
 
     @Override
@@ -85,6 +87,7 @@ public class CommentsServiceImpl extends ServiceImpl<CommentsMapper, Comments> i
 
     @Override
     public ApiResponse comment(CommentsDto commentsDto, HttpServletRequest request) {
+        String ip = IpKit.getIpAddressByRequest(request);
         if (commentsDto == null){
             return ApiResponse.fail(ErrorConstant.Common.PARAM_IS_EMPTY);
         }

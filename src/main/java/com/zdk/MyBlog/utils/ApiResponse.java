@@ -108,6 +108,22 @@ public class ApiResponse<T>{
         return this;
     }
 
+    /**
+     * 是否成功
+     * @return
+     */
+    public Boolean isSuccess() {
+        return this.code.equals(CODE_SUCCESS);
+    }
+
+    /**
+     * 是否失败
+     * @return
+     */
+    public Boolean isFail() {
+        return !this.code.equals(CODE_SUCCESS);
+    }
+
     @Override
     public String toString() {
         return "ApiResponse{" +

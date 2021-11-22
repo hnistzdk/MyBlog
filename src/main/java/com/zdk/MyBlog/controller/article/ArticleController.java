@@ -14,6 +14,7 @@ import com.zdk.MyBlog.service.article.ArticleService;
 import com.zdk.MyBlog.service.comments.CommentsService;
 import com.zdk.MyBlog.service.metas.MetasService;
 import com.zdk.MyBlog.utils.ApiResponse;
+import com.zdk.MyBlog.utils.IpKit;
 import com.zdk.MyBlog.utils.UpYunUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +26,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.Cookie;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
@@ -159,6 +161,12 @@ public class ArticleController extends BaseController {
     @PostMapping("/comment")
     @ResponseBody
     public ApiResponse comment(CommentsDto comments){
-        return commentsService.comment(comments, request);
+        ApiResponse res = commentsService.comment(comments, request);
+        if (res.isSuccess()){
+            setCookie("cache_author",comments.getAuthor(),7 * 24 * 60 * 60);
+            setCookie("cache_email",comments.getEmail(),7 * 24 * 60 * 60);
+            setCookie("cache_url",comments.getUrl(),7 * 24 * 60 * 60);
+        }
+        return res;
     }
 }
