@@ -9,6 +9,7 @@ import com.zdk.MyBlog.controller.BaseController;
 import com.zdk.MyBlog.model.dto.CommentsDto;
 import com.zdk.MyBlog.model.dto.MetaDto;
 import com.zdk.MyBlog.model.pojo.Article;
+import com.zdk.MyBlog.model.pojo.Comments;
 import com.zdk.MyBlog.model.pojo.User;
 import com.zdk.MyBlog.service.article.ArticleService;
 import com.zdk.MyBlog.service.comments.CommentsService;
@@ -72,7 +73,10 @@ public class ArticleController extends BaseController {
     public String toPost1(Model model, @PathVariable Integer id){
         Article article = articleService.getArticleById(id);
         articleService.updateById(article.setReadCount(article.getReadCount()+1));
+        List<Comments> commentsList = commentsService.getCommentsByArticleId(id);
         model.addAttribute("article",article);
+        model.addAttribute("comments",commentsList);
+        request.setAttribute("active","blog");
         return "blog/blog-post";
     }
 
@@ -168,5 +172,22 @@ public class ArticleController extends BaseController {
             setCookie("cache_url",comments.getUrl(),7 * 24 * 60 * 60);
         }
         return res;
+    }
+
+    @ApiOperation("删除评论")
+    @PostMapping("/deleteComment")
+    @ResponseBody
+    public ApiResponse deleteComments(Integer id) {
+        return ApiResponse.result(commentsService.removeById(id));
+    }
+
+    @ApiOperation("审核评论")
+    @PostMapping("/commentStatus")
+    @ResponseBody
+    public ApiResponse commentStatus(Integer id,String status) {
+        if (notOk(id) || notOk(status)){
+            return ApiResponse.fail(ErrorConstant.Common.INVALID_PARAM);
+        }
+        return ApiResponse.result(commentsService.updateById(new Comments().setId(id).setStatus(status)));
     }
 }

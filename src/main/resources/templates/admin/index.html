@@ -87,8 +87,8 @@
                                                    th:text="${comment.author}"></a>
                                             </div>
                                             <th:block th:unless="${comment.url}!=null and ${comment.url}!=''" th:text="${comment.author}"/>
-                                            于<th:block th:text="${comment.createTime}"/>：
-<!--                                            <a th:href="${commons.getSiteUrl('/blog/article/')}+${comment.articleId}+'#comments-content'"-->
+                                            于<th:block th:text="${comment.createTime}"/>
+<!--                                            ：<a th:href="${commons.getSiteUrl('/blog/article/')}+${comment.articleId}+'#comments-content'"-->
 <!--                                                target="_blank" th:utext="${commons.article(comment.content)}"></a>-->
                                         </li>
                                     </ul>

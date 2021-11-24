@@ -21,7 +21,7 @@ import java.util.*;
  * @date 2021/10/28 18:43
  * 封装Controller层常用方法
  */
-public class CommonController implements IParaValidator {
+public abstract class CommonController implements IParaValidator {
     @Autowired
     public HttpServletRequest request;
     @Autowired

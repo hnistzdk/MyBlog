@@ -77,10 +77,10 @@
             title: '确定删除该评论吗?',
             then: function () {
                 tale.post({
-                    url: '/admin/comments/delete',
+                    url: '/article/deleteComment',
                     data: {id: id},
                     success: function (result) {
-                        if (result && result.code === 200) {
+                        if (result && result.code == 200) {
                             tale.alertOkAndReload('评论删除成功');
                         } else {
                             tale.alertError(result.msg || '评论删除失败');
@@ -96,10 +96,10 @@
             title: '确定审核通过吗?',
             then: function () {
                 tale.post({
-                    url: '/admin/comments/status',
+                    url: '/article/commentStatus',
                     data: {id: id, status: "approved"},
                     success: function (result) {
-                        if (result && result.code === 200) {
+                        if (result && result.code == 200) {
                             tale.alertOkAndReload('评论状态设置成功');
                         } else {
                             tale.alertError(result.msg || '评论设置失败');

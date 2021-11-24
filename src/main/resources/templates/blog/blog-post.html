@@ -47,7 +47,8 @@
 		<div th:replace="site/comments::comments"></div>
 	</div>
 </main>
-
+<div th:replace="site/footer::footer(${@commons.getSiteTitle()},${@commons.getSiteRecord()},${@commons.getSiteUrl()})"></div>
 </body>
+<div th:replace="comm/tale_comment::tale_comment"></div>
 </html>
 

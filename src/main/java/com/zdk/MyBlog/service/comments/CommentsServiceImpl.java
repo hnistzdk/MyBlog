@@ -118,6 +118,7 @@ public class CommentsServiceImpl extends ServiceImpl<CommentsMapper, Comments> i
         author = TaleUtils.cleanXSS(author);
         content = TaleUtils.cleanXSS(content);
         Article article = articleService.getArticleById(articleId);
+        article.setCommentCount(article.getCommentCount()+1);
         Comments comments = new Comments();
         comments.setContent(content)
                 .setAuthor(author)
@@ -125,8 +126,9 @@ public class CommentsServiceImpl extends ServiceImpl<CommentsMapper, Comments> i
                 .setArticleId(article.getId())
                 .setEmail(email)
                 .setOwnerId(article.getAuthorId())
-                .setIp(IpKit.getIpAddressByRequest(request))
+                .setIp(ip)
                 .setAgent(request.getHeader("agent"));
+        articleService.updateById(article);
         return ApiResponse.result(save(comments));
     }
 }
