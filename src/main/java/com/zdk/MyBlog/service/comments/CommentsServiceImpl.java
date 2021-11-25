@@ -2,6 +2,7 @@ package com.zdk.MyBlog.service.comments;
 
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -41,40 +42,25 @@ public class CommentsServiceImpl extends ServiceImpl<CommentsMapper, Comments> i
     @Autowired
     private ParaValidatorUtil paraValidatorUtil;
     @Autowired
-    private RedisUtil redisUtil;
-    @Autowired
     private ArticleService articleService;
-
-    @Override
-    public Comments getOne(Wrapper<Comments> queryWrapper) {
-        return CommentsService.super.getOne(queryWrapper);
-    }
-
-    @Override
-    public Comments getById(Serializable id) {
-        return CommentsService.super.getById(id);
-    }
-
-    @Override
-    public List<Comments> list() {
-        return CommentsService.super.list();
-    }
-
     @Override
     public List<Comments> getCommentsByArticleId(Integer articleId) {
         return lambdaQuery().eq(Comments::getArticleId, articleId)
                 .eq(Comments::getStatus, "approved")
+                .eq(Comments::getDeleted, false)
                 .list();
     }
 
     @Override
     public List<Comments> getCommentsByAuthorId(Integer authorId) {
-        return lambdaQuery().eq(Comments::getAuthorId, authorId).list();
+        return lambdaQuery().eq(Comments::getAuthorId, authorId).eq(Comments::getDeleted, false).list();
     }
 
     @Override
     public List<Comments> getCommentsByOwnerId(Integer ownerId, User loginUser) {
-        return lambdaQuery().eq(!Objects.equals(loginUser.getRole(), RoleConst.ADMIN),Comments::getOwnerId, ownerId).list();
+        return lambdaQuery().eq(!Objects.equals(loginUser.getRole(), RoleConst.ADMIN),Comments::getOwnerId, ownerId)
+                .eq(Comments::getDeleted, false)
+                .list();
     }
 
     @Override
@@ -82,6 +68,7 @@ public class CommentsServiceImpl extends ServiceImpl<CommentsMapper, Comments> i
         PageHelper.startPage(pageNum, pageSize);
         List<Comments> comments = lambdaQuery()
                 .eq(!Objects.equals(loginUser.getRole(), RoleConst.ADMIN),Comments::getOwnerId, loginUser.getId())
+                .eq(Comments::getDeleted, false)
                 .orderByDesc(Comments::getCreateTime)
                 .list();
         return new PageInfo<>(comments);

@@ -136,7 +136,7 @@ public class ArticleController extends BaseController {
     }
 
     @ApiOperation("删除文章")
-    @GetMapping(value = "/delete")
+    @PostMapping(value = "/delete")
     @ResponseBody
     public ApiResponse deleteArticle(Integer id){
         Boolean result = articleService.deleteArticleById(id);

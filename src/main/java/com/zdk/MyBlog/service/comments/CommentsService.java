@@ -1,6 +1,5 @@
 package com.zdk.MyBlog.service.comments;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.model.dto.CommentsDto;
@@ -9,7 +8,6 @@ import com.zdk.MyBlog.model.pojo.User;
 import com.zdk.MyBlog.utils.ApiResponse;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -17,35 +15,6 @@ import java.util.List;
  * @date 2021/8/12 22:35
  */
 public interface CommentsService extends IService<Comments> {
-    /**
-     * 根据传入条件获取评论
-     * @param queryWrapper
-     * @return
-     */
-    @Override
-    default Comments getOne(Wrapper<Comments> queryWrapper) {
-        return IService.super.getOne(queryWrapper);
-    }
-
-    /**
-     * 根据评论id获取评论
-     * @param id
-     * @return
-     */
-    @Override
-    default Comments getById(Serializable id) {
-        return IService.super.getById(id);
-    }
-
-    /**
-     * 获取所有评论list
-     * @return
-     */
-    @Override
-    default List<Comments> list() {
-        return IService.super.list();
-    }
-
     /**
      * 根据文章id获取评论
      * @param articleId
