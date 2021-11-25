@@ -99,5 +99,10 @@ public class Comments implements Serializable {
      */
     private Integer parent;
 
+    /**
+     * 逻辑删除
+     */
+    @TableLogic
+    private Boolean deleted;
 
 }
