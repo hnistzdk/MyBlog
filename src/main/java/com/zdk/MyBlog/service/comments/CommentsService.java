@@ -82,7 +82,8 @@ public interface CommentsService extends IService<Comments> {
      * 添加评论
      * @param comments
      * @param request
+     * @param user
      * @return
      */
-    ApiResponse comment(CommentsDto comments, HttpServletRequest request);
+    ApiResponse comment(CommentsDto comments, HttpServletRequest request,User user);
 }

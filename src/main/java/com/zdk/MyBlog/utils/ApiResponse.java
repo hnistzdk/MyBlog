@@ -55,6 +55,9 @@ public class ApiResponse<T>{
     public static <T> ApiResponse <T> result(Boolean success){
         return success ? new ApiResponse<>() : fail(MSG_FAIL);
     }
+    public static <T> ApiResponse <T> result(Boolean success,T data){
+        return success ? success(data) : fail(MSG_FAIL);
+    }
     public static <T> ApiResponse <T> result(Boolean success,String failMsg){
         return success ? new ApiResponse<>() : fail(failMsg);
     }

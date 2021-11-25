@@ -151,7 +151,7 @@
             url:'/admin/userManage/edit/'+id,
             type:"get",
             success:function (res) {
-                if (res.code===200){
+                if (res.code == 200){
                     $('#userId').val(res.data.id);
                     $('#nickname').val(res.data.nickname);
                     $('#gender').val(res.data.gender);

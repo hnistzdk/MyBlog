@@ -43,7 +43,7 @@ public class UserManageController extends BaseController {
     @ResponseBody
     public ApiResponse edit(@PathVariable Integer userId){
         User user = userService.getById(userId);
-        return ApiResponse.result(user==null);
+        return ApiResponse.result(user!=null,user);
     }
 
     @ApiOperation("更新用户信息")

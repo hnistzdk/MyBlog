@@ -64,7 +64,10 @@ public class ArticleController extends BaseController {
     public String toPost(Model model, Integer id){
         Article article = articleService.getArticleById(id);
         articleService.updateById(article.setReadCount(article.getReadCount()+1));
+        List<Comments> commentsList = commentsService.getCommentsByArticleId(id);
         model.addAttribute("article",article);
+        model.addAttribute("comments",commentsList);
+        request.setAttribute("active","blog");
         return "blog/blog-post";
     }
 
@@ -165,7 +168,7 @@ public class ArticleController extends BaseController {
     @PostMapping("/comment")
     @ResponseBody
     public ApiResponse comment(CommentsDto comments){
-        ApiResponse res = commentsService.comment(comments, request);
+        ApiResponse res = commentsService.comment(comments, request,getLoginUser());
         if (res.isSuccess()){
             setCookie("cache_author",comments.getAuthor(),7 * 24 * 60 * 60);
             setCookie("cache_email",comments.getEmail(),7 * 24 * 60 * 60);

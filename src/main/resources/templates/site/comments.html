@@ -11,19 +11,21 @@
             </h3>
             <ul th:if="${comments!=null}" class="comments-reply">
                 <th:block th:each="comment :${comments}">
-                    <li th:id="'li-comment-'+${comment.id}">
-                        <figure th:id="'comment-'+${comment.id}">
-                            <img th:src="@{${@commons.gravatar(comment.email)}(s='80',r='G',d='')}" alt=""
-                                 class="img-responsive"/>
-                        </figure>
-                        <section>
-                            <h4><a th:href="${comment.url}" target="blank" th:text="${comment.author}"></a></h4>
-                            <div class="date-pan">
-                                <th:block th:text="${comment.createTime}"></th:block>
-                            </div>
-                            <th:block th:utext="${comment.content}"></th:block>
-                        </section>
-                    </li>
+                    <div th:if="${comment.status}=='approved'">
+                        <li th:id="'li-comment-'+${comment.id}">
+                            <figure th:id="'comment-'+${comment.id}">
+                                <img th:src="@{${@commons.gravatar(comment.email)}(s='80',r='G',d='')}" alt=""
+                                     class="img-responsive"/>
+                            </figure>
+                            <section>
+                                <h4><a th:href="${comment.url}" target="blank" th:text="${comment.author}"></a></h4>
+                                <div class="date-pan">
+                                    <th:block th:text="${comment.createTime}"></th:block>
+                                </div>
+                                <th:block th:utext="${comment.content}"></th:block>
+                            </section>
+                        </li>
+                    </div>
                 </th:block>
             </ul>
             <div class="commentys-form">

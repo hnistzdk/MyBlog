@@ -304,6 +304,10 @@ public class Commons {
         String avatarUrl = "https://github.com/identicons/";
         if (StringUtils.isBlank(email)) {
             email = "369365576@qq.com";
+        }else{
+            if (email.equals("369365576@qq.com")){
+                return "https://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqxGibq4MoTmFPkjjAxvfJKRpVxgF1ywBMzDB00p8ueAlKYvJvVSE0KfYPTwphN3QzKUlIDyk0GaEQ/132";
+            }
         }
         String hash = TaleUtils.MD5encode(email.trim().toLowerCase());
         return avatarUrl + hash + ".png";

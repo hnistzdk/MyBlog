@@ -86,7 +86,7 @@ public class CommentsServiceImpl extends ServiceImpl<CommentsMapper, Comments> i
     }
 
     @Override
-    public ApiResponse comment(CommentsDto commentsDto, HttpServletRequest request) {
+    public ApiResponse comment(CommentsDto commentsDto, HttpServletRequest request,User user) {
         String ip = IpKit.getIpAddressByRequest(request);
         if (commentsDto == null){
             return ApiResponse.fail(ErrorConstant.Common.PARAM_IS_EMPTY);
@@ -128,6 +128,9 @@ public class CommentsServiceImpl extends ServiceImpl<CommentsMapper, Comments> i
                 .setOwnerId(article.getAuthorId())
                 .setIp(ip)
                 .setAgent(request.getHeader("agent"));
+        if (user != null){
+            comments.setAuthorId(user.getId());
+        }
         articleService.updateById(article);
         return ApiResponse.result(save(comments));
     }
