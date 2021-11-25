@@ -37,6 +37,7 @@ public interface ErrorConstant {
         String UPDATE_COMMENT_FAIL = "更新评论失败";
         String DELETE_COMMENT_FAIL = "删除评论失败";
         String COMMENT_NOT_EXIST = "评论不存在";
+        String COMMENT_FREQUENTLY = "每分钟只能评论一次";
     }
 
     interface Option {

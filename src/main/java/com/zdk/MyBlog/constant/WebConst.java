@@ -27,6 +27,8 @@ public class WebConst {
 
     public static final String USER_IN_COOKIE = "S_L_ID";
 
+    public static final String COMMENT_INTERVAL = "comment_interval";
+
 
 
 

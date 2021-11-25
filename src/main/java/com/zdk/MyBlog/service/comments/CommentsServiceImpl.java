@@ -62,7 +62,9 @@ public class CommentsServiceImpl extends ServiceImpl<CommentsMapper, Comments> i
 
     @Override
     public List<Comments> getCommentsByArticleId(Integer articleId) {
-        return lambdaQuery().eq(Comments::getArticleId, articleId).list();
+        return lambdaQuery().eq(Comments::getArticleId, articleId)
+                .eq(Comments::getStatus, "approved")
+                .list();
     }
 
     @Override
@@ -96,7 +98,7 @@ public class CommentsServiceImpl extends ServiceImpl<CommentsMapper, Comments> i
             return ApiResponse.fail("请输入完整评论再提交");
         }
         if (content.length() > 2000) {
-            return ApiResponse.fail("请输入200个字符以内的评论");
+            return ApiResponse.fail("请输入2000个字符以内的评论");
         }
         String email = commentsDto.getEmail();
         if (paraValidatorUtil.isOk(email) && !TaleUtils.isEmail(email)) {

@@ -32,7 +32,7 @@
                         console.log('进入提交评论')
                         let articleId = $('#comment-form input[name=articleId]').val();
                         $('#comment-form input[name=id]').val('')
-                        if (result && result.code == 200) {
+                        if (result.code == 200) {
                             tale.alertOk({
                                 text:'评论已提交至后台审核',
                                 then: function () {
@@ -41,7 +41,9 @@
                                     }, 500);
                                 }
                             });
-                        } else {
+                        } else if (result.code == 1001){
+                            window.location.href = "/user/toLogin";
+                        }else {
                             tale.alertError(result.msg)
                         }
                     }
@@ -50,7 +52,7 @@
             }
         };
     })();
-    function getCommentCookie(name) {
+/*    function getCommentCookie(name) {
         var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
         if (arr = document.cookie.match(reg))
             return unescape(decodeURI(arr[2]));
@@ -62,7 +64,7 @@
         document.getElementById('email').value = getCommentCookie('cache_email');
         document.getElementById('url').value = getCommentCookie('cache_url');
     }
-    // addCommentInputValue();
+    addCommentInputValue();*/
     /*]]>*/
 </script>
 </body>

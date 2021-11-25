@@ -49,7 +49,13 @@
                                             <a href="javascript:void(0)"
                                                th:onclick="'updateStatus('+${comment.id}+');'"
                                                class="btn btn-success btn-sm waves-effect waves-light m-b-5"><i
-                                                    class="fa fa-check-square-o"></i> <span>通过</span></a>
+                                                    class="fa fa-check-square-o"></i> <span>通过审核</span></a>
+                                        </th:block>
+                                        <th:block th:if="${comment.status == 'approved'}">
+                                            <a href="javascript:void(0)"
+                                               th:onclick="'updateStatus1('+${comment.id}+');'"
+                                               class="btn btn-warning btn-sm waves-effect waves-light m-b-5"><i
+                                                    class="fa fa-check-square-o"></i> <span>撤销审核</span></a>
                                         </th:block>
                                         <a href="javascript:void(0)" th:onclick="'delComment('+${comment.id}+');'"
                                            class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
@@ -98,6 +104,24 @@
                 tale.post({
                     url: '/article/commentStatus',
                     data: {id: id, status: "approved"},
+                    success: function (result) {
+                        if (result && result.code == 200) {
+                            tale.alertOkAndReload('评论状态设置成功');
+                        } else {
+                            tale.alertError(result.msg || '评论设置失败');
+                        }
+                    }
+                });
+            }
+        });
+    }
+    function updateStatus1(id) {
+        tale.alertConfirm({
+            title: '确定撤销审核吗?',
+            then: function () {
+                tale.post({
+                    url: '/article/commentStatus',
+                    data: {id: id, status: "not_audit"},
                     success: function (result) {
                         if (result && result.code == 200) {
                             tale.alertOkAndReload('评论状态设置成功');

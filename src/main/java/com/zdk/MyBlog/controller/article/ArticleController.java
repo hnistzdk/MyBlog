@@ -5,6 +5,7 @@ import cn.hutool.json.JSONUtil;
 import com.upyun.Result;
 import com.zdk.MyBlog.constant.ErrorConstant;
 import com.zdk.MyBlog.constant.Types;
+import com.zdk.MyBlog.constant.WebConst;
 import com.zdk.MyBlog.controller.BaseController;
 import com.zdk.MyBlog.model.dto.CommentsDto;
 import com.zdk.MyBlog.model.dto.MetaDto;
@@ -16,6 +17,7 @@ import com.zdk.MyBlog.service.comments.CommentsService;
 import com.zdk.MyBlog.service.metas.MetasService;
 import com.zdk.MyBlog.utils.ApiResponse;
 import com.zdk.MyBlog.utils.IpKit;
+import com.zdk.MyBlog.utils.RedisUtil;
 import com.zdk.MyBlog.utils.UpYunUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -58,6 +60,8 @@ public class ArticleController extends BaseController {
     private CommentsService commentsService;
     @Autowired
     private UpYunUtil upYunUtil;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @ApiOperation("进入博客详情页")
     @GetMapping(value = "/toPost")
@@ -168,12 +172,18 @@ public class ArticleController extends BaseController {
     @PostMapping("/comment")
     @ResponseBody
     public ApiResponse comment(CommentsDto comments){
-        ApiResponse res = commentsService.comment(comments, request,getLoginUser());
-        if (res.isSuccess()){
-            setCookie("cache_author",comments.getAuthor(),7 * 24 * 60 * 60);
-            setCookie("cache_email",comments.getEmail(),7 * 24 * 60 * 60);
-            setCookie("cache_url",comments.getUrl(),7 * 24 * 60 * 60);
+        User loginUser = getLoginUser();
+        //当前用户未登录 跳转或弹出登录界面
+        if (notOk(loginUser.getId())){
+            return ApiResponse.failWidthDiyCode(1001);
         }
+        String key = WebConst.COMMENT_INTERVAL+":"+IpKit.getIpAddressByRequest(request)+":"+getLoginUser().getUsername();
+        //如果存在上次评论记录 证明两次评论间隔时间小于一分钟,拒绝再次评论
+        if (redisUtil.hasKey(key)){
+            return ApiResponse.fail(ErrorConstant.Comment.COMMENT_FREQUENTLY);
+        }
+        ApiResponse res = commentsService.comment(comments, request,getLoginUser());
+        redisUtil.set(key, String.valueOf(System.currentTimeMillis()), 60);
         return res;
     }
 
@@ -184,7 +194,7 @@ public class ArticleController extends BaseController {
         return ApiResponse.result(commentsService.removeById(id));
     }
 
-    @ApiOperation("审核评论")
+    @ApiOperation("审核或撤销评论")
     @PostMapping("/commentStatus")
     @ResponseBody
     public ApiResponse commentStatus(Integer id,String status) {
