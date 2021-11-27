@@ -162,7 +162,7 @@ CodeMirror.defineMode("tiddlywiki", function () {
         return ret('brace', 'brace');
       }
     }
-    if (ch == "@") {    // check for space link. TODO fix @@...@@ highlighting
+    if (ch == "@") {    // check for space link. TODO fix @MavenProject: com.example:MyBlog:0.0.1-SNAPSHOT @ F:\\project\\my\\my-blog\\pom.xml@ highlighting
       stream.eatWhile(isSpaceName);
       return ret("link", "link");
     }

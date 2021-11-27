@@ -6,7 +6,7 @@
     <div id="comments-content" th:if="${article}!=null">
         <div th:id="${article.id ?: 0}" class="comments-pan">
             <h3>
-                <th:block th:text="${article.commentCount ?: 0}"></th:block>
+                <th:block th:text="${comments==null ? 0 : comments.size}"></th:block>
                 Comments
             </h3>
             <ul th:if="${comments!=null}" class="comments-reply">
