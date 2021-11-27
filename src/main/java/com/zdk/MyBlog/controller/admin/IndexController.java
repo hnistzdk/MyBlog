@@ -123,8 +123,11 @@ public class IndexController extends BaseController {
         if(!passwordEncoder.matches(oldPassword,user.getPassword())){
             return ApiResponse.fail("旧密码错误");
         }
-        if(notOk(password)||notOk(repass)||!password.equals(repass)){
+        if(notOk(password)||notOk(repass)){
             return ApiResponse.fail("请输入正确的密码格式");
+        }
+        if (!password.equals(repass)){
+            return ApiResponse.fail("请输入相同的新密码");
         }
         if(userService.updateUserInfo(user.setPassword(passwordEncoder.encode(password)))){
             redisUtil.hset(WebConst.USERINFO, TaleUtils.getCookieValue(WebConst.USERINFO, request), user);

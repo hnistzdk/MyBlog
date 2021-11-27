@@ -77,7 +77,7 @@
                                         </div>
                                     </div>
                                     <div class="clearfix pull-right">
-                                        <button type="submit" class="btn btn-danger waves-effect waves-light">
+                                        <button type="button" onclick="savePwd()" class="btn btn-danger waves-effect waves-light">
                                             设置密码
                                         </button>
                                     </div>
@@ -115,22 +115,20 @@
         });
     }
 
-    $('#pwd-form').validate({
-        submitHandler: function (form) {
-            var params = $("#pwd-form").serialize();
-            tale.post({
-                url : '/admin/password',
-                data: params,
-                success: function (result) {
-                    if(result && result.code === 200){
-                        tale.alertOkAndReload('密码修改成功');
-                    } else {
-                        tale.alertError(result.msg || '密码修改失败');
-                    }
+    function savePwd() {
+        var params = $("#pwd-form").serialize();
+        tale.post({
+            url : '/admin/password',
+            data: params,
+            success: function (result) {
+                if(result && result.code === 200){
+                    tale.alertOkAndReload('密码修改成功');
+                } else {
+                    tale.alertError(result.msg || '密码修改失败');
                 }
-            });
-        }
-    });
+            }
+        });
+    }
     /*]]>*/
 </script>
 </body>

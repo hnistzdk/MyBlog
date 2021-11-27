@@ -79,7 +79,7 @@ public class LoginController extends BaseController {
                 return ApiResponse.success("登录成功");
             } else {
                 loginErrorCount = redisUtil.getNumber(userCountKey);
-                if (isOk(loginErrorCount)) {
+                if (notOk(loginErrorCount)) {
                     redisUtil.setNumber(userCountKey, 1, 600);
                 } else {
                     redisUtil.incr(userCountKey, 1);
