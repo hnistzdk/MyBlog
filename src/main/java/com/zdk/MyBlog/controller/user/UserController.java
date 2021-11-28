@@ -39,8 +39,9 @@ public class UserController extends BaseController {
     public String toIndex(Model model,
                           @RequestParam(name = "page",required = false, defaultValue = "1") Integer pageNumber,
                           @RequestParam(name = "limit",required = false, defaultValue = "5")Integer pageSize,
-                          @RequestParam(name = "keywords",required = false) String keywords){
-        model.addAttribute("articles", articleService.getArticlePageByKeywords(pageNumber,pageSize,keywords));
+                          @RequestParam(name = "keywords",required = false) String keywords,
+                          @RequestParam(name = "tag",required = false) String tag){
+        model.addAttribute("articles", articleService.getArticlePageByKeywords(pageNumber,pageSize,keywords,tag));
         List<MetaDto> categories = metasService.getMetaList(Types.CATEGORY.getType());
         List<MetaDto> tags = metasService.getMetaList(Types.TAG.getType());
         model.addAttribute("categories",categories);

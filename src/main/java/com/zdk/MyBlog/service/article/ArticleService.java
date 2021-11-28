@@ -57,13 +57,14 @@ public interface ArticleService extends IService<Article> {
     PageInfo<Article> getArticlePage(Integer pageNum,Integer pageSize,User loginUser);
 
     /**
-     * 根据关键字获取文章分页
+     * 根据关键字和标签获取文章分页
      * @param pageNum
      * @param pageSize
      * @param keywords
+     * @param tag
      * @return
      */
-    PageInfo<Article> getArticlePageByKeywords(Integer pageNum,Integer pageSize,String keywords);
+    PageInfo<Article> getArticlePageByKeywords(Integer pageNum,Integer pageSize,String keywords,String tag);
 
     /**
      * 将分类为oldCategory的文章全部替换为分类为newCategory

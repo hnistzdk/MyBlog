@@ -16,8 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author zdk
@@ -79,11 +79,25 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    public PageInfo<Article> getArticlePageByKeywords(Integer pageNum, Integer pageSize,String keywords) {
+    public PageInfo<Article> getArticlePageByKeywords(Integer pageNum, Integer pageSize,String keywords,String tag) {
         PageHelper.startPage(pageNum, pageSize);
         List<Article> articles = lambdaQuery().like(paraValidatorUtil.isOk(keywords),Article::getTitle,keywords).
                 or().like(paraValidatorUtil.isOk(keywords),Article::getContent,keywords)
                 .orderByDesc(Article::getUpdateTime).list();
+
+        //如果是按标签搜索
+        if (paraValidatorUtil.isOk(tag)){
+            articles = articles.stream().filter(a -> {
+                String tags = a.getTags();
+                if (paraValidatorUtil.notOk(tags)) {
+                    return false;
+                }
+                String[] split = tags.split(",");
+                List<String> arrayList = new ArrayList<>(split.length);
+                Collections.addAll(arrayList, split);
+                return arrayList.contains(tag);
+            }).collect(Collectors.toList());
+        }
         return new PageInfo<>(articles);
     }
 
