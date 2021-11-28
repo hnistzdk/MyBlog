@@ -17,7 +17,7 @@
                             <tr>
                                 <th>链接名称</th>
                                 <th>链接地址</th>
-                                <th>链接LOGO</th>
+                                <th>链接描述</th>
                                 <th>链接排序</th>
                                 <th>操作</th>
                             </tr>
@@ -65,10 +65,16 @@
                                                    aria-required="true"/>
                                         </div>
 
+<!--                                        <div class="form-group">-->
+<!--                                            <label class="sr-only">链接LOGO</label>-->
+<!--                                            <input type="url" id="logo" name="logo" class="form-control"-->
+<!--                                                   placeholder="请输入链接LOGO，没有则不输入"/>-->
+<!--                                        </div>-->
+
                                         <div class="form-group">
-                                            <label class="sr-only">链接LOGO</label>
-                                            <input type="url" id="logo" name="logo" class="form-control"
-                                                   placeholder="请输入链接LOGO，没有则不输入"/>
+                                            <label class="sr-only">链接描述</label>
+                                            <input type="text" id="description" name="description" class="form-control"
+                                                   placeholder="请输入链接描述"/>
                                         </div>
 
                                         <div class="form-group">
@@ -122,13 +128,15 @@
         console.log('id',id);
         var title = this_.parents('tr').find('td:eq(0)').text();
         var url = this_.parents('tr').find('td:eq(1)').text();
-        var logo = this_.parents('tr').find('td:eq(2)').text();
+        // var logo = this_.parents('tr').find('td:eq(2)').text();
+        var description = this_.parents('tr').find('td:eq(2)').text();
         var sort = this_.parents('tr').find('td:eq(3)').text();
 
         $('#linkForm #id').val(id);
         $('#linkForm #title').val(title);
         $('#linkForm #url').val(url);
-        $('#linkForm #logo').val(logo);
+        // $('#linkForm #logo').val(logo);
+        $('#linkForm #description').val(description);
         $('#linkForm #sort').val(sort);
     }
 

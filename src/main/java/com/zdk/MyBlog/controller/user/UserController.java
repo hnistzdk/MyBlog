@@ -4,9 +4,11 @@ import com.zdk.MyBlog.constant.Types;
 import com.zdk.MyBlog.controller.BaseController;
 import com.zdk.MyBlog.model.dto.MetaDto;
 import com.zdk.MyBlog.model.pojo.Article;
+import com.zdk.MyBlog.model.pojo.Metas;
 import com.zdk.MyBlog.service.article.ArticleService;
 import com.zdk.MyBlog.service.metas.MetasService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,5 +61,13 @@ public class UserController extends BaseController {
     public String toAboutMe(Model model){
         model.addAttribute("user", getLoginUser());
         return "blog/about";
+    }
+
+    @ApiOperation("博客友链页")
+    @GetMapping("/links")
+    public String link(Model model){
+        List<Metas> list = metasService.getLinks();
+        model.addAttribute("links",list);
+        return "blog/links";
     }
 }

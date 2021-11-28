@@ -169,6 +169,11 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
     }
 
     @Override
+    public List<Metas> getLinks() {
+        return lambdaQuery().eq(Metas::getType, Types.LINK.getType()).list();
+    }
+
+    @Override
     public ApiResponse addLink(LinkDto link) {
         if (link == null){
             return ApiResponse.fail(ErrorConstant.Common.PARAM_IS_EMPTY);
@@ -176,7 +181,7 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
         Metas metas = new Metas();
         metas.setName(link.getTitle());
         metas.setSlug(link.getUrl());
-        metas.setDescription(link.getLogo());
+        metas.setDescription(link.getDescription());
         metas.setSort(link.getSort());
         metas.setType(Types.LINK.getType());
         if (link.getId() != null){

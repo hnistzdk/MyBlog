@@ -75,6 +75,12 @@ public interface MetasService extends IService<Metas> {
     PageInfo<Metas> getLinksPage(Integer pageNumber,Integer pageSize);
 
     /**
+     * 获取友链
+     * @return
+     */
+    List<Metas> getLinks();
+
+    /**
      * 添加友链
      * @param link
      * @return

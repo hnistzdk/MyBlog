@@ -28,6 +28,10 @@ public class LinkDto {
      */
     private String logo;
     /**
+     * 链接描述
+     */
+    private String description;
+    /**
      * 链接排序
      */
     private Integer sort;
