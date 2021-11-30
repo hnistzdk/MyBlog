@@ -24,7 +24,7 @@
 </head>
 
 <body style="height: 100%">
-<div th:replace="~{blog/common.html::sidebar}" ></div>
+<div th:replace="~{blog/common.html::sidebar}" id="sidebar"></div>
     <div class="main-wrapper" style="height: 100%;position: relative;background-color: rgb(246,246,246);">
 	    <section th:style="'background:url(/admin/images/bg/6.jpg)'" class="col-xs-12 col-sm-6 col-md-6 col-lg-12 grid">
 		    <div class="container text-center">
@@ -57,7 +57,7 @@
 					    </div>
 				    </div>
 			    </div>
-				<div style="margin: 0 auto;" th:replace="comm/macros :: pageAdminNav(${articles})"></div>
+				<div th:replace="comm/macros :: pageAdminNav2(${articles})"></div>
 		    </div>
 <!--			am-u-lg-4 am-u-sm-12 am-u-lg-offset-0 am-u-sm-offset-0 sidebar-container-->
 			<div class="right-bar-enabled" style="width: 40%;font-size: 20px">
@@ -87,7 +87,7 @@
                     热门标签
                 </span>
 						</div>
-						<div class="tags" style="width: 40%">
+						<div class="tags" style="width: 80%">
 							<a th:each="c : ${tags}" rel="tag" th:href="@{/user/toIndex(tag=${c.name})}">
 								<span th:class="'btn btn-'+${@adminCommons.rand_color()}+' waves-effect waves-light'" th:text="${c.name}+'('+${c.count}+')'"></span>
 							</a>
@@ -101,7 +101,7 @@
 						</div>
 						<div class="sidebar-list">
 							<ul class="sidebar-list-body sidebar-list-items">
-								<li class="sidebar-list-item" th:each="article,count:${latestArticle}" th:if="${count.count<=10}">
+								<li class="sidebar-list-item" th:each="article,count:${latestArticle}" th:if="${count.count<=8}">
 									<a class="tag tooltipped tooltipped-n" th:href="@{/article/toPost(id=${article.getId()})}" th:text="${article.title}"></a>
 								</li>
 							</ul>
@@ -115,7 +115,7 @@
 						</div>
 						<main class="sidebar-lists">
 							<ul>
-								<li class="sidebar-list-item" th:each="article,count:${clickMostArticle}" th:if="${count.count<=10}">
+								<li class="sidebar-list-item" th:each="article,count:${clickMostArticle}" th:if="${count.count<=8}">
 									<a class="tag tooltipped tooltipped-n" th:href="@{/article/toPost(id=${article.getId()})}" th:text="${article.title}"></a>
 								</li>
 							</ul>
@@ -126,8 +126,6 @@
 	    </section>
 		<footer  th:replace="~{blog/common.html::footer}"></footer>
     </div>
-
-
     <div th:replace="~{blog/common.html::diyTheme}"></div>
 
 

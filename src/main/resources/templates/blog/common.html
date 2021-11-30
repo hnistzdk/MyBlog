@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<header class="header text-center" th:fragment="sidebar">
+<header class="header " th:fragment="sidebar">
     <h1 th:if="${user!=null}" class="blog-name pt-lg-4 mb-0"><a th:href="@{/user/logout}">注销</a></h1>
     <h1 th:if="${user!=null}" class="blog-name pt-lg-4 mb-0"><a th:href="@{/article/toWriteBlog}">写博客</a></h1>
     <h1 th:if="${user!=null}" class="blog-name pt-lg-4 mb-0"><a th:href="@{/user/toIndex}" th:text="${user.getNickname()}+'\'s Blog'"></a></h1>
@@ -42,10 +42,12 @@
     </nav>
 </header>
 
+<div th:fragment="footer">
+    <footer class=" text-center py-2 theme-bg-dark bottom" style="position:fixed;bottom:0;height: 30px;font-size: 18px; width: 100%;color: #FFFFFF">
+        <small class="copyright">Copyright &copy; 2021.Company name All rights reserved. <a target="_blank" th:href="@{https://github.com/hnistzdk}">myGitHub</a></small>
+    </footer>
+</div>
 
-<footer class=" text-center py-2 theme-bg-dark bottom" th:fragment="footer" style="position:absolute;bottom:0;height: 50px;font-size: 18px; width: 100%;color: #FFFFFF">
-    <small class="copyright">Copyright &copy; 2021.Company name All rights reserved. <a target="_blank" th:href="@{https://github.com/hnistzdk}">myGitHub</a></small>
-</footer>
 
 <!--自定义主题-->
 <div id="config-panel" class="config-panel d-none d-lg-block" th:fragment="diyTheme">

@@ -20,13 +20,16 @@
 </ol>
 
 <div th:fragment="pageAdminNav(pageInfo)" style="width: 30%;">
-    <div class="clearfix">
+    <div >
         <ul class="pagination m-b-5 pull-right">
-            <li th:if="${pageInfo.hasPreviousPage}">
-                <a th:href="@{'?page='+${pageInfo.prePage}}" aria-label="Previous">
-                    <i class="fa fa-angle-left"></i>&nbsp;上一页
-                </a>
-            </li>
+
+            <th:block th:if="${pageInfo.hasPreviousPage}">
+                <li>
+                    <a th:href="@{'?page='+${pageInfo.prePage}}" aria-label="Previous">
+                        <i class="fa fa-angle-left"></i>&nbsp;上一页
+                    </a>
+                </li>
+            </th:block>
 
             <th:block th:each="nav : ${pageInfo.navigatepageNums}">
                 <li th:class="${nav==pageInfo.pageNum}?'active':''"><a th:href="@{'?page='+${nav}}" th:text="${nav}"></a>
@@ -36,6 +39,36 @@
             <th:block th:if="${pageInfo.hasNextPage}">
                 <li>
                     <a th:href="@{'?page='+${pageInfo.nextPage}}" aria-label="Next">
+                        下一页&nbsp;<i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+            </th:block>
+
+            <li><span th:text="'共'+${pageInfo.pages}+'页'"></span></li>
+        </ul>
+    </div>
+</div>
+
+<div th:fragment="pageAdminNav2(pageInfo)" style="width: 30%;">
+    <div >
+        <ul class="pagination m-b-5 pull-right">
+
+            <th:block th:if="${pageInfo.hasPreviousPage}">
+                <li>
+                    <a th:href="@{'?page='+${pageInfo.prePage}}" aria-label="Previous">
+                        <i class="fa fa-angle-left"></i>&nbsp;上一页
+                    </a>
+                </li>
+            </th:block>
+
+            <th:block th:each="nav : ${pageInfo.navigatepageNums}">
+                <li th:class="${nav==pageInfo.pageNum}?'active':''"><a th:href="@{'?page='+${nav}}" th:text="${nav}"></a>
+                </li>
+            </th:block>
+
+            <th:block th:if="${pageInfo.hasNextPage}">
+                <li>
+                    <a th:href="@{'?page='+${pageInfo.nextPage}}"  aria-label="Next">
                         下一页&nbsp;<i class="fa fa-angle-right"></i>
                     </a>
                 </li>
