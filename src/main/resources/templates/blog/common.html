@@ -12,13 +12,13 @@
             <div class="profile-section pt-3 pt-lg-0">
                 <img th:if="${user!=null}" class="profile-image mb-3 rounded-circle mx-auto" th:src="@{/assets/images/profile.jpg}" alt="image" >
                 <div th:if="${user!=null}" class="bio mb-3" th:text="${user.getBriefIntroduction()}"><br><a th:href="@{/user/toAboutMe}">Find out more about me</a></div><!--//bio-->
-                <ul class="social-list list-inline py-3 mx-auto">
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-github-alt fa-fw"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-codepen fa-fw"></i></a></li>
-                </ul><!--//social-list-->
+<!--                <ul class="social-list list-inline py-3 mx-auto">-->
+<!--                    <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>-->
+<!--                    <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in fa-fw"></i></a></li>-->
+<!--                    <li class="list-inline-item"><a href="#"><i class="fab fa-github-alt fa-fw"></i></a></li>-->
+<!--                    <li class="list-inline-item"><a href="#"><i class="fab fa-stack-overflow fa-fw"></i></a></li>-->
+<!--                    <li class="list-inline-item"><a href="#"><i class="fab fa-codepen fa-fw"></i></a></li>-->
+<!--                </ul>-->
                 <hr>
             </div><!--//profile-section-->
             <ul class="navbar-nav flex-column text-left">
