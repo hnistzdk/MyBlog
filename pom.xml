@@ -232,53 +232,6 @@
 					</excludes>
 				</configuration>
 			</plugin>
-
-			<!--log4j2问题解决start-->
-			<!-- Maven Shade Plugin -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>2.4.3</version>
-
-				<configuration>
-					<createDependencyReducedPom>true</createDependencyReducedPom>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-							<transformers>
-								<transformer
-										implementation="com.github.edwgiz.mavenShadePlugin.log4j2CacheTransformer.PluginsCacheFileTransformer"/>
-							</transformers>
-							<filters>
-								<filter>
-									<artifact>*:*</artifact>
-
-									<excludes>
-										<exclude>META-INF/*.SF</exclude>
-										<exclude>META-INF/*.DSA</exclude>
-										<exclude>META-INF/*.RSA</exclude>
-										<exclude>**/Log4j2Plugins.dat</exclude>
-									</excludes>
-
-								</filter>
-							</filters>
-						</configuration>
-					</execution>
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>com.github.edwgiz</groupId>
-						<artifactId>maven-shade-plugin.log4j2-cachefile-transformer</artifactId>
-						<version>2.6.1</version>
-					</dependency>
-				</dependencies>
-			</plugin>
-			<!--log4j2问题解决end-->
 		</plugins>
 		<resources>
 			<resource>
