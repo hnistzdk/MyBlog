@@ -135,5 +135,8 @@
         <logger name="io.netty" level="error"/>
         <logger name="io.lettuce" level="error"/>
         <logger name="org.thymeleaf" level="error"/>
+        <logger name="org.apache.ibatis" level="error"/>
+        <logger name="org.apache.ibatis" level="error"/>
+        <logger name="org.mybatis.logging" level="error"/>
     </loggers>
 </configuration>

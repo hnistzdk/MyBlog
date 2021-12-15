@@ -2,6 +2,7 @@ package com.zdk.MyBlog.controller.article;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.upyun.Result;
 import com.zdk.MyBlog.constant.ErrorConstant;
 import com.zdk.MyBlog.constant.Types;
@@ -67,7 +68,7 @@ public class ArticleController extends BaseController {
     @GetMapping(value = "/toPost")
     public String toPost(Model model, Integer id){
         Article article = articleService.getArticleById(id);
-        articleService.updateById(article.setReadCount(article.getReadCount()+1));
+//        articleService.update(new UpdateWrapper<Article>().eq("id", id).set("read_count", article.getReadCount()+1));
         List<Comments> commentsList = commentsService.getCommentsByArticleId(id);
         model.addAttribute("article",article);
         model.addAttribute("comments",commentsList);
@@ -79,7 +80,7 @@ public class ArticleController extends BaseController {
     @GetMapping(value = "/toPost/{id}")
     public String toPost1(Model model, @PathVariable Integer id){
         Article article = articleService.getArticleById(id);
-        articleService.updateById(article.setReadCount(article.getReadCount()+1));
+//        articleService.update(new UpdateWrapper<Article>().eq("id", id).set("read_count", article.getReadCount()+1));
         List<Comments> commentsList = commentsService.getCommentsByArticleId(id);
         model.addAttribute("article",article);
         model.addAttribute("comments",commentsList);

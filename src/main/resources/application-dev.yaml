@@ -1,5 +1,5 @@
 server:
-  port: 8090
+  port: 8091
   servlet:
     session:
       cookie:
@@ -73,8 +73,8 @@ spring:
 
 #mybatis-plus的配置
 mybatis-plus:
-  type-aliases-package: com.zdk.MyBlog
-  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.zdk.MyBlog.model
+  mapper-locations: classpath:mapper/**/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
     map-underscore-to-camel-case: true

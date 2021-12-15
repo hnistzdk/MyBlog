@@ -39,7 +39,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public List<Article> getAllArticle() {
-        return articleMapper.selectList(null);
+        return list();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         if (paraValidatorUtil.notOk(id)){
             return null;
         }
-        return articleMapper.selectById(id);
+        return getById(id);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public Boolean addArticle(Article article) {
-        return articleMapper.insert(article)>0;
+        return saveOrUpdate(article);
     }
 
     @Override
