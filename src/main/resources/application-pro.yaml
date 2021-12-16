@@ -71,13 +71,6 @@ spring:
     auto: true
     proxy-target-class: true
 
-qiniu:
-  accesskey: ""
-  serectkey: ""
-  bucket: ""
-  cdn:
-    url: ""
-
 #mybatis-plus的配置
 mybatis-plus:
   type-aliases-package: com.zdk.MyBlog.model
@@ -107,4 +100,8 @@ up-yun:
   password: x04vgrvGFyge5opzOgdgXcARS1eYfekA
   saveKey: /zdk-blog-image/
   imageParam: /fw/1100/unsharp/true/quality/100/format/png
+
+#日志配置
+logging:
+  config: classpath:log4j2.xml
 
