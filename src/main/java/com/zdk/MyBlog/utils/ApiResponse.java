@@ -1,11 +1,13 @@
 package com.zdk.MyBlog.utils;
 
+import java.io.Serializable;
+
 /**
  * @author zdk
  * @date 2021/7/20 18:40
  * 统一响应结果类
  */
-public class ApiResponse<T>{
+public class ApiResponse<T> implements Serializable {
 
     private static final Integer CODE_SUCCESS = 200;
     private static final Integer CODE_FAIL = 201;
