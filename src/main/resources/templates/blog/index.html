@@ -71,10 +71,13 @@
 						<div class="sidebar-search">
 							<form method="get" onsubmit="return false;" accept-charset="utf-8">
 								<div class="input-group" style="width: 50%" >
-									<input type="text" class="form-control" oninput="searchArticle()" name="keywords" id="searchbox" placeholder="输入关键字搜索">
+									<input type="text" class="form-control" th:value="${keywords}" oninput="searchArticle()" name="keywords" id="searchbox" placeholder="输入关键字搜索">
 									<span class="input-group-btn">
         								<a class="btn btn-default" id="search" href="">
 											<span class="glyphicon glyphicon-search" aria-hidden="true">查询</span>
+										</a>
+										<a class="btn btn-default" id="reset" href="/user/toIndex">
+											<span class="glyphicon glyphicon-reset" aria-hidden="true">重置</span>
 										</a>
      	 							</span>
 								</div>

@@ -54,6 +54,9 @@ public class UserController extends BaseController {
 
         List<Article> clickMostArticle = articleService.getClickMostArticle();
         model.addAttribute("clickMostArticle",clickMostArticle);
+
+        model.addAttribute("keywords", keywords==null?"":keywords);
+        model.addAttribute("tag", tag==null?"":tag);
         return "blog/index";
     }
 
