@@ -19,6 +19,8 @@ import com.zdk.MyBlog.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +45,8 @@ public class CommentsServiceImpl extends ServiceImpl<CommentsMapper, Comments> i
     private ParaValidatorUtil paraValidatorUtil;
     @Autowired
     private ArticleService articleService;
+
+    @Cacheable(value = "comments",key = "'commentsByArticleId'+#articleId",condition = "#articleId!=null")
     @Override
     public List<Comments> getCommentsByArticleId(Integer articleId) {
         return lambdaQuery().eq(Comments::getArticleId, articleId)
@@ -51,11 +55,13 @@ public class CommentsServiceImpl extends ServiceImpl<CommentsMapper, Comments> i
                 .list();
     }
 
+    @Cacheable(value = "comments",key = "'commentsByAuthorId'+#authorId",condition = "#authorId!=null")
     @Override
     public List<Comments> getCommentsByAuthorId(Integer authorId) {
         return lambdaQuery().eq(Comments::getAuthorId, authorId).eq(Comments::getDeleted, false).list();
     }
 
+    @Cacheable(value = "comments",key = "'commentsByOwnerId'+#ownerId+#loginUser",condition = "#ownerId!=null")
     @Override
     public List<Comments> getCommentsByOwnerId(Integer ownerId, User loginUser) {
         return lambdaQuery().eq(!Objects.equals(loginUser.getRole(), RoleConst.ADMIN),Comments::getOwnerId, ownerId)
@@ -63,6 +69,7 @@ public class CommentsServiceImpl extends ServiceImpl<CommentsMapper, Comments> i
                 .list();
     }
 
+    @Cacheable(value = "comments",key = "'commentsPage'+#pageNum+#pageSize+#loginUser")
     @Override
     public PageInfo<Comments> getCommentsPage(Integer pageNum, Integer pageSize,User loginUser) {
         PageHelper.startPage(pageNum, pageSize);
@@ -74,6 +81,7 @@ public class CommentsServiceImpl extends ServiceImpl<CommentsMapper, Comments> i
         return new PageInfo<>(comments);
     }
 
+    @CachePut(value = "comments",key = "'comments'+#commentsDto.id+#user")
     @Override
     public ApiResponse comment(CommentsDto commentsDto, HttpServletRequest request,User user) {
         String ip = IpKit.getIpAddressByRequest(request);

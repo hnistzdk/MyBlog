@@ -25,6 +25,9 @@ spring:
     port: 6379
     host: 211.69.238.151
     password: zdk13696086376.
+  #缓存配置
+  cache:
+    type: redis
 
   #数据源配置
   datasource:

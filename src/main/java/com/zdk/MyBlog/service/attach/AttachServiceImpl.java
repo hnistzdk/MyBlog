@@ -13,6 +13,9 @@ import com.zdk.MyBlog.utils.UpYunUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,17 +36,19 @@ public class AttachServiceImpl extends ServiceImpl<AttachMapper, Attach> impleme
     @Autowired
     private UpYunUtil upYunUtil;
 
+    @Cacheable(value = "attach",key = "'attachPage'+#pageNum+#pageSize+#loginUser")
     @Override
     public PageInfo<Attach> getAttachPage(Integer pageNum, Integer pageSize, User loginUser) {
         PageHelper.startPage(pageNum, pageSize);
         return new PageInfo<>(lambdaQuery().eq(!Objects.equals(loginUser.getRole(), RoleConst.ADMIN),Attach::getAuthorId, loginUser.getId()).orderByDesc(Attach::getCreateTime).list());
     }
-
+    @CachePut(value = "attach",key = "'attach'+#attaches")
     @Override
     public Boolean batchSave(List<Attach> attaches) {
         return saveBatch(attaches);
     }
 
+    @CacheEvict(value = "attach",key = "'attach'+#id",condition = "#id!=null")
     @Override
     public Boolean deleteAttachById(Integer id) throws UpException, IOException {
         Attach attach = getById(id);
@@ -52,6 +57,7 @@ public class AttachServiceImpl extends ServiceImpl<AttachMapper, Attach> impleme
         return result&&result1;
     }
 
+    @Cacheable(value = "attach",key = "'attachs'+#loginUser")
     @Override
     public List<Attach> getAttachesByUser(User loginUser) {
         return lambdaQuery().eq(!loginUser.getRole().equals(RoleConst.ADMIN),Attach::getAuthorId,loginUser.getId()).list();

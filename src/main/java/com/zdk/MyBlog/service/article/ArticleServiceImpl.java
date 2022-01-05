@@ -13,6 +13,10 @@ import com.zdk.MyBlog.service.metas.MetasService;
 import com.zdk.MyBlog.service.relationships.RelationshipsService;
 import com.zdk.MyBlog.utils.ParaValidatorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,19 +41,33 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Autowired
     private ParaValidatorUtil paraValidatorUtil;
 
+    @Cacheable(value = "article",key = "'articles'")
     @Override
     public List<Article> getAllArticle() {
         return list();
     }
 
+    /**
+     * unless 参数就是不执行Cacheable的条件
+     * @param id
+     * @return
+     */
+    @Cacheable(value = "article",key = "'article'+#id",unless = "#id==null")
     @Override
     public Article getArticleById(Integer id) {
         if (paraValidatorUtil.notOk(id)){
             return null;
         }
+        System.out.println("执行了查询");
         return getById(id);
     }
 
+    /**
+     * condition 参数就是执行Cacheable的条件
+     * @param loginUser
+     * @return
+     */
+    @Cacheable(value = "article",key = "'article'+#loginUser.username",condition = "#loginUser!=null")
     @Override
     public List<Article> getArticleByAuthorId(User loginUser) {
         if (paraValidatorUtil.notOk(loginUser.getId())){
@@ -58,11 +76,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return lambdaQuery().eq(!Objects.equals(loginUser.getRole(), RoleConst.ADMIN),Article::getAuthorId, loginUser.getId()).list();
     }
 
+    @CachePut(cacheNames="article",key="#article.id")
     @Override
     public Boolean addArticle(Article article) {
         return saveOrUpdate(article);
     }
 
+    @Caching(evict={@CacheEvict(value = "article", key="'article'+#id",condition="#id!=null")
+            , @CacheEvict(value = "article", key="'articles'")})
     @Override
     public Boolean deleteArticleById(Integer id) {
         if (paraValidatorUtil.notOk(id)){
@@ -71,6 +92,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return removeById(id);
     }
 
+    @Cacheable(value = "article",key = "'articlePage'+#pageNum+#pageSize+#loginUser.username")
     @Override
     public PageInfo<Article> getArticlePage(Integer pageNum, Integer pageSize,User loginUser) {
         PageHelper.startPage(pageNum, pageSize);
@@ -78,6 +100,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return new PageInfo<>(articles);
     }
 
+    @Cacheable(value = "article",key = "'articlePage'+#pageNum+#pageSize+#keywords+#tag")
     @Override
     public PageInfo<Article> getArticlePageByKeywords(Integer pageNum, Integer pageSize,String keywords,String tag) {
         PageHelper.startPage(pageNum, pageSize);
@@ -97,6 +120,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                 });
     }
 
+    @Cacheable(value = "article",key = "'articles'+#articleCond")
     @Override
     public List<Article> getArticleByCondition(ArticleCond articleCond) {
         return lambdaQuery().like(paraValidatorUtil.isOk(articleCond.getTag()),Article::getTags, articleCond.getTag())
@@ -109,6 +133,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                 .list();
     }
 
+    @CachePut(cacheNames="article",key="#article.id")
     @Override
     public Boolean modifyArticle(Article article) {
         int update = articleMapper.updateById(article);
@@ -118,11 +143,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return update>0;
     }
 
+    @Cacheable(value = "article",key = "'articlesLatest'")
     @Override
     public List<Article> getLatestArticle() {
         return lambdaQuery().orderByDesc(Article::getPublishTime).list();
     }
 
+    @Cacheable(value = "article",key = "'articlesClickMost'")
     @Override
     public List<Article> getClickMostArticle() {
         return lambdaQuery().orderByDesc(Article::getReadCount).list();

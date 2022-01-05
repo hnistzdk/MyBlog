@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @date 2021/7/6
  */
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
-@EnableCaching
 @EnableTransactionManagement
 public class MyBlogApplication {
 	public static void main(String[] args) {
