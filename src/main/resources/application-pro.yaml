@@ -108,5 +108,5 @@ up-yun:
 
 #日志配置
 logging:
-  config: classpath:log4j2.xml
+  config: classpath:log4j2-pro.xml
 
