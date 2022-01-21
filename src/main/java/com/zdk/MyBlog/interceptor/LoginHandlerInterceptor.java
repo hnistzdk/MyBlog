@@ -37,6 +37,10 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         if (uri.startsWith("/article/toPost") || uri.startsWith("/user/toIndex")){
             return true;
         }
+        if (uri.startsWith("/webhook/shell")){
+            logger.info("执行shell脚本,放行");
+            return true;
+        }
         //用于测试接口时
         if (request.getParameter("token")!=null){
             return true;

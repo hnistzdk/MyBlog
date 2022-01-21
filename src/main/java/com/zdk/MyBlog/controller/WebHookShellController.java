@@ -18,7 +18,6 @@ import java.io.IOException;
  * @Date 2022/1/21 21:14
  */
 @RestController
-@RequestMapping("/webhook/shell")
 public class WebHookShellController extends BaseController{
     private static final Logger logger = LoggerFactory.getLogger(WebHookShellController.class);
 
@@ -36,7 +35,7 @@ public class WebHookShellController extends BaseController{
      * @return
      * @throws IOException
      */
-    @PostMapping("/note")
+    @PostMapping("/webhook/shell/note")
     public ApiResponse auto(@RequestHeader("User-Agent") String userAgent,
                             @RequestHeader("X-Gitee-Token") String giteeToken,
                             @RequestHeader("X-Gitee-Event") String giteeEvent) throws IOException {
