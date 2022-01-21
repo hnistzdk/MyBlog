@@ -21,9 +21,8 @@ import java.io.IOException;
 public class WebHookShellController extends BaseController{
     private static final Logger logger = LoggerFactory.getLogger(WebHookShellController.class);
 
-    private String startFileName = "notes-start.sh";
 
-    private String directory = "/root/my-notes";
+    private String fileName = "/root/my-notes/notes-start.sh";
 
     private String token = "my-notes";
 
@@ -57,15 +56,13 @@ public class WebHookShellController extends BaseController{
      * @throws IOException
      */
     public void executeShell() throws IOException {
-        String fullName = getFullName(startFileName);
-        File file = new File(fullName);
+        File file = new File(fileName);
         if(!file.exists()) {
-            logger.error("file {} not existed!", fullName);
+            logger.error("file {} not existed!", fileName);
             return;
         }
         //赋予755权限并调用
-        ProcessBuilder processBuilder = new ProcessBuilder("/bin/chmod", "755", fullName);
-        processBuilder.directory(new File(directory));
+        ProcessBuilder processBuilder = new ProcessBuilder("/bin/chmod", "755", fileName);
         Process process = processBuilder.start();
         int runningStatus = 0;
         try {
@@ -79,14 +76,5 @@ public class WebHookShellController extends BaseController{
         }else {
             logger.info("success.");
         }
-    }
-
-    /**
-     * 文件调用全路径
-     * @param fileName
-     * @return
-     */
-    private String getFullName(String fileName) {
-        return directory + File.separator + fileName;
     }
 }
