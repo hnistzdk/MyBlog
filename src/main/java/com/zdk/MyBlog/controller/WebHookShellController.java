@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * @Description
@@ -53,28 +52,28 @@ public class WebHookShellController extends BaseController{
 
     /**
      * 执行脚本
-     * @throws IOException
      */
-    public void executeShell() throws IOException {
-        File file = new File(fileName);
-        if(!file.exists()) {
-            logger.error("file {} not existed!", fileName);
-            return;
-        }
-        //赋予755权限并调用
-        ProcessBuilder processBuilder = new ProcessBuilder("/bin/chmod", "755", fileName);
-        Process process = processBuilder.start();
-        int runningStatus = 0;
+    public void executeShell() {
         try {
-            runningStatus = process.waitFor();
-        } catch (InterruptedException e) {
-            logger.error("shell", e);
-        }
-
-        if(runningStatus != 0) {
-            logger.error("failed.");
-        }else {
-            logger.info("success.");
+            ProcessBuilder pb = new ProcessBuilder(fileName);
+            Process ps = pb.start();
+            InputStream is = ps.getErrorStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String line;
+            while ((line = br.readLine()) != null) {
+                logger.error(line);
+            }
+            InputStream is1 = ps.getInputStream();
+            BufferedReader br1 = new BufferedReader(new InputStreamReader(is1));
+            String line1;
+            while ((line1 = br1.readLine()) != null) {
+                logger.debug(line1);
+            }
+            int exitCode = ps.waitFor();
+            logger.debug("exitCode->{}",exitCode);
+        } catch (Exception e) {
+            logger.error("调用发生异常");
+            e.printStackTrace();
         }
     }
 }
