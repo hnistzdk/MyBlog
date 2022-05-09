@@ -58,7 +58,7 @@ public class UpYunUtil {
 
     public Boolean deleteFile(String filePath) throws UpException, IOException {
         UpYun upYun = upYunConfig.getUpYun();
-        //正确文件路径应该是zdk-blog-image.test.upcdn.net/zdk-blog-image(文件夹名)/文件名
+        //正确文件路径应该是zdk-blog-image(服务名称 bucketName)/(文件夹名 如果有的话)/文件名
         String trueDeletePath = filePath.substring(filePath.lastIndexOf("zdk"));
         return upYun.deleteFile(trueDeletePath,null );
     }
