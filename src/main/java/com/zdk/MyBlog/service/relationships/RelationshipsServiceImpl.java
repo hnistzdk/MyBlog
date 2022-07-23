@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zdk.MyBlog.mapper.RelationshipsMapper;
-import com.zdk.MyBlog.model.pojo.Relationships;
+import com.zdk.MyBlog.model.Relationships;
 import com.zdk.MyBlog.utils.ParaValidatorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,7 +1,7 @@
 package com.zdk.MyBlog.controller.admin;
 
 import com.zdk.MyBlog.controller.BaseController;
-import com.zdk.MyBlog.model.pojo.Options;
+import com.zdk.MyBlog.model.Options;
 import com.zdk.MyBlog.service.logs.LogsService;
 import com.zdk.MyBlog.service.options.OptionsService;
 import com.zdk.MyBlog.utils.ApiResponse;

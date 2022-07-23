@@ -2,9 +2,9 @@ package com.zdk.MyBlog.controller.user;
 
 import com.zdk.MyBlog.constant.Types;
 import com.zdk.MyBlog.controller.BaseController;
-import com.zdk.MyBlog.model.dto.MetaDto;
-import com.zdk.MyBlog.model.pojo.Article;
-import com.zdk.MyBlog.model.pojo.Metas;
+import com.zdk.MyBlog.dto.MetaDTO;
+import com.zdk.MyBlog.model.Article;
+import com.zdk.MyBlog.model.Metas;
 import com.zdk.MyBlog.service.article.ArticleService;
 import com.zdk.MyBlog.service.metas.MetasService;
 import io.swagger.annotations.Api;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -44,8 +43,8 @@ public class UserController extends BaseController {
                           @RequestParam(name = "keywords",required = false) String keywords,
                           @RequestParam(name = "tag",required = false) String tag){
         model.addAttribute("articles", articleService.getArticlePageByKeywords(pageNumber,pageSize,keywords,tag));
-        List<MetaDto> categories = metasService.getMetaList(Types.CATEGORY.getType());
-        List<MetaDto> tags = metasService.getMetaList(Types.TAG.getType());
+        List<MetaDTO> categories = metasService.getMetaList(Types.CATEGORY.getType());
+        List<MetaDTO> tags = metasService.getMetaList(Types.TAG.getType());
         model.addAttribute("categories",categories);
         model.addAttribute("tags",tags);
 

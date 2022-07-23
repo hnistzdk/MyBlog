@@ -3,8 +3,8 @@ package com.zdk.MyBlog.controller.admin;
 import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.constant.Types;
 import com.zdk.MyBlog.controller.BaseController;
-import com.zdk.MyBlog.model.dto.MetaDto;
-import com.zdk.MyBlog.model.pojo.Article;
+import com.zdk.MyBlog.dto.MetaDTO;
+import com.zdk.MyBlog.model.Article;
 import com.zdk.MyBlog.service.article.ArticleService;
 import com.zdk.MyBlog.service.metas.MetasService;
 import com.zdk.MyBlog.utils.RedisUtil;
@@ -39,7 +39,7 @@ public class AdminArticleController extends BaseController {
     @ApiOperation("跳转到发布文章页面")
     @GetMapping(value = "/publish")
     public String index(Model model){
-        List<MetaDto> categories = metasService.getMetaList(Types.CATEGORY.getType());
+        List<MetaDTO> categories = metasService.getMetaList(Types.CATEGORY.getType());
         model.addAttribute("user", getLoginUser());
         model.addAttribute("categories", categories);
         return "admin/article_edit";
@@ -59,7 +59,7 @@ public class AdminArticleController extends BaseController {
     @GetMapping(value = "/{id}")
     public String toPost2(Model model, @PathVariable Integer id){
         Article article = articleService.getArticleById(id);
-        List<MetaDto> categories = metasService.getMetaList(Types.CATEGORY.getType());
+        List<MetaDTO> categories = metasService.getMetaList(Types.CATEGORY.getType());
         model.addAttribute("article",article);
         model.addAttribute("user",getLoginUser());
         model.addAttribute("categories",categories);

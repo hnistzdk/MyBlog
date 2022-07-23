@@ -1,11 +1,9 @@
 package com.zdk.MyBlog.controller.admin;
 
 import com.github.pagehelper.PageInfo;
-import com.zdk.MyBlog.constant.Types;
 import com.zdk.MyBlog.controller.BaseController;
-import com.zdk.MyBlog.model.dto.LinkDto;
-import com.zdk.MyBlog.model.dto.MetaDto;
-import com.zdk.MyBlog.model.pojo.Metas;
+import com.zdk.MyBlog.dto.LinkDTO;
+import com.zdk.MyBlog.model.Metas;
 import com.zdk.MyBlog.service.metas.MetasService;
 import com.zdk.MyBlog.utils.ApiResponse;
 import io.swagger.annotations.Api;
@@ -16,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @author zdk
@@ -45,7 +41,7 @@ public class LinksController extends BaseController {
     @ApiOperation("保存友链")
     @PostMapping("/save")
     @ResponseBody
-    public ApiResponse save(LinkDto link){
+    public ApiResponse save(LinkDTO link){
         return ApiResponse.success(metasService.addLink(link));
     }
 

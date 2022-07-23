@@ -2,8 +2,8 @@ package com.zdk.MyBlog.service.logs;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
-import com.zdk.MyBlog.model.pojo.Logs;
-import com.zdk.MyBlog.model.pojo.User;
+import com.zdk.MyBlog.model.Logs;
+import com.zdk.MyBlog.model.User;
 
 import java.util.List;
 

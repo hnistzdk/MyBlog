@@ -1,11 +1,11 @@
 package com.zdk.MyBlog.service.site;
 
-import com.zdk.MyBlog.model.dto.ArchiveDto;
-import com.zdk.MyBlog.model.dto.MetaDto;
-import com.zdk.MyBlog.model.dto.StatisticsDto;
-import com.zdk.MyBlog.model.dto.cond.ArticleCond;
-import com.zdk.MyBlog.model.pojo.Article;
-import com.zdk.MyBlog.model.pojo.Comments;
+import com.zdk.MyBlog.dto.ArchiveDTO;
+import com.zdk.MyBlog.dto.MetaDTO;
+import com.zdk.MyBlog.dto.StatisticsDTO;
+import com.zdk.MyBlog.dto.cond.ArticleCond;
+import com.zdk.MyBlog.model.Article;
+import com.zdk.MyBlog.model.Comments;
 
 import java.util.List;
 
@@ -39,21 +39,21 @@ public interface SiteService {
      * 获取 后台统计数据
      * @return
      */
-    StatisticsDto getStatistics();
+    StatisticsDTO getStatistics();
 
     /**
      * 获取归档列表 - 只是获取日期和数量
      * @param articleCond
      * @return
      */
-    List<ArchiveDto> getArchivesSimple(ArticleCond articleCond);
+    List<ArchiveDTO> getArchivesSimple(ArticleCond articleCond);
 
     /**
      * 获取归档列表
      * @param articleCond 查询条件（只包含开始时间和结束时间）
      * @return
      */
-    List<ArchiveDto> getArchives(ArticleCond articleCond);
+    List<ArchiveDTO> getArchives(ArticleCond articleCond);
 
 
 
@@ -64,5 +64,5 @@ public interface SiteService {
      * @param limit
      * @return
      */
-    List<MetaDto> getMetas(String type, String orderBy, int limit);
+    List<MetaDTO> getMetas(String type, String orderBy, int limit);
 }

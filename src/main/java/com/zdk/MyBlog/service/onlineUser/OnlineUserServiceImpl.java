@@ -2,7 +2,7 @@ package com.zdk.MyBlog.service.onlineUser;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zdk.MyBlog.mapper.OnlineUserMapper;
-import com.zdk.MyBlog.model.pojo.OnlineUser;
+import com.zdk.MyBlog.model.OnlineUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

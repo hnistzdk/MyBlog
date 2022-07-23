@@ -1,17 +1,12 @@
 package com.zdk.MyBlog.controller;
 
 import cn.hutool.json.JSONUtil;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.zdk.MyBlog.constant.WebConst;
-import com.zdk.MyBlog.model.pojo.User;
+import com.zdk.MyBlog.model.User;
 import com.zdk.MyBlog.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * @author zdk

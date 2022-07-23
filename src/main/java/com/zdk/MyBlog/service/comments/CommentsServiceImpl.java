@@ -1,8 +1,6 @@
 package com.zdk.MyBlog.service.comments;
 
 import cn.hutool.core.date.DateUtil;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -10,10 +8,10 @@ import com.zdk.MyBlog.constant.ErrorConstant;
 import com.zdk.MyBlog.constant.RoleConst;
 import com.zdk.MyBlog.mapper.CommentsMapper;
 import com.zdk.MyBlog.mapper.UserMapper;
-import com.zdk.MyBlog.model.dto.CommentsDto;
-import com.zdk.MyBlog.model.pojo.Article;
-import com.zdk.MyBlog.model.pojo.Comments;
-import com.zdk.MyBlog.model.pojo.User;
+import com.zdk.MyBlog.dto.CommentsDTO;
+import com.zdk.MyBlog.model.Article;
+import com.zdk.MyBlog.model.Comments;
+import com.zdk.MyBlog.model.User;
 import com.zdk.MyBlog.service.article.ArticleService;
 import com.zdk.MyBlog.utils.*;
 import org.slf4j.Logger;
@@ -25,7 +23,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -83,7 +80,7 @@ public class CommentsServiceImpl extends ServiceImpl<CommentsMapper, Comments> i
 
     @CachePut(value = "comments",key = "'comments'+#commentsDto.id+#user")
     @Override
-    public ApiResponse comment(CommentsDto commentsDto, HttpServletRequest request,User user) {
+    public ApiResponse comment(CommentsDTO commentsDto, HttpServletRequest request, User user) {
         String ip = IpKit.getIpAddressByRequest(request);
         if (commentsDto == null){
             return ApiResponse.fail(ErrorConstant.Common.PARAM_IS_EMPTY);

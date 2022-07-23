@@ -1,7 +1,7 @@
 package com.zdk.MyBlog.service.relationships;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zdk.MyBlog.model.pojo.Relationships;
+import com.zdk.MyBlog.model.Relationships;
 
 import java.util.List;
 

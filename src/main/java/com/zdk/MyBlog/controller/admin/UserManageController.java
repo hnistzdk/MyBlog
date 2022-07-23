@@ -4,8 +4,8 @@ import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.constant.ErrorConstant;
 import com.zdk.MyBlog.constant.SuccessConstant;
 import com.zdk.MyBlog.controller.BaseController;
-import com.zdk.MyBlog.model.pojo.User;
-import com.zdk.MyBlog.model.vo.UserInfoVo;
+import com.zdk.MyBlog.model.User;
+import com.zdk.MyBlog.vo.UserInfoVO;
 import com.zdk.MyBlog.service.user.UserService;
 import com.zdk.MyBlog.utils.ApiResponse;
 import io.swagger.annotations.Api;
@@ -49,7 +49,7 @@ public class UserManageController extends BaseController {
     @ApiOperation("更新用户信息")
     @PostMapping(value = "/update")
     @ResponseBody
-    public ApiResponse update(UserInfoVo userInfoVo){
+    public ApiResponse update(UserInfoVO userInfoVo){
         return ApiResponse.result(userService.editUserInfo(userInfoVo),SuccessConstant.Common.SUCCESS,ErrorConstant.Common.UPDATE_FAIL);
     }
 

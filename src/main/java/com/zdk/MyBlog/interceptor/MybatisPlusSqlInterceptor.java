@@ -24,9 +24,11 @@ import java.util.Properties;
 /**
  * @author zdk
  * @date 2021/12/12 19:15
+ * mybatis-plus 完整SQL打印
  */
 @Intercepts({
-        //type指定代理的是那个对象，method指定代理Executor中的那个方法,args指定Executor中的query方法都有哪些参数对象
+        //type指定代理的是那个对象，method指定代理Executor中的那个方法
+        //args指定Executor中的query方法都有哪些参数对象
         //由于Executor中有两个query，因此需要两个@Signature
         @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),//需要代理的对象和方法
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),

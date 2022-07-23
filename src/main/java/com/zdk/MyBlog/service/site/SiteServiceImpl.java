@@ -4,12 +4,12 @@ import com.zdk.MyBlog.mapper.ArticleMapper;
 import com.zdk.MyBlog.mapper.AttachMapper;
 import com.zdk.MyBlog.mapper.CommentsMapper;
 import com.zdk.MyBlog.mapper.MetasMapper;
-import com.zdk.MyBlog.model.dto.ArchiveDto;
-import com.zdk.MyBlog.model.dto.MetaDto;
-import com.zdk.MyBlog.model.dto.StatisticsDto;
-import com.zdk.MyBlog.model.dto.cond.ArticleCond;
-import com.zdk.MyBlog.model.pojo.Article;
-import com.zdk.MyBlog.model.pojo.Comments;
+import com.zdk.MyBlog.dto.ArchiveDTO;
+import com.zdk.MyBlog.dto.MetaDTO;
+import com.zdk.MyBlog.dto.StatisticsDTO;
+import com.zdk.MyBlog.dto.cond.ArticleCond;
+import com.zdk.MyBlog.model.Article;
+import com.zdk.MyBlog.model.Comments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,22 +53,22 @@ public class SiteServiceImpl implements SiteService{
     }
 
     @Override
-    public StatisticsDto getStatistics() {
+    public StatisticsDTO getStatistics() {
         return null;
     }
 
     @Override
-    public List<ArchiveDto> getArchivesSimple(ArticleCond articleCond) {
+    public List<ArchiveDTO> getArchivesSimple(ArticleCond articleCond) {
         return null;
     }
 
     @Override
-    public List<ArchiveDto> getArchives(ArticleCond articleCond) {
+    public List<ArchiveDTO> getArchives(ArticleCond articleCond) {
         return null;
     }
 
     @Override
-    public List<MetaDto> getMetas(String type, String orderBy, int limit) {
+    public List<MetaDTO> getMetas(String type, String orderBy, int limit) {
         return null;
     }
 }

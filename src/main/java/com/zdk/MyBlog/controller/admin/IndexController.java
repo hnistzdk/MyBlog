@@ -5,8 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.constant.LogActions;
 import com.zdk.MyBlog.constant.WebConst;
 import com.zdk.MyBlog.controller.BaseController;
-import com.zdk.MyBlog.model.dto.StatisticsDto;
-import com.zdk.MyBlog.model.pojo.*;
+import com.zdk.MyBlog.dto.StatisticsDTO;
+import com.zdk.MyBlog.model.*;
 import com.zdk.MyBlog.service.article.ArticleService;
 import com.zdk.MyBlog.service.attach.AttachService;
 import com.zdk.MyBlog.service.comments.CommentsService;
@@ -74,7 +74,7 @@ public class IndexController extends BaseController {
         List<Attach> attaches = attachService.getAttachesByUser(getLoginUser());
 
         //statistics
-        StatisticsDto statistics = new StatisticsDto((long) articlePageInfo.getList().size(), (long) commentsPageInfo.getList().size(), 3L,(long)attaches.size());
+        StatisticsDTO statistics = new StatisticsDTO((long) articlePageInfo.getList().size(), (long) commentsPageInfo.getList().size(), 3L,(long)attaches.size());
         model.addAttribute("statistics",statistics);
         model.addAttribute("articles",articlePageInfo.getList());
         model.addAttribute("comments",commentsPageInfo.getList());

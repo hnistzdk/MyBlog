@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.mapper.UserMapper;
-import com.zdk.MyBlog.model.pojo.User;
-import com.zdk.MyBlog.model.vo.UserInfoVo;
+import com.zdk.MyBlog.model.User;
+import com.zdk.MyBlog.vo.UserInfoVO;
 import com.zdk.MyBlog.utils.ParaValidatorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,7 +51,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public Boolean editUserInfo(UserInfoVo userInfoVo) {
+    public Boolean editUserInfo(UserInfoVO userInfoVo) {
         if (userInfoVo==null|| paraValidatorUtil.notOk(userInfoVo.getId())){
             return false;
         }

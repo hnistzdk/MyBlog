@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.mapper.auth.PermissionMapper;
-import com.zdk.MyBlog.model.pojo.auth.Permission;
+import com.zdk.MyBlog.model.auth.Permission;
 import com.zdk.MyBlog.service.auth.PermissionService;
 import com.zdk.MyBlog.utils.ParaValidatorUtil;
 import org.springframework.beans.factory.annotation.Autowired;

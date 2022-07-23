@@ -3,8 +3,8 @@ package com.zdk.MyBlog.service.attach;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
 import com.upyun.UpException;
-import com.zdk.MyBlog.model.pojo.Attach;
-import com.zdk.MyBlog.model.pojo.User;
+import com.zdk.MyBlog.model.Attach;
+import com.zdk.MyBlog.model.User;
 
 import java.io.IOException;
 import java.util.List;

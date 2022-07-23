@@ -2,8 +2,8 @@ package com.zdk.MyBlog.service.user;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
-import com.zdk.MyBlog.model.pojo.User;
-import com.zdk.MyBlog.model.vo.UserInfoVo;
+import com.zdk.MyBlog.model.User;
+import com.zdk.MyBlog.vo.UserInfoVO;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -39,5 +39,5 @@ public interface UserService extends IService<User> {
      * @param userInfoVo
      * @return
      */
-    Boolean editUserInfo(UserInfoVo userInfoVo);
+    Boolean editUserInfo(UserInfoVO userInfoVo);
 }

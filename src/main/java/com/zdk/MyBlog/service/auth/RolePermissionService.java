@@ -1,7 +1,7 @@
 package com.zdk.MyBlog.service.auth;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zdk.MyBlog.model.pojo.auth.RolePermission;
+import com.zdk.MyBlog.model.auth.RolePermission;
 
 /**
  * <p>

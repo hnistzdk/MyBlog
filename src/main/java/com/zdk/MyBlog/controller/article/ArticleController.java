@@ -8,11 +8,11 @@ import com.zdk.MyBlog.constant.ErrorConstant;
 import com.zdk.MyBlog.constant.Types;
 import com.zdk.MyBlog.constant.WebConst;
 import com.zdk.MyBlog.controller.BaseController;
-import com.zdk.MyBlog.model.dto.CommentsDto;
-import com.zdk.MyBlog.model.dto.MetaDto;
-import com.zdk.MyBlog.model.pojo.Article;
-import com.zdk.MyBlog.model.pojo.Comments;
-import com.zdk.MyBlog.model.pojo.User;
+import com.zdk.MyBlog.dto.CommentsDTO;
+import com.zdk.MyBlog.dto.MetaDTO;
+import com.zdk.MyBlog.model.Article;
+import com.zdk.MyBlog.model.Comments;
+import com.zdk.MyBlog.model.User;
 import com.zdk.MyBlog.service.article.ArticleService;
 import com.zdk.MyBlog.service.comments.CommentsService;
 import com.zdk.MyBlog.service.metas.MetasService;
@@ -30,7 +30,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.Cookie;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
@@ -103,7 +102,7 @@ public class ArticleController extends BaseController {
     @ApiOperation("进入发布文章页面")
     @GetMapping(value = "/toWriteBlog")
     public String toWriteBlog(Model model){
-        List<MetaDto> categories = metasService.getMetaList(Types.CATEGORY.getType());
+        List<MetaDTO> categories = metasService.getMetaList(Types.CATEGORY.getType());
         model.addAttribute("user", getLoginUser());
         model.addAttribute("categories", categories);
         return "blog/writeBlog";
@@ -173,7 +172,7 @@ public class ArticleController extends BaseController {
     @ApiOperation("添加评论")
     @PostMapping("/comment")
     @ResponseBody
-    public ApiResponse comment(CommentsDto comments){
+    public ApiResponse comment(CommentsDTO comments){
         User loginUser = getLoginUser();
         //当前用户未登录 跳转或弹出登录界面
         if (notOk(loginUser.getId())){
@@ -205,4 +204,5 @@ public class ArticleController extends BaseController {
         }
         return ApiResponse.result(commentsService.updateById(new Comments().setId(id).setStatus(status)));
     }
+
 }

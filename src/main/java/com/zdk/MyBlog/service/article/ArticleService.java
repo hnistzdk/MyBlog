@@ -2,9 +2,9 @@ package com.zdk.MyBlog.service.article;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
-import com.zdk.MyBlog.model.dto.cond.ArticleCond;
-import com.zdk.MyBlog.model.pojo.Article;
-import com.zdk.MyBlog.model.pojo.User;
+import com.zdk.MyBlog.dto.cond.ArticleCond;
+import com.zdk.MyBlog.model.Article;
+import com.zdk.MyBlog.model.User;
 
 import java.util.List;
 

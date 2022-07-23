@@ -2,7 +2,7 @@ package com.zdk.MyBlog.utils;
 
 import com.zdk.MyBlog.constant.WebConst;
 import com.zdk.MyBlog.controller.admin.AttAchController;
-import com.zdk.MyBlog.exception.MyGlobalException;
+import com.zdk.MyBlog.exception.GlobalException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,7 +78,7 @@ public class TaleUtils {
 //            默认是classPath路径
             InputStream resourceAsStream = new FileInputStream(fileName);
             properties.load(resourceAsStream);
-        } catch (MyGlobalException | IOException e) {
+        } catch (GlobalException | IOException e) {
             LOGGER.error("get properties file fail={}", e.getMessage());
         }
         return properties;

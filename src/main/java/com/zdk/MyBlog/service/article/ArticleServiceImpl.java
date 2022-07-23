@@ -6,9 +6,9 @@ import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.constant.RoleConst;
 import com.zdk.MyBlog.constant.Types;
 import com.zdk.MyBlog.mapper.ArticleMapper;
-import com.zdk.MyBlog.model.dto.cond.ArticleCond;
-import com.zdk.MyBlog.model.pojo.Article;
-import com.zdk.MyBlog.model.pojo.User;
+import com.zdk.MyBlog.dto.cond.ArticleCond;
+import com.zdk.MyBlog.model.Article;
+import com.zdk.MyBlog.model.User;
 import com.zdk.MyBlog.service.metas.MetasService;
 import com.zdk.MyBlog.service.relationships.RelationshipsService;
 import com.zdk.MyBlog.utils.ParaValidatorUtil;
@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @author zdk

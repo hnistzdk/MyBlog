@@ -5,14 +5,14 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.constant.ErrorConstant;
 import com.zdk.MyBlog.constant.Types;
-import com.zdk.MyBlog.exception.MyGlobalException;
+import com.zdk.MyBlog.exception.GlobalException;
 import com.zdk.MyBlog.mapper.MetasMapper;
-import com.zdk.MyBlog.model.dto.LinkDto;
-import com.zdk.MyBlog.model.dto.MetaDto;
-import com.zdk.MyBlog.model.dto.cond.MetaCond;
-import com.zdk.MyBlog.model.pojo.Article;
-import com.zdk.MyBlog.model.pojo.Metas;
-import com.zdk.MyBlog.model.pojo.Relationships;
+import com.zdk.MyBlog.dto.LinkDTO;
+import com.zdk.MyBlog.dto.MetaDTO;
+import com.zdk.MyBlog.dto.cond.MetaCond;
+import com.zdk.MyBlog.model.Article;
+import com.zdk.MyBlog.model.Metas;
+import com.zdk.MyBlog.model.Relationships;
 import com.zdk.MyBlog.service.article.ArticleService;
 import com.zdk.MyBlog.service.relationships.RelationshipsService;
 import com.zdk.MyBlog.utils.ApiResponse;
@@ -68,7 +68,7 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
             meta = metas.get(0);
             id = meta.getId();
         }else if(metas.size()>1){
-            throw MyGlobalException.withErrorMessage(ErrorConstant.Meta.NOT_ONE_RESULT);
+            throw GlobalException.withErrorMessage(ErrorConstant.Meta.NOT_ONE_RESULT);
         }else {
             meta = new Metas();
             meta.setSlug(name);
@@ -94,7 +94,7 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
     }
 
     @Override
-    public List<MetaDto> getMetaList(String type) {
+    public List<MetaDTO> getMetaList(String type) {
         return metasMapper.getMetaList(type);
     }
 
@@ -118,14 +118,14 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
                 }
             }
         }else {
-            throw new MyGlobalException(ErrorConstant.Meta.META_IS_EXIST);
+            throw new GlobalException(ErrorConstant.Meta.META_IS_EXIST);
         }
     }
 
     @Override
     public void deleteMeta(String type, String name, Integer mid) {
         if (paraValidatorUtil.notOk(mid)){
-            throw new MyGlobalException(ErrorConstant.Common.INVALID_PARAM);
+            throw new GlobalException(ErrorConstant.Common.INVALID_PARAM);
         }
         Metas metas = metasMapper.selectById(mid);
         if (metas!=null){
@@ -174,7 +174,7 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
     }
 
     @Override
-    public ApiResponse addLink(LinkDto link) {
+    public ApiResponse addLink(LinkDTO link) {
         if (link == null){
             return ApiResponse.fail(ErrorConstant.Common.PARAM_IS_EMPTY);
         }

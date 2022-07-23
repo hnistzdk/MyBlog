@@ -1,8 +1,8 @@
 package com.zdk.MyBlog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zdk.MyBlog.model.dto.MetaDto;
-import com.zdk.MyBlog.model.pojo.Metas;
+import com.zdk.MyBlog.dto.MetaDTO;
+import com.zdk.MyBlog.model.Metas;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,5 +18,5 @@ public interface MetasMapper extends BaseMapper<Metas> {
      * @param type
      * @return
      */
-    List<MetaDto> getMetaList(String type);
+    List<MetaDTO> getMetaList(String type);
 }

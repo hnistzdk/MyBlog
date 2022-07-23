@@ -1,7 +1,7 @@
 package com.zdk.MyBlog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zdk.MyBlog.model.pojo.Comments;
+import com.zdk.MyBlog.model.Comments;
 import org.springframework.stereotype.Repository;
 
 /**

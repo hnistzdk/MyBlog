@@ -3,8 +3,7 @@ package com.zdk.MyBlog.controller.auth;
 
 import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.controller.BaseController;
-import com.zdk.MyBlog.model.pojo.User;
-import com.zdk.MyBlog.model.pojo.auth.Permission;
+import com.zdk.MyBlog.model.auth.Permission;
 import com.zdk.MyBlog.service.auth.PermissionService;
 import com.zdk.MyBlog.service.auth.RoleService;
 import io.swagger.annotations.Api;

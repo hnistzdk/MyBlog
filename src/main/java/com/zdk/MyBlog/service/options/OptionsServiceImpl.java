@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.mapper.OptionsMapper;
-import com.zdk.MyBlog.model.pojo.Options;
+import com.zdk.MyBlog.model.Options;
 import com.zdk.MyBlog.utils.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

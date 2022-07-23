@@ -2,7 +2,7 @@ package com.zdk.MyBlog.service.auth;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
-import com.zdk.MyBlog.model.pojo.auth.Permission;
+import com.zdk.MyBlog.model.auth.Permission;
 
 /**
  * <p>

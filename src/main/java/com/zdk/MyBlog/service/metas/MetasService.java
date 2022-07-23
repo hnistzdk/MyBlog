@@ -2,10 +2,10 @@ package com.zdk.MyBlog.service.metas;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
-import com.zdk.MyBlog.model.dto.LinkDto;
-import com.zdk.MyBlog.model.dto.MetaDto;
-import com.zdk.MyBlog.model.dto.cond.MetaCond;
-import com.zdk.MyBlog.model.pojo.Metas;
+import com.zdk.MyBlog.dto.LinkDTO;
+import com.zdk.MyBlog.dto.MetaDTO;
+import com.zdk.MyBlog.dto.cond.MetaCond;
+import com.zdk.MyBlog.model.Metas;
 import com.zdk.MyBlog.utils.ApiResponse;
 
 import java.util.List;
@@ -55,7 +55,7 @@ public interface MetasService extends IService<Metas> {
      * @param type
      * @return
      */
-    List<MetaDto> getMetaList(String type);
+    List<MetaDTO> getMetaList(String type);
 
     /**
      * 删除分类信息
@@ -85,5 +85,5 @@ public interface MetasService extends IService<Metas> {
      * @param link
      * @return
      */
-    ApiResponse addLink(LinkDto link);
+    ApiResponse addLink(LinkDTO link);
 }

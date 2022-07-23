@@ -7,8 +7,8 @@ import com.upyun.UpException;
 import com.zdk.MyBlog.constant.ErrorConstant;
 import com.zdk.MyBlog.constant.SuccessConstant;
 import com.zdk.MyBlog.controller.BaseController;
-import com.zdk.MyBlog.model.dto.UpYunDto;
-import com.zdk.MyBlog.model.pojo.Attach;
+import com.zdk.MyBlog.dto.UpYunDTO;
+import com.zdk.MyBlog.model.Attach;
 import com.zdk.MyBlog.service.attach.AttachService;
 import com.zdk.MyBlog.utils.*;
 import io.swagger.annotations.Api;
@@ -71,7 +71,7 @@ public class AttAchController extends BaseController {
         List<Attach> attaches = new ArrayList<>();
         Attach attach = new Attach();
         for (Result result : results) {
-            UpYunDto upYunDto = MyBeanUtil.jsonObjectToBean(JSONUtil.parseObj(result.getMsg()), UpYunDto.class);
+            UpYunDTO upYunDto = MyBeanUtil.jsonObjectToBean(JSONUtil.parseObj(result.getMsg()), UpYunDTO.class);
             attach.setId(null).setFileName(upYunDto.getUrl().substring(upYunDto.getUrl().lastIndexOf("/"))).
                     setFileKey(URL_PREFIX + upYunDto.getUrl()).setFileType(upYunDto.getUrl().substring(upYunDto.getUrl().lastIndexOf(".")+1))
                     .setAuthorId(getLoginUser().getId());

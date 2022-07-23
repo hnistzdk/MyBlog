@@ -6,7 +6,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zdk.MyBlog.constant.ErrorConstant;
 import com.zdk.MyBlog.mapper.auth.RoleMapper;
-import com.zdk.MyBlog.model.pojo.auth.Role;
+import com.zdk.MyBlog.model.auth.Role;
 import com.zdk.MyBlog.service.auth.RoleService;
 import com.zdk.MyBlog.utils.ApiResponse;
 import com.zdk.MyBlog.utils.ParaValidatorUtil;

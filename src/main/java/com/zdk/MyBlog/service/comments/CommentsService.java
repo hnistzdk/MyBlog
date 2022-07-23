@@ -2,9 +2,9 @@ package com.zdk.MyBlog.service.comments;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
-import com.zdk.MyBlog.model.dto.CommentsDto;
-import com.zdk.MyBlog.model.pojo.Comments;
-import com.zdk.MyBlog.model.pojo.User;
+import com.zdk.MyBlog.dto.CommentsDTO;
+import com.zdk.MyBlog.model.Comments;
+import com.zdk.MyBlog.model.User;
 import com.zdk.MyBlog.utils.ApiResponse;
 
 import javax.servlet.http.HttpServletRequest;
@@ -54,5 +54,5 @@ public interface CommentsService extends IService<Comments> {
      * @param user
      * @return
      */
-    ApiResponse comment(CommentsDto comments, HttpServletRequest request,User user);
+    ApiResponse comment(CommentsDTO comments, HttpServletRequest request, User user);
 }

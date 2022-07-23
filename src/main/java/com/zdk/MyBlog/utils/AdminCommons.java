@@ -1,6 +1,6 @@
 package com.zdk.MyBlog.utils;
 
-import com.zdk.MyBlog.model.pojo.Metas;
+import com.zdk.MyBlog.model.Metas;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 

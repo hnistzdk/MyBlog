@@ -2,7 +2,7 @@ package com.zdk.MyBlog.service.auth.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zdk.MyBlog.mapper.auth.RolePermissionMapper;
-import com.zdk.MyBlog.model.pojo.auth.RolePermission;
+import com.zdk.MyBlog.model.auth.RolePermission;
 import com.zdk.MyBlog.service.auth.RolePermissionService;
 import org.springframework.stereotype.Service;
 

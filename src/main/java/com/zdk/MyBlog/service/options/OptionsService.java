@@ -2,7 +2,7 @@ package com.zdk.MyBlog.service.options;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
-import com.zdk.MyBlog.model.pojo.Options;
+import com.zdk.MyBlog.model.Options;
 import com.zdk.MyBlog.utils.ApiResponse;
 
 import java.util.Map;

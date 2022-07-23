@@ -1,7 +1,7 @@
 package com.zdk.MyBlog.service.onlineUser;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zdk.MyBlog.model.pojo.OnlineUser;
+import com.zdk.MyBlog.model.OnlineUser;
 
 /**
  * @author zdk
