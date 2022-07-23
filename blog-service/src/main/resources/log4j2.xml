@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF">
+    <appenders>
+        <Console name="DruidSqlConsole" target="SYSTEM_OUT">
+            <!--只接受程序中DEBUG级别的日志进行处理-->
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="[MyBlog Sql Log:[%level]:%d{yyyy-MM-dd HH:mm:ss.SSS}]%msg%n%xEx"/>
+        </Console>
+        <Console name="MyBlogConsole" target="SYSTEM_OUT">
+            <!--只接受程序中DEBUG级别的日志进行处理-->
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="[MyBlog System Log:[%level]:%d{yyyy-MM-dd HH:mm:ss.SSS}]%msg%n%xEx%C.%M(%F:%L) %n"/>
+        </Console>
+        <Console name="Console" target="SYSTEM_OUT">
+            <!--只接受程序中DEBUG级别的日志进行处理-->
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="[MyBlog Log:[%level]:%d{yyyy-MM-dd HH:mm:ss.SSS}]%msg%n%xEx%C.%M(%F:%L) %n"/>
+        </Console>
+
+
+        <!-- JBolt中的JBoltApiConsole Debug 控制台输出LOG -->
+        <Console name="JBoltApiConsole" target="SYSTEM_OUT">
+            <!--只接受程序中DEBUG级别的日志进行处理-->
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="[MyBlog Api Log:[%level]:%d{yyyy-MM-dd HH:mm:ss.SSS}]%msg%n%xEx%C.%M(%F:%L) %n"/>
+        </Console>
+        <!-- JBolt中的JBoltControllerConsole Debug 控制台输出LOG -->
+        <Console name="JBoltControllerConsole" target="SYSTEM_OUT">
+            <!--只接受程序中DEBUG级别的日志进行处理-->
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="[MyBlog Controller Log:[%level]:%d{yyyy-MM-dd HH:mm:ss.SSS}]%msg%n%xEx%C.%M(%F:%L) %n"/>
+        </Console>
+
+        <!--处理DEBUG级别的日志，并把该日志放到logs/debug.log文件中-->
+        <!--打印出DEBUG级别日志，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
+        <RollingFile name="RollingFileDebug" fileName="./logs/debug.log"
+                     filePattern="logs/$${date:yyyy-MM}/debug-%d{yyyy-MM-dd}-%i.log.gz">
+            <Filters>
+                <ThresholdFilter level="DEBUG"/>
+                <ThresholdFilter level="INFO" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout
+                    pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] (%class{36}.java:%L) %M - %msg%n%xEx"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+        </RollingFile>
+
+        <!--处理INFO级别的日志，并把该日志放到logs/info.log文件中-->
+        <RollingFile name="RollingFileInfo" fileName="./logs/info.log"
+                     filePattern="logs/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log.gz">
+            <Filters>
+                <!--只接受INFO级别的日志，其余的全部拒绝处理-->
+                <ThresholdFilter level="INFO"/>
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout
+                    pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] (%class{36}.java:%L) %M - %msg%n%xEx"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+        </RollingFile>
+
+        <!--处理WARN级别的日志，并把该日志放到logs/warn.log文件中-->
+        <RollingFile name="RollingFileWarn" fileName="./logs/warn.log"
+                     filePattern="logs/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log.gz">
+            <Filters>
+                <ThresholdFilter level="WARN"/>
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout
+                    pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] (%class{36}.java:%L) %M - %msg%n%xEx"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+        </RollingFile>
+
+        <!--处理error级别的日志，并把该日志放到logs/error.log文件中-->
+        <RollingFile name="RollingFileError" fileName="./logs/error.log"
+                     filePattern="logs/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log.gz">
+            <ThresholdFilter level="ERROR"/>
+            <PatternLayout
+                    pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] (%class{36}.java:%L) %M - %msg%n%xEx"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+        </RollingFile>
+
+    </appenders>
+
+    <loggers>
+        <root level="DEBUG">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFileInfo"/>
+            <appender-ref ref="RollingFileWarn"/>
+            <appender-ref ref="RollingFileError"/>
+            <appender-ref ref="RollingFileDebug"/>
+        </root>
+
+        <logger name="MyBlog" level="DEBUG" additivity="false">
+            <appender-ref ref="MyBlogConsole"/>
+            <appender-ref ref="RollingFileInfo"/>
+            <appender-ref ref="RollingFileWarn"/>
+            <appender-ref ref="RollingFileError"/>
+            <appender-ref ref="RollingFileDebug"/>
+        </logger>
+
+        <!--log4j2 自带过滤日志-->
+        <Logger name="net.sf.ehcache" level="error" />
+        <Logger name="cn.hutool" level="error" />
+        <Logger name="org.xnio" level="error" />
+        <Logger name="io.undertow" level="error" />
+        <Logger name="org.apache.catalina.startup.DigesterFactory" level="error" />
+        <Logger name="org.apache.catalina.util.LifecycleBase" level="error" />
+        <Logger name="org.apache.coyote.http11.Http11NioProtocol" level="warn" />
+        <logger name="org.apache.sshd.common.util.SecurityUtils" level="warn"/>
+        <Logger name="org.apache.tomcat.util.net.NioSelectorPool" level="warn" />
+        <Logger name="org.crsh.plugin" level="warn" />
+        <logger name="org.crsh.ssh" level="warn"/>
+        <Logger name="org.eclipse.jetty.util.component.AbstractLifeCycle" level="error" />
+        <Logger name="org.eclipse.jetty" level="error" />
+        <Logger name="spark" level="error" />
+        <logger name="org.apache.http" level="error"/>
+        <logger name="springfox.documentation" level="error"/>
+        <logger name="springfox.documentation" level="error"/>
+        <logger name="org.springframework.jmx" level="error"/>
+        <logger name="org.springframework" level="error"/>
+        <logger name="Dio" level="error"/>
+        <logger name="sun.misc" level="error"/>
+        <logger name="java.nio" level="error"/>
+        <logger name="io.netty" level="error"/>
+        <logger name="io.lettuce" level="error"/>
+        <logger name="org.thymeleaf" level="error"/>
+        <logger name="org.apache.ibatis.logging.jdbc.BaseJdbcLogger" level="error"/>
+        <logger name="org.mybatis.logging" level="error"/>
+    </loggers>
+</configuration>
