@@ -31,6 +31,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotBlank;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
@@ -45,8 +46,8 @@ import java.util.UUID;
  * @author zdk
  * @date 2021/7/22 17:02
  */
-@Api("博客端文章接口")
-@Controller
+@Api(tags = {"博客端文章接口"})
+@RestController
 @RequestMapping(value = "/article")
 public class ArticleController extends CommonController {
 
@@ -146,10 +147,10 @@ public class ArticleController extends CommonController {
     }
 
     @ApiOperation("删除文章")
-    @GetMapping(value = "/detail/{id}")
+    @GetMapping(value = "/detail")
     @ResponseBody
     @Uncheck
-    public ApiResponse detail(@PathVariable Integer id){
+    public ApiResponse detail(@NotBlank Integer id){
         Article article = articleService.getArticleById(id);
         return ApiResponse.success(article);
     }

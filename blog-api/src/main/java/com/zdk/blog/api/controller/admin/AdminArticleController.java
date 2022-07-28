@@ -3,7 +3,6 @@ package com.zdk.blog.api.controller.admin;
 import com.github.pagehelper.PageInfo;
 import com.zdk.blog.api.controller.CommonController;
 import com.zdk.blog.common.constant.Types;
-import com.zdk.blog.api.controller.BaseController;
 import com.zdk.blog.common.dto.MetaDTO;
 import com.zdk.blog.common.model.Article;
 import com.zdk.blog.common.service.ArticleService;
