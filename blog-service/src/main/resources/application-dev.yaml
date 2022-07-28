@@ -62,16 +62,6 @@ spring:
       useGlobalDataSourceStat: true
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
 
-
-  #thymeleaf配置
-  thymeleaf:
-    prefix: classpath:/templates/
-    check-template-location: true
-    suffix: .html
-    encoding: UTF-8
-    mode: HTML
-    cache: false
-
   #aop配置
   aop:
     auto: true
