@@ -44,9 +44,10 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({BindException.class})
     public BaseResponse handleValidationException(Exception e) {
+        System.out.println("进入参数绑定异常");
         BaseResponse baseResponse = new BaseResponse();
         this.logger.error("参数校验错误", e);
-        baseResponse.error(ErrorType.BAD_REQUEST, "参数校验错误");
+        baseResponse.error(ErrorType.BAD_REQUEST, e.getMessage());
         return baseResponse;
     }
 
@@ -112,6 +113,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler({Exception.class})
     public BaseResponse handleException(Exception e) {
+        System.out.println("进入普通异常");
         BaseResponse baseResponse = new BaseResponse();
         this.logger.error("系统异常", e);
         baseResponse.error(ErrorType.SYSTEM_ERROR, "系统异常");

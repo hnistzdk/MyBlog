@@ -76,7 +76,7 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
             id = meta.getId();
         }
         if (id != 0){
-            int count = relationshipsService.getCountByCondition(articleId, id);
+            long count = relationshipsService.getCountByCondition(articleId, id);
             if (count == 0){
                 relationshipsService.save(new Relationships(articleId,id));
             }

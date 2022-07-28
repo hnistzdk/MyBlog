@@ -27,10 +27,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
@@ -48,6 +50,7 @@ import java.util.UUID;
 @Api(tags = {"博客端文章接口"})
 @RestController
 @RequestMapping(value = "/article")
+@Validated
 public class ArticleController extends CommonController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ArticleController.class);
@@ -147,9 +150,8 @@ public class ArticleController extends CommonController {
 
     @ApiOperation("删除文章")
     @GetMapping(value = "/detail")
-    @ResponseBody
     @Uncheck
-    public ApiResponse detail(@NotBlank Integer id){
+    public ApiResponse detail(@NotNull(message = "id不能为空") Integer id){
         Article article = articleService.getArticleById(id);
         return ApiResponse.success(article);
     }

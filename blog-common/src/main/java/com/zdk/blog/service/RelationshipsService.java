@@ -16,7 +16,7 @@ public interface RelationshipsService extends IService<Relationships> {
      * @param id 项目id
      * @return
      */
-    int getCountByCondition(Integer articleId,Integer id);
+    Long getCountByCondition(Integer articleId,Integer id);
 
     /**
      * 根据文章编号删除其关联的分类和标签

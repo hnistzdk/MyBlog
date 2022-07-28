@@ -37,7 +37,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper,Role> implements Rol
         if (notOk(name)){
             return ApiResponse.fail(ErrorConstant.Common.INVALID_PARAM);
         }
-        Integer count = lambdaQuery().eq(Role::getName, name).count();
+        long count = lambdaQuery().eq(Role::getName, name).count();
         if (count != 0) {
             return ApiResponse.fail(ErrorConstant.Role.ROLE_IS_EXIST);
         }

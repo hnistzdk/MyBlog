@@ -27,7 +27,7 @@ public class RelationshipsServiceImpl extends ServiceImpl<RelationshipsMapper, R
     private RelationshipsMapper relationshipsMapper;
 
     @Override
-    public int getCountByCondition(Integer articleId, Integer id) {
+    public Long getCountByCondition(Integer articleId, Integer id) {
         return lambdaQuery().eq(Relationships::getArticleId, articleId)
                 .eq(Relationships::getMetaId, id).count();
     }
