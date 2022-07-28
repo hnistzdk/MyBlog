@@ -1,12 +1,13 @@
 package com.zdk.blog.api.controller.user;
 
 import com.zdk.blog.api.controller.BaseController;
+import com.zdk.blog.api.controller.CommonController;
 import com.zdk.blog.common.constant.Types;
 import com.zdk.blog.common.dto.MetaDTO;
 import com.zdk.blog.common.model.Article;
 import com.zdk.blog.common.model.Metas;
-import com.zdk.blog.service.article.ArticleService;
-import com.zdk.blog.service.metas.MetasService;
+import com.zdk.blog.common.service.ArticleService;
+import com.zdk.blog.common.service.MetasService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ import java.util.List;
 @Api("用户相关接口")
 @Controller
 @RequestMapping(value ="/user")
-public class UserController extends BaseController {
+public class UserController extends CommonController {
     @Autowired
     private ArticleService articleService;
     @Autowired

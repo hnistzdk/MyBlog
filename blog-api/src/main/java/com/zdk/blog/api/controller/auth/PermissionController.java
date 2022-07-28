@@ -3,9 +3,10 @@ package com.zdk.blog.api.controller.auth;
 
 import com.github.pagehelper.PageInfo;
 import com.zdk.blog.api.controller.BaseController;
+import com.zdk.blog.api.controller.CommonController;
 import com.zdk.blog.common.model.auth.Permission;
-import com.zdk.MyBlog.service.auth.PermissionService;
-import com.zdk.MyBlog.service.auth.RoleService;
+import com.zdk.blog.common.service.auth.PermissionService;
+import com.zdk.blog.common.service.auth.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("权限管理")
 @Controller
 @RequestMapping(value = "/admin/permissionManage")
-public class PermissionController extends BaseController {
+public class PermissionController extends CommonController {
 
     @Autowired
     private RoleService roleService;

@@ -2,10 +2,11 @@ package com.zdk.blog.api.controller.admin;
 
 import com.github.pagehelper.PageInfo;
 import com.zdk.blog.api.controller.BaseController;
-import com.zdk.MyBlog.dto.LinkDTO;
-import com.zdk.MyBlog.model.Metas;
-import com.zdk.MyBlog.service.metas.MetasService;
-import com.zdk.MyBlog.utils.ApiResponse;
+import com.zdk.blog.api.controller.CommonController;
+import com.zdk.blog.common.dto.LinkDTO;
+import com.zdk.blog.common.model.Metas;
+import com.zdk.blog.common.service.MetasService;
+import com.zdk.blog.common.utils.ApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("友情链接")
 @Controller
 @RequestMapping(value = "/admin/links")
-public class LinksController extends BaseController {
+public class LinksController extends CommonController {
     private static final Logger LOGGER = LoggerFactory.getLogger(LinksController.class);
     @Autowired
     private MetasService metasService;

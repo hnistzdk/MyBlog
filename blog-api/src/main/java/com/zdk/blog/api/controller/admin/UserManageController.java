@@ -1,13 +1,14 @@
 package com.zdk.blog.api.controller.admin;
 
 import com.github.pagehelper.PageInfo;
-import com.zdk.MyBlog.constant.ErrorConstant;
-import com.zdk.MyBlog.constant.SuccessConstant;
 import com.zdk.blog.api.controller.BaseController;
-import com.zdk.MyBlog.model.User;
-import com.zdk.MyBlog.vo.UserInfoVO;
-import com.zdk.MyBlog.service.user.UserService;
-import com.zdk.MyBlog.utils.ApiResponse;
+import com.zdk.blog.api.controller.CommonController;
+import com.zdk.blog.common.constant.ErrorConstant;
+import com.zdk.blog.common.constant.SuccessConstant;
+import com.zdk.blog.common.model.User;
+import com.zdk.blog.common.service.UserService;
+import com.zdk.blog.common.utils.ApiResponse;
+import com.zdk.blog.common.vo.UserInfoVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("用户管理")
 @Controller
 @RequestMapping(value = "/admin/userManage")
-public class UserManageController extends BaseController {
+public class UserManageController extends CommonController {
     @Autowired
     private UserService userService;
 
@@ -57,6 +58,6 @@ public class UserManageController extends BaseController {
     @PostMapping(value = "/delete")
     @ResponseBody
     public ApiResponse delete(Integer id){
-        return ApiResponse.result(userService.removeById(id), SuccessConstant.Common.SUCCESS,ErrorConstant.Common.DELETE_FAIL);
+        return ApiResponse.result(userService.removeById(id), SuccessConstant.Common.SUCCESS, ErrorConstant.Common.DELETE_FAIL);
     }
 }

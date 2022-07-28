@@ -2,20 +2,18 @@ package com.zdk.blog.api.controller.admin;
 
 import cn.hutool.core.date.DateUtil;
 import com.github.pagehelper.PageInfo;
+import com.zdk.blog.api.controller.CommonController;
 import com.zdk.blog.common.constant.LogActions;
 import com.zdk.blog.common.constant.WebConst;
 import com.zdk.blog.api.controller.BaseController;
 import com.zdk.blog.common.dto.StatisticsDTO;
 import com.zdk.blog.common.model.*;
-import com.zdk.blog.service.article.ArticleService;
-import com.zdk.blog.service.attach.AttachService;
-import com.zdk.blog.service.comments.CommentsService;
-import com.zdk.blog.service.logs.LogsService;
-import com.zdk.blog.service.user.UserService;
-import com.zdk.blog.common.utils.ApiResponse;
-import com.zdk.blog.common.utils.IpKit;
-import com.zdk.blog.common.utils.RedisUtil;
-import com.zdk.blog.common.utils.TaleUtils;
+import com.zdk.blog.common.service.ArticleService;
+import com.zdk.blog.common.service.AttachService;
+import com.zdk.blog.common.service.CommentsService;
+import com.zdk.blog.common.service.LogsService;
+import com.zdk.blog.common.service.UserService;
+import com.zdk.blog.common.utils.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -35,7 +33,7 @@ import java.util.List;
 @Api("管理端首页")
 @Controller
 @RequestMapping(value = "/admin")
-public class IndexController extends BaseController {
+public class IndexController extends CommonController {
     private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
 
     @Autowired

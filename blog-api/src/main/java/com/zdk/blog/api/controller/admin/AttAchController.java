@@ -4,12 +4,13 @@ import cn.hutool.json.JSONUtil;
 import com.github.pagehelper.PageInfo;
 import com.upyun.Result;
 import com.upyun.UpException;
+import com.zdk.blog.api.controller.CommonController;
 import com.zdk.blog.common.constant.ErrorConstant;
 import com.zdk.blog.common.constant.SuccessConstant;
 import com.zdk.blog.api.controller.BaseController;
 import com.zdk.blog.common.dto.UpYunDTO;
 import com.zdk.blog.common.model.Attach;
-import com.zdk.blog.service.attach.AttachService;
+import com.zdk.blog.common.service.AttachService;
 import com.zdk.blog.common.utils.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,7 +36,7 @@ import java.util.List;
 @Api("附件")
 @Controller
 @RequestMapping(value = "/admin/attach")
-public class AttAchController extends BaseController {
+public class AttAchController extends CommonController {
     public static final String CLASSPATH = TaleUtils.getUplodFilePath();
     private static final Logger LOGGER = LoggerFactory.getLogger(AttAchController.class);
     private static final String URL_PREFIX = "http://zdk-blog-image.test.upcdn.net";

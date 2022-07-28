@@ -1,10 +1,11 @@
 package com.zdk.blog.api.controller.admin;
 
 import com.zdk.blog.api.controller.BaseController;
-import com.zdk.MyBlog.model.Options;
-import com.zdk.MyBlog.service.logs.LogsService;
-import com.zdk.MyBlog.service.options.OptionsService;
-import com.zdk.MyBlog.utils.ApiResponse;
+import com.zdk.blog.api.controller.CommonController;
+import com.zdk.blog.common.model.Options;
+import com.zdk.blog.common.service.LogsService;
+import com.zdk.blog.common.service.OptionsService;
+import com.zdk.blog.common.utils.ApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -25,7 +26,7 @@ import java.util.Map;
 @Api("系统设置")
 @Controller
 @RequestMapping(value = "/admin/setting")
-public class SettingController extends BaseController {
+public class SettingController extends CommonController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SettingController.class);
     @Autowired
     private OptionsService optionsService;

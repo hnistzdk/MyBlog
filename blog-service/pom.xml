@@ -18,7 +18,7 @@
     <dependencies>
         <dependency>
             <groupId>com.zdk</groupId>
-            <artifactId>blog-common</artifactId>
+            <artifactId>blog-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

@@ -3,10 +3,11 @@ package com.zdk.blog.api.controller.auth;
 
 import com.github.pagehelper.PageInfo;
 import com.zdk.blog.api.controller.BaseController;
+import com.zdk.blog.api.controller.CommonController;
 import com.zdk.blog.common.model.auth.Role;
-import com.zdk.MyBlog.service.auth.PermissionService;
-import com.zdk.MyBlog.service.auth.RoleService;
-import com.zdk.MyBlog.utils.ApiResponse;
+import com.zdk.blog.common.service.auth.PermissionService;
+import com.zdk.blog.common.service.auth.RoleService;
+import com.zdk.blog.common.utils.ApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("角色管理")
 @Controller
 @RequestMapping(value = "/admin/roleManage")
-public class RoleController extends BaseController {
+public class RoleController extends CommonController {
 
     private static final Logger log = LoggerFactory.getLogger(RoleController.class);
 
@@ -51,7 +52,7 @@ public class RoleController extends BaseController {
     @ApiOperation("新增角色或子角色")
     @PostMapping(value = "/add")
     @ResponseBody
-    public ApiResponse add(@RequestParam(name = "name") String name,@RequestParam(name = "pid",required = false) Integer pid){
+    public ApiResponse add(@RequestParam(name = "name") String name, @RequestParam(name = "pid",required = false) Integer pid){
         return roleService.addRole(name,pid);
     }
 

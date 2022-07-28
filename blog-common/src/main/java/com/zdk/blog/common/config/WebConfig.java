@@ -57,18 +57,18 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //登录拦截器
-        registry.addInterceptor(getLoginHandlerInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns("/login.html","/","/user/login","/user/toLogin","/user/toIndex","/user/links")
-                .excludePathPatterns("/admin/login","/admin")
-                .excludePathPatterns("/**/*.html", "/**/*.js", "/**/*.css", "/**/*.json", "/**/*.icon","/**/*.jpg","/**/*.png");
+//        registry.addInterceptor(getLoginHandlerInterceptor())
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/login.html","/","/user/login","/user/toLogin","/user/toIndex","/user/links")
+//                .excludePathPatterns("/admin/login","/admin")
+//                .excludePathPatterns("/**/*.html", "/**/*.js", "/**/*.css", "/**/*.json", "/**/*.icon","/**/*.jpg","/**/*.png");
 
         //权限拦截器
-        registry.addInterceptor(getAuthInterceptor())
-                .addPathPatterns("/api/*")
-                .excludePathPatterns("/login.html","/","/user/login","/user/toLogin","/user/toIndex","/user/links")
-                .excludePathPatterns("/admin/login","/admin")
-                .excludePathPatterns("/**/*.html", "/**/*.js", "/**/*.css", "/**/*.json", "/**/*.icon","/**/*.jpg","/**/*.png");
+//        registry.addInterceptor(getAuthInterceptor())
+//                .addPathPatterns("/api/*")
+//                .excludePathPatterns("/login.html","/","/user/login","/user/toLogin","/user/toIndex","/user/links")
+//                .excludePathPatterns("/admin/login","/admin")
+//                .excludePathPatterns("/**/*.html", "/**/*.js", "/**/*.css", "/**/*.json", "/**/*.icon","/**/*.jpg","/**/*.png");
     }
 
     @Override

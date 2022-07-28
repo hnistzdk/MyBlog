@@ -22,11 +22,11 @@
             <artifactId>blog-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>com.zdk</groupId>
-            <artifactId>blog-service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.zdk</groupId>-->
+<!--            <artifactId>blog-service</artifactId>-->
+<!--            <version>0.0.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -44,6 +44,10 @@
                     <artifactId>spring-boot-starter</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <!--引入spring-boot-starter,排除spring-boot-starter-logging-->
         <dependency>

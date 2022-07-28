@@ -23,7 +23,7 @@ spring:
   #Redis配置
   redis:
     port: 6379
-    host: localhost
+    host: 106.55.240.216
     password: zdk13696086376.
   #缓存配置
   cache:
@@ -37,7 +37,7 @@ spring:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
       #基本属性
-      url: jdbc:mysql://localhost:3306/blog?allowPublicKeyRetrieval=true&serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=utf8
+      url: jdbc:mysql://106.55.240.216:3306/blog?allowPublicKeyRetrieval=true&serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=utf8
       username: root
       password: Zdk13696086376.
       #配置初始化大小/最小/最大

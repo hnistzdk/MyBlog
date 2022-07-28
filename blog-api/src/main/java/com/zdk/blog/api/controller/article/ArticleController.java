@@ -4,18 +4,19 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.upyun.Result;
+import com.zdk.blog.api.controller.CommonController;
 import com.zdk.blog.common.constant.ErrorConstant;
 import com.zdk.blog.common.constant.Types;
 import com.zdk.blog.common.constant.WebConst;
-import com.zdk.blog.api.controller.BaseController;
 import com.zdk.blog.common.dto.CommentsDTO;
 import com.zdk.blog.common.dto.MetaDTO;
+import com.zdk.blog.common.interceptor.Uncheck;
 import com.zdk.blog.common.model.Article;
 import com.zdk.blog.common.model.Comments;
 import com.zdk.blog.common.model.User;
-import com.zdk.blog.service.article.ArticleService;
-import com.zdk.blog.service.comments.CommentsService;
-import com.zdk.blog.service.metas.MetasService;
+import com.zdk.blog.common.service.ArticleService;
+import com.zdk.blog.common.service.CommentsService;
+import com.zdk.blog.common.service.MetasService;
 import com.zdk.blog.common.utils.ApiResponse;
 import com.zdk.blog.common.utils.IpKit;
 import com.zdk.blog.common.utils.RedisUtil;
@@ -47,7 +48,7 @@ import java.util.UUID;
 @Api("博客端文章接口")
 @Controller
 @RequestMapping(value = "/article")
-public class ArticleController extends BaseController {
+public class ArticleController extends CommonController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ArticleController.class);
     private static final String URL_PREFIX = "http://zdk-blog-image.test.upcdn.net";
@@ -142,6 +143,15 @@ public class ArticleController extends BaseController {
     public ApiResponse deleteArticle(Integer id){
         Boolean result = articleService.deleteArticleById(id);
         return ApiResponse.result(result,ErrorConstant.Common.DELETE_FAIL);
+    }
+
+    @ApiOperation("删除文章")
+    @GetMapping(value = "/detail/{id}")
+    @ResponseBody
+    @Uncheck
+    public ApiResponse detail(@PathVariable Integer id){
+        Article article = articleService.getArticleById(id);
+        return ApiResponse.success(article);
     }
 
     @ApiOperation("图片上传")
