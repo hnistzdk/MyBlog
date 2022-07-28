@@ -1,9 +1,9 @@
 package com.zdk.blog.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zdk.blog.common.model.OnlineUser;
-import com.zdk.blog.common.service.OnlineUserService;
-import com.zdk.blog.common.utils.ParaValidator;
+import com.zdk.blog.model.OnlineUser;
+import com.zdk.blog.service.OnlineUserService;
+import com.zdk.blog.utils.ParaValidator;
 import com.zdk.blog.mapper.OnlineUserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

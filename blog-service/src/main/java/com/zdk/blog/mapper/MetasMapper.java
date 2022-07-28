@@ -1,8 +1,8 @@
 package com.zdk.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zdk.blog.common.dto.MetaDTO;
-import com.zdk.blog.common.model.Metas;
+import com.zdk.blog.dto.MetaDTO;
+import com.zdk.blog.model.Metas;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

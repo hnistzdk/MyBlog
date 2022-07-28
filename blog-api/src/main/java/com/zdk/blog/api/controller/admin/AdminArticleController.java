@@ -2,12 +2,12 @@ package com.zdk.blog.api.controller.admin;
 
 import com.github.pagehelper.PageInfo;
 import com.zdk.blog.api.controller.CommonController;
-import com.zdk.blog.common.constant.Types;
-import com.zdk.blog.common.dto.MetaDTO;
-import com.zdk.blog.common.model.Article;
-import com.zdk.blog.common.service.ArticleService;
-import com.zdk.blog.common.service.MetasService;
-import com.zdk.blog.common.utils.RedisUtil;
+import com.zdk.blog.constant.Types;
+import com.zdk.blog.dto.MetaDTO;
+import com.zdk.blog.model.Article;
+import com.zdk.blog.service.ArticleService;
+import com.zdk.blog.service.MetasService;
+import com.zdk.blog.utils.RedisUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;

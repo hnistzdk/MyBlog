@@ -1,7 +1,7 @@
 package com.zdk.blog.mapper.auth;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zdk.blog.common.model.auth.RolePermission;
+import com.zdk.blog.model.auth.RolePermission;
 import org.springframework.stereotype.Repository;
 
 /**

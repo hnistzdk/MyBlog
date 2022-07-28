@@ -1,10 +1,9 @@
 package com.zdk.blog.api.controller.admin;
 
 import com.github.pagehelper.PageInfo;
-import com.zdk.blog.api.controller.BaseController;
 import com.zdk.blog.api.controller.CommonController;
-import com.zdk.blog.common.model.Comments;
-import com.zdk.blog.common.service.CommentsService;
+import com.zdk.blog.model.Comments;
+import com.zdk.blog.service.CommentsService;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

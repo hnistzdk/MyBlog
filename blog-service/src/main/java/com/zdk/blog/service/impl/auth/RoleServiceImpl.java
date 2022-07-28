@@ -4,11 +4,11 @@ package com.zdk.blog.service.impl.auth;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zdk.blog.common.constant.ErrorConstant;
-import com.zdk.blog.common.model.auth.Role;
-import com.zdk.blog.common.service.auth.RoleService;
-import com.zdk.blog.common.utils.ApiResponse;
-import com.zdk.blog.common.utils.ParaValidator;
+import com.zdk.blog.constant.ErrorConstant;
+import com.zdk.blog.model.auth.Role;
+import com.zdk.blog.service.auth.RoleService;
+import com.zdk.blog.utils.ApiResponse;
+import com.zdk.blog.utils.ParaValidator;
 import com.zdk.blog.mapper.auth.RoleMapper;
 import org.springframework.stereotype.Service;
 

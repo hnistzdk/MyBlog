@@ -1,12 +1,11 @@
 package com.zdk.blog.api.controller.admin;
 
 import com.github.pagehelper.PageInfo;
-import com.zdk.blog.api.controller.BaseController;
 import com.zdk.blog.api.controller.CommonController;
-import com.zdk.blog.common.dto.LinkDTO;
-import com.zdk.blog.common.model.Metas;
-import com.zdk.blog.common.service.MetasService;
-import com.zdk.blog.common.utils.ApiResponse;
+import com.zdk.blog.dto.LinkDTO;
+import com.zdk.blog.model.Metas;
+import com.zdk.blog.service.MetasService;
+import com.zdk.blog.utils.ApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;

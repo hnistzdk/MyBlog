@@ -1,14 +1,13 @@
 package com.zdk.blog.api.controller.admin;
 
 import com.github.pagehelper.PageInfo;
-import com.zdk.blog.api.controller.BaseController;
 import com.zdk.blog.api.controller.CommonController;
-import com.zdk.blog.common.constant.ErrorConstant;
-import com.zdk.blog.common.constant.SuccessConstant;
-import com.zdk.blog.common.model.User;
-import com.zdk.blog.common.service.UserService;
-import com.zdk.blog.common.utils.ApiResponse;
-import com.zdk.blog.common.vo.UserInfoVO;
+import com.zdk.blog.constant.ErrorConstant;
+import com.zdk.blog.constant.SuccessConstant;
+import com.zdk.blog.model.User;
+import com.zdk.blog.service.UserService;
+import com.zdk.blog.utils.ApiResponse;
+import com.zdk.blog.vo.UserInfoVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

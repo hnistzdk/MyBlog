@@ -1,11 +1,11 @@
 package com.zdk.blog.service.impl.auth;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zdk.blog.common.model.auth.RolePermission;
-import com.zdk.blog.common.utils.ParaValidator;
+import com.zdk.blog.model.auth.RolePermission;
+import com.zdk.blog.utils.ParaValidator;
 import com.zdk.blog.mapper.auth.RolePermissionMapper;
 
-import com.zdk.blog.common.service.auth.RolePermissionService;
+import com.zdk.blog.service.auth.RolePermissionService;
 import org.springframework.stereotype.Service;
 
 /**

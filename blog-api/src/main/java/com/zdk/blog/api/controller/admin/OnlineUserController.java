@@ -1,8 +1,7 @@
 package com.zdk.blog.api.controller.admin;
 
-import com.zdk.blog.api.controller.BaseController;
 import com.zdk.blog.api.controller.CommonController;
-import com.zdk.blog.common.service.OnlineUserService;
+import com.zdk.blog.service.OnlineUserService;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

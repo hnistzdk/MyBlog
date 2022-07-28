@@ -1,13 +1,12 @@
 package com.zdk.blog.api.controller.user;
 
-import com.zdk.blog.api.controller.BaseController;
 import com.zdk.blog.api.controller.CommonController;
-import com.zdk.blog.common.constant.Types;
-import com.zdk.blog.common.dto.MetaDTO;
-import com.zdk.blog.common.model.Article;
-import com.zdk.blog.common.model.Metas;
-import com.zdk.blog.common.service.ArticleService;
-import com.zdk.blog.common.service.MetasService;
+import com.zdk.blog.constant.Types;
+import com.zdk.blog.dto.MetaDTO;
+import com.zdk.blog.model.Article;
+import com.zdk.blog.model.Metas;
+import com.zdk.blog.service.ArticleService;
+import com.zdk.blog.service.MetasService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

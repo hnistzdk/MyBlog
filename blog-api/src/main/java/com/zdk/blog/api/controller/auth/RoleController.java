@@ -2,12 +2,11 @@ package com.zdk.blog.api.controller.auth;
 
 
 import com.github.pagehelper.PageInfo;
-import com.zdk.blog.api.controller.BaseController;
 import com.zdk.blog.api.controller.CommonController;
-import com.zdk.blog.common.model.auth.Role;
-import com.zdk.blog.common.service.auth.PermissionService;
-import com.zdk.blog.common.service.auth.RoleService;
-import com.zdk.blog.common.utils.ApiResponse;
+import com.zdk.blog.model.auth.Role;
+import com.zdk.blog.service.auth.PermissionService;
+import com.zdk.blog.service.auth.RoleService;
+import com.zdk.blog.utils.ApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;

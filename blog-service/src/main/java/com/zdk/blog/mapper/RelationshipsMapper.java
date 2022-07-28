@@ -1,7 +1,7 @@
 package com.zdk.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zdk.blog.common.model.Relationships;
+import com.zdk.blog.model.Relationships;
 import org.springframework.stereotype.Repository;
 
 /**

@@ -1,7 +1,7 @@
 package com.zdk.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zdk.blog.common.model.Attach;
+import com.zdk.blog.model.Attach;
 import org.springframework.stereotype.Repository;
 
 /**

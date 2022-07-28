@@ -11,7 +11,7 @@
 <!--            size="512"-->
 <!--            readOnly="true"/>-->
 
-    <resultMap id="BaseResultMap" type="com.zdk.blog.common.model.Metas">
+    <resultMap id="BaseResultMap" type="com.zdk.blog.model.Metas">
         <result column="id" jdbcType="INTEGER" property="id" />
         <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="slug" jdbcType="VARCHAR" property="slug" />
@@ -21,7 +21,7 @@
         <result column="parent" jdbcType="INTEGER" property="parent" />
     </resultMap>
 
-    <resultMap id="MetaDto" type="com.zdk.blog.common.dto.MetaDTO" extends="BaseResultMap">
+    <resultMap id="MetaDto" type="com.zdk.blog.dto.MetaDTO" extends="BaseResultMap">
         <result column="count" property="count" jdbcType="INTEGER"/>
     </resultMap>
     <select id="getMetaList" resultMap="MetaDto">
