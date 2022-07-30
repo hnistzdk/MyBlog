@@ -35,6 +35,7 @@ log/
 *.zip
 *.tar
 *.tar.gz
+*.log.gz
 *.pid
 *.orig
 temp/
