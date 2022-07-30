@@ -17,7 +17,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Accessors(chain = true)
 @TableName("blog_user")
-public class User implements Serializable {
+public class User extends BaseModel<User> {
     @TableId(type = IdType.AUTO)
     private Integer id;
     private String username;

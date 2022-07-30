@@ -23,7 +23,7 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = false)
 @TableName("blog_attach")
-public class Attach implements Serializable {
+public class Attach extends BaseModel<Attach> {
 
     private static final long serialVersionUID = 1L;
 

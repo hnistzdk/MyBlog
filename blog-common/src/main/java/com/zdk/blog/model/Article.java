@@ -17,7 +17,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Accessors(chain = true)
 @TableName("blog_article")
-public class Article implements Serializable {
+public class Article extends BaseModel<Article> {
     /**
      * 文章主键编号
      */

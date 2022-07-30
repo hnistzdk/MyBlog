@@ -24,12 +24,11 @@ import java.util.Arrays;
 @Aspect
 @Component
 public class WebLogAspect {
-    @Autowired(required = false)
     private static Logger LOGGER = LoggerFactory.getLogger(WebLogAspect.class);
 
     ThreadLocal<Long> startTime = new ThreadLocal<>();
 
-    @Pointcut("execution(public * com.zdk.MyBlog.controller..*.*(..))")
+    @Pointcut("execution(public * com.zdk.blog.api.controller..*.*(..))")
     public void webLog(){}
 
 
@@ -40,21 +39,21 @@ public class WebLogAspect {
 
         //接收到请求，记录请求内容
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        assert attributes != null;
         HttpServletRequest request = attributes.getRequest();
-        HttpSession session = request.getSession();
         // 记录下请求内容
-        LOGGER.info("URL : " + request.getRequestURL().toString());
-        LOGGER.info("HTTP_METHOD : " + request.getMethod());
-        LOGGER.info("IP : " + request.getRemoteAddr());
-        LOGGER.info("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
-        LOGGER.info("ARGS : " + Arrays.toString(joinPoint.getArgs()));
+        LOGGER.info("URL : {}",request.getRequestURL());
+        LOGGER.info("HTTP_METHOD : {}",request.getMethod());
+        LOGGER.info("IP : {}",request.getRemoteAddr());
+        LOGGER.info("CLASS_METHOD : {}",joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
+        LOGGER.info("ARGS : {}",joinPoint.getArgs());
     }
 
     @AfterReturning(returning = "ret", pointcut = "webLog()")
     public void doAfterReturning(Object ret) throws Throwable {
         // 处理完请求，返回内容
-        LOGGER.info("RESPONSE : " + ret);
-        LOGGER.info("SPEND TIME : " + (System.currentTimeMillis() - startTime.get()));
-        startTime.remove();//用完之后记得清除，不然可能导致内存泄露;
+        LOGGER.info("RESPONSE : {}",ret);
+        LOGGER.info("SPEND TIME : {}",System.currentTimeMillis() - startTime.get());
+        startTime.remove();
     }
 }

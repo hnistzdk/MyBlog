@@ -22,7 +22,7 @@ public class HashKit {
         int i = 0;
 
         for(int size = key.length(); i < size; ++i) {
-            hash ^= (long)key.charAt(i);
+            hash ^= key.charAt(i);
             hash *= 1099511628211L;
         }
 

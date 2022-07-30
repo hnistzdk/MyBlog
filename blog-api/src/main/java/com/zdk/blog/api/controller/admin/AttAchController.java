@@ -71,7 +71,7 @@ public class AttAchController extends CommonController {
         List<Attach> attaches = new ArrayList<>();
         Attach attach = new Attach();
         for (Result result : results) {
-            UpYunDTO upYunDto = MyBeanUtil.jsonObjectToBean(JSONUtil.parseObj(result.getMsg()), UpYunDTO.class);
+            UpYunDTO upYunDto = JSONUtil.toBean(result.getMsg(), UpYunDTO.class);
             attach.setId(null).setFileName(upYunDto.getUrl().substring(upYunDto.getUrl().lastIndexOf("/"))).
                     setFileKey(URL_PREFIX + upYunDto.getUrl()).setFileType(upYunDto.getUrl().substring(upYunDto.getUrl().lastIndexOf(".")+1))
                     .setAuthorId(getLoginUser().getId());

@@ -23,7 +23,7 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = false)
 @TableName("blog_comments")
-public class Comments implements Serializable {
+public class Comments extends BaseModel<Comments> {
 
     private static final long serialVersionUID = 1L;
 

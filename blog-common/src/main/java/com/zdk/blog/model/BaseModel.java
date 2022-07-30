@@ -3,15 +3,17 @@ package com.zdk.blog.model;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.Version;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author zhangdikai
  * @date 2022-07-28 14:47
  */
-public abstract class BaseModel {
+public abstract class BaseModel<T extends Model<?>> extends Model<T> implements Serializable {
     private static final long serialVersionUID = 1L;
     private String createBy;
     @JSONField(

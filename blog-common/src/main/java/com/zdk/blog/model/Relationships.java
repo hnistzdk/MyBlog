@@ -25,7 +25,7 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = false)
 @TableName("blog_relationships")
-public class Relationships implements Serializable {
+public class Relationships extends BaseModel<Relationships> {
 
     private static final long serialVersionUID = 1L;
 

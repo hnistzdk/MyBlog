@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class UserInfoVO {
+public class UserInfoVO extends BaseVO{
     private Integer id;
     private String nickname;
     private String gender;

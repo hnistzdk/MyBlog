@@ -24,7 +24,7 @@ import java.util.Date;
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = false)
 @TableName("blog_online_user")
-public class OnlineUser implements Serializable {
+public class OnlineUser extends BaseModel<OnlineUser> {
 
     private static final long serialVersionUID = 1L;
 
