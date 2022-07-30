@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
  * @author zdk
  * @since 2021-10-28
  */
-@Api("角色管理")
+@Api(tags = {"角色管理相关接口"})
 @Controller
 @RequestMapping(value = "/admin/roleManage")
 public class RoleController extends CommonController {

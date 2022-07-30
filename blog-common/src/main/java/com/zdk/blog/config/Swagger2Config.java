@@ -30,7 +30,7 @@ public class Swagger2Config {
         return new Docket(DocumentationType.SWAGGER_2)//文档类型（swagger2）
                 .apiInfo(apiInfo)//设置包含在json ResourceListing响应中的api元信息
                 .select()//启动用于api选择的构建器
-                .apis(RequestHandlerSelectors.basePackage("com.zdk.MyBlog.controller"))//扫描接口的包
+                .apis(RequestHandlerSelectors.basePackage("com.zdk.blog.api.controller"))//扫描接口的包
                 .paths(PathSelectors.any())//路径过滤器（扫描所有路径）
                 .build();
     }

@@ -22,7 +22,7 @@ import java.util.Map;
  * @author zdk
  * @date 2021/8/13 10:02
  */
-@Api("系统设置")
+@Api(tags = {"系统设置相关接口"})
 @Controller
 @RequestMapping(value = "/admin/setting")
 public class SettingController extends CommonController {

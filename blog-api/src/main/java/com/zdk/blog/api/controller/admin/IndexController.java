@@ -32,7 +32,7 @@ import java.util.List;
  * @author zdk
  * @date 2021/8/12 20:53
  */
-@Api("管理端首页")
+@Api(tags = {"管理端首页相关接口"})
 @Controller
 @RequestMapping(value = "/admin")
 public class IndexController extends CommonController {

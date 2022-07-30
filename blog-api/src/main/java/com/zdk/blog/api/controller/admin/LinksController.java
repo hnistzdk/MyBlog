@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @author zdk
  * @date 2021/8/13 10:01
  */
-@Api("友情链接")
+@Api(tags = {"友情链接相关接口"})
 @Controller
 @RequestMapping(value = "/admin/links")
 public class LinksController extends CommonController {

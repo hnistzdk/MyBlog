@@ -31,7 +31,5 @@ public class User extends BaseModel<User> {
     private Integer loginTimes;
     private String email;
     private String briefIntroduction;
-    @TableLogic
-    private Boolean deleted;
     private String role;
 }

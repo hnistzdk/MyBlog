@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
  * @author zdk
  * @since 2021-10-28
  */
-@Api("权限管理")
+@Api(tags = {"权限管理相关接口"})
 @Controller
 @RequestMapping(value = "/admin/permissionManage")
 public class PermissionController extends CommonController {

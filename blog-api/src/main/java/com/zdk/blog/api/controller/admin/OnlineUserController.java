@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author zdk
  * @date 2021/8/13 10:03
  */
-@Api("在线用户")
+@Api(tags = {"在线用户相关接口"})
 @Controller
 @RequestMapping(value = "/admin/onlineUser")
 public class OnlineUserController extends CommonController {

@@ -1,12 +1,11 @@
 package com.zdk.blog.model;
 
 import com.baomidou.mybatisplus.annotation.*;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-
-import java.io.Serializable;
 
 /**
  * @author zdk
@@ -18,18 +17,15 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @TableName("blog_article")
 public class Article extends BaseModel<Article> {
-    /**
-     * 文章主键编号
-     */
+
     @TableId(type = IdType.AUTO)
+    @ApiModelProperty(name = "id",value = "文章主键编号",notes = "文章主键编号",dataType = "Integer")
     private Integer id;
-    /**
-     * 作者id
-     */
+
+    @ApiModelProperty(name = "authorId",value = "作者id",notes = "作者id",dataType = "Integer")
     private Integer authorId;
-    /**
-     * 作者名
-     */
+
+    @ApiModelProperty(name = "authorName",value = "作者名",notes = "作者id",dataType = "String")
     private String authorName;
     /**
      * 标题内容
@@ -73,8 +69,6 @@ public class Article extends BaseModel<Article> {
      * 内容所属评论数
      */
     private Integer commentCount;
-    @TableLogic
-    private Boolean deleted;
 
     /**
      * 内容类别

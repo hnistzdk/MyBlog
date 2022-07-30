@@ -28,7 +28,7 @@ import javax.servlet.http.Cookie;
  * @author zdk
  * @date 2021/7/20 17:49
  */
-@Api("登录相关接口")
+@Api(tags = {"登录相关相关接口"})
 @Controller
 @RequestMapping(value = "/user")
 public class LoginController extends CommonController {

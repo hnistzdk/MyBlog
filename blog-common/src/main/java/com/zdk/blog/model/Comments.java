@@ -98,11 +98,4 @@ public class Comments extends BaseModel<Comments> {
      * 父级评论
      */
     private Integer parent;
-
-    /**
-     * 逻辑删除
-     */
-    @TableLogic
-    private Boolean deleted;
-
 }

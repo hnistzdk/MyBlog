@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @author zdk
  * @date 2021/8/31 21:28
  */
-@Api("用户管理")
+@Api(tags = {"用户管理相关接口"})
 @Controller
 @RequestMapping(value = "/admin/userManage")
 public class UserManageController extends CommonController {

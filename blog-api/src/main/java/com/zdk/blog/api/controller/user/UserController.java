@@ -22,7 +22,7 @@ import java.util.List;
  * @author zdk
  * @date 2021/8/8 10:23
  */
-@Api("用户相关接口")
+@Api(tags = {"用户相关接口"})
 @Controller
 @RequestMapping(value ="/user")
 public class UserController extends CommonController {

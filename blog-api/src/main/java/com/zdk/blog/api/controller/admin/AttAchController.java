@@ -32,7 +32,7 @@ import java.util.List;
  * @author zdk
  * @date 2021/8/13 9:27
  */
-@Api("附件")
+@Api(tags = {"附件相关接口"})
 @Controller
 @RequestMapping(value = "/admin/attach")
 public class AttAchController extends CommonController {

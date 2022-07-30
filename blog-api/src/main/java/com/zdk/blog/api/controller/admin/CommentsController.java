@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @author zdk
  * @date 2021/8/13 9:59
  */
-@Api("评论")
+@Api(tags = {"评论相关接口"})
 @Controller
 @RequestMapping(value = "/admin/comments")
 public class CommentsController extends CommonController {

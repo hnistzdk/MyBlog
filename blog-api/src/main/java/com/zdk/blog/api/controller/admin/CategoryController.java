@@ -24,7 +24,7 @@ import java.util.List;
  * @author zdk
  * @date 2021/8/13 9:57
  */
-@Api("分类和标签")
+@Api(tags = {"分类和标签相关接口"})
 @Controller
 @RequestMapping(value = "/admin/category")
 public class CategoryController extends CommonController {

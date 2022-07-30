@@ -23,7 +23,7 @@ import java.util.List;
  * @author zdk
  * @date 2021/7/22 17:02
  */
-@Api("管理端文章接口")
+@Api(tags = {"管理端文章相关接口"})
 @Controller
 @RequestMapping(value = "/admin/article")
 public class AdminArticleController extends CommonController {

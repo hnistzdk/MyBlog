@@ -47,7 +47,7 @@ import java.util.UUID;
  * @author zdk
  * @date 2021/7/22 17:02
  */
-@Api(tags = {"博客端文章接口"})
+@Api(tags = {"博客端文章相关接口"})
 @RestController
 @RequestMapping(value = "/article")
 @Validated
@@ -121,7 +121,7 @@ public class ArticleController extends CommonController {
         //去除文章储存时的多余逗号
         article.setContent(article.getContent().replaceAll("^,", ""));
         article.setCategories(article.getCategories().replaceAll("^,", ""));
-        if(articleService.addArticle(article)){
+        if(Boolean.TRUE.equals(articleService.addArticle(article))){
             metasService.addMetas(article.getId(),article.getCategories(), Types.CATEGORY.getType());
             metasService.addMetas(article.getId(),article.getTags(), Types.TAG.getType());
             return ApiResponse.success("发布成功");

@@ -29,7 +29,7 @@ public abstract class BaseModel<T extends Model<?>> extends Model<T> implements 
     )
     private Date updateDt;
     @TableLogic
-    private String isDelete;
+    private String deleted;
     private Long sortOrder;
     @Version
     private Long rowVersion;
@@ -50,8 +50,8 @@ public abstract class BaseModel<T extends Model<?>> extends Model<T> implements 
         return this.updateDt;
     }
 
-    public String getIsDelete() {
-        return this.isDelete;
+    public String getDeleted() {
+        return deleted;
     }
 
     public Long getSortOrder() {
@@ -78,8 +78,8 @@ public abstract class BaseModel<T extends Model<?>> extends Model<T> implements 
         this.updateDt = updateDt;
     }
 
-    public void setIsDelete(String isDelete) {
-        this.isDelete = isDelete;
+    public void setDeleted(String deleted) {
+        this.deleted = deleted;
     }
 
     public void setSortOrder(Long sortOrder) {
