@@ -21,11 +21,10 @@ import java.util.List;
  * @date 2021/8/12 22:36
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
 public class LogsServiceImpl extends ServiceImpl<LogsMapper, Logs> implements LogsService, ParaValidator {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(LogsServiceImpl.class);
-    @Autowired
-    private LogsMapper logsMapper;
+
 
     @Override
     public List<Logs> getLogByLoginUser(User loginUser) {

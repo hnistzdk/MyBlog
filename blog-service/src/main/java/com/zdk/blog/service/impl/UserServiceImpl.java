@@ -11,6 +11,8 @@ import com.zdk.blog.vo.UserInfoVO;
 import com.zdk.blog.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,8 +23,6 @@ import java.util.List;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService,ParaValidator {
 
-    @Autowired
-    private UserMapper userMapper;
 
     @Override
     public User login(String username) {
@@ -31,12 +31,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         return getOne(Wrappers.<User>lambdaQuery().eq(User::getUsername,username));
     }
+
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Throwable.class)
     @Override
     public Boolean updateUserInfo(User user) {
         if(notOk(user)|| notOk(user.getId())){
             return false;
         }
-        return userMapper.updateById(user)>0;
+        return baseMapper.updateById(user)>0;
     }
 
     @Override
@@ -48,6 +50,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return new PageInfo<>(userList);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Throwable.class)
     @Override
     public Boolean editUserInfo(UserInfoVO userInfoVo) {
         if (userInfoVo==null|| notOk(userInfoVo.getId())){

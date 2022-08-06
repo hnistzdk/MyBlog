@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -32,16 +33,16 @@ import java.util.List;
  * @date 2021/8/12 22:36
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
 public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements MetasService,ParaValidator {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(MetasServiceImpl.class);
-    @Autowired
-    private MetasMapper metasMapper;
+
     @Autowired
     private RelationshipsService relationshipsService;
     @Autowired
     private ArticleService articleService;
 
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Throwable.class)
     @Override
     public void addMetas(Integer articleId, String names, String type) {
         if (isOk(articleId)){
@@ -53,6 +54,8 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
             }
         }
     }
+
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Throwable.class)
     @Override
     public void saveOrUpdate(Integer articleId, String name, String type) {
         MetaCond metaCond = new MetaCond();
@@ -93,9 +96,11 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
 
     @Override
     public List<MetaDTO> getMetaList(String type) {
-        return metasMapper.getMetaList(type);
+        return baseMapper.getMetaList(type);
     }
 
+
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Throwable.class)
     @Override
     public void saveMeta(String type, String name, Integer mid) {
         if (isOk(type)&& isOk(name)){
@@ -112,7 +117,7 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
                     }
                 }else{
                     meta.setType(type);
-                    metasMapper.insert(meta);
+                    baseMapper.insert(meta);
                 }
             }
         }else {
@@ -120,15 +125,17 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
         }
     }
 
+
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Throwable.class)
     @Override
     public void deleteMeta(String type, String name, Integer mid) {
         if (notOk(mid)){
             throw new GlobalException(ErrorConstant.Common.INVALID_PARAM);
         }
-        Metas metas = metasMapper.selectById(mid);
+        Metas metas = baseMapper.selectById(mid);
         if (metas!=null){
             //将meta表中相关数据删除
-            int delete = metasMapper.deleteById(mid);
+            int delete = baseMapper.deleteById(mid);
             List<Relationships> relationshipsList = relationshipsService.getByMetaId(mid);
             for (Relationships relationships : relationshipsList) {
                 Article article = articleService.getArticleById(relationships.getArticleId());
@@ -145,6 +152,8 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
             relationshipsService.deleteByMetaId(mid);
         }
     }
+
+
     private String reMeta(String name, String metas) {
         String[] ms = StringUtils.split(metas, ",");
         StringBuilder stringBuilder = new StringBuilder();
@@ -166,11 +175,14 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
         return new PageInfo<>(list);
     }
 
+
     @Override
     public List<Metas> getLinks() {
         return lambdaQuery().eq(Metas::getType, Types.LINK.getType()).list();
     }
 
+
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Throwable.class)
     @Override
     public ApiResponse addLink(LinkDTO link) {
         if (link == null){

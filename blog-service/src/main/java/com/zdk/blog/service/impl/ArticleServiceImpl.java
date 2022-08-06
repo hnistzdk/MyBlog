@@ -19,6 +19,7 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
@@ -28,11 +29,8 @@ import java.util.*;
  * @date 2021/7/22 17:07
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService,ParaValidator {
 
-    @Autowired
-    private ArticleMapper articleMapper;
     @Autowired
     private RelationshipsService relationshipsService;
     @Autowired
@@ -72,12 +70,15 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return lambdaQuery().eq(!Objects.equals(loginUser.getRole(), RoleConst.ADMIN),Article::getAuthorId, loginUser.getId()).list();
     }
 
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Throwable.class)
     @CachePut(cacheNames="article",key="#article.id")
     @Override
     public Boolean addArticle(Article article) {
         return saveOrUpdate(article);
     }
 
+
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Throwable.class)
     @Caching(evict={@CacheEvict(value = "article", key="'article'+#id",condition="#id!=null")
             , @CacheEvict(value = "article", key="'articles'")})
     @Override
@@ -107,6 +108,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return new PageInfo<>(articles);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Throwable.class)
     @Override
     public void updateByCondition(String oldCategory, String newCategory) {
         List<Article> list = lambdaQuery().eq(Article::getCategories, oldCategory).list();
@@ -129,10 +131,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                 .list();
     }
 
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Throwable.class)
     @CachePut(cacheNames="article",key="#article.id")
     @Override
     public Boolean modifyArticle(Article article) {
-        int update = articleMapper.updateById(article);
+        int update = baseMapper.updateById(article);
         relationshipsService.deleteByArticleId(article.getId());
         metasService.addMetas(article.getId(), article.getCategories(), Types.CATEGORY.getType());
         metasService.addMetas(article.getId(), article.getTags(), Types.TAG.getType());

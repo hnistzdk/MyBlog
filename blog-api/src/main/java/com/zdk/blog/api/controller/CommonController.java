@@ -20,6 +20,7 @@ public class CommonController extends BaseController {
 
     @Autowired
     protected HttpServletRequest request;
+    
     @Autowired
     protected HttpServletResponse response;
 

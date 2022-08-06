@@ -11,6 +11,8 @@ import com.zdk.blog.utils.ApiResponse;
 import com.zdk.blog.utils.ParaValidator;
 import com.zdk.blog.mapper.auth.RoleMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,6 +34,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper,Role> implements Rol
         return new PageInfo<>(roleList);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Throwable.class)
     @Override
     public ApiResponse addRole(String name,Integer pid) {
         if (notOk(name)){

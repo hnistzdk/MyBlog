@@ -28,6 +28,7 @@ public class PermissionController extends CommonController {
 
     @Autowired
     private RoleService roleService;
+
     @Autowired
     private PermissionService permissionService;
 

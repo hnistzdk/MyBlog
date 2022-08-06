@@ -16,9 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2021/8/12 22:36
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
 public class OnlineUserServiceImpl extends ServiceImpl<OnlineUserMapper, OnlineUser> implements OnlineUserService, ParaValidator {
     private static final Logger LOGGER = LoggerFactory.getLogger(OnlineUserServiceImpl.class);
-    @Autowired
-    private OnlineUserMapper onlineUserMapper;
+
 }

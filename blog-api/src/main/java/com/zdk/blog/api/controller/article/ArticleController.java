@@ -53,17 +53,22 @@ import java.util.UUID;
 @Validated
 public class ArticleController extends CommonController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ArticleController.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+
     private static final String URL_PREFIX = "http://zdk-blog-image.test.upcdn.net";
 
     @Autowired
     private ArticleService articleService;
+
     @Autowired
     private MetasService metasService;
+
     @Autowired
     private CommentsService commentsService;
+
     @Autowired
     private UpYunUtil upYunUtil;
+
     @Autowired
     private RedisUtil redisUtil;
 

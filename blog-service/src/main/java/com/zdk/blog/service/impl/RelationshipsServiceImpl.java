@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -20,11 +21,10 @@ import java.util.List;
  * @date 2021/8/12 22:37
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
 public class RelationshipsServiceImpl extends ServiceImpl<RelationshipsMapper, Relationships> implements RelationshipsService,ParaValidator {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(RelationshipsServiceImpl.class);
-    @Autowired
-    private RelationshipsMapper relationshipsMapper;
+
 
     @Override
     public Long getCountByCondition(Integer articleId, Integer id) {
@@ -32,11 +32,12 @@ public class RelationshipsServiceImpl extends ServiceImpl<RelationshipsMapper, R
                 .eq(Relationships::getMetaId, id).count();
     }
 
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Throwable.class)
     @Override
     public void deleteByArticleId(Integer articleId) {
         UpdateWrapper<Relationships> wrapper = new UpdateWrapper<>();
         wrapper.eq("article_id", articleId);
-        relationshipsMapper.delete(wrapper);
+        baseMapper.delete(wrapper);
     }
 
     @Override
@@ -47,10 +48,11 @@ public class RelationshipsServiceImpl extends ServiceImpl<RelationshipsMapper, R
         return null;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Throwable.class)
     @Override
     public void deleteByMetaId(Integer metaId) {
         if (isOk(metaId)){
-            relationshipsMapper.delete(new QueryWrapper<Relationships>().eq("meta_id", metaId));
+            baseMapper.delete(new QueryWrapper<Relationships>().eq("meta_id", metaId));
         }
     }
 }

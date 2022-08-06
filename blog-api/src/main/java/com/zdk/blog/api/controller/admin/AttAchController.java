@@ -36,11 +36,16 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/admin/attach")
 public class AttAchController extends CommonController {
+
     public static final String CLASSPATH = TaleUtils.getUplodFilePath();
-    private static final Logger LOGGER = LoggerFactory.getLogger(AttAchController.class);
+
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+
     private static final String URL_PREFIX = "http://zdk-blog-image.test.upcdn.net";
+
     @Autowired
     private AttachService attachService;
+
     @Autowired
     private UpYunUtil upYunUtil;
 

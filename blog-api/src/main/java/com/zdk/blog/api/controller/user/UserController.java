@@ -26,8 +26,10 @@ import java.util.List;
 @Controller
 @RequestMapping(value ="/user")
 public class UserController extends CommonController {
+
     @Autowired
     private ArticleService articleService;
+
     @Autowired
     private MetasService metasService;
 

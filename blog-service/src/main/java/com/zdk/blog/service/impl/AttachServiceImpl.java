@@ -19,6 +19,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
@@ -30,11 +31,10 @@ import java.util.Objects;
  * @date 2021/8/12 22:35
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
 public class AttachServiceImpl extends ServiceImpl<AttachMapper, Attach> implements AttachService, ParaValidator {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(AttachServiceImpl.class);
-    @Autowired
-    private AttachMapper attachMapper;
+
     @Autowired
     private UpYunUtil upYunUtil;
 
@@ -44,12 +44,16 @@ public class AttachServiceImpl extends ServiceImpl<AttachMapper, Attach> impleme
         PageHelper.startPage(pageNum, pageSize);
         return new PageInfo<>(lambdaQuery().eq(!Objects.equals(loginUser.getRole(), RoleConst.ADMIN),Attach::getAuthorId, loginUser.getId()).orderByDesc(Attach::getCreateTime).list());
     }
+
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Throwable.class)
     @CachePut(value = "attach",key = "'attach'+#attaches")
     @Override
     public Boolean batchSave(List<Attach> attaches) {
         return saveBatch(attaches);
     }
 
+
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Throwable.class)
     @CacheEvict(value = "attach",key = "'attach'+#id",condition = "#id!=null")
     @Override
     public Boolean deleteAttachById(Integer id) throws UpException, IOException {
@@ -58,6 +62,7 @@ public class AttachServiceImpl extends ServiceImpl<AttachMapper, Attach> impleme
         Boolean result1 = remove(new QueryWrapper<Attach>().eq("id", id));
         return result&&result1;
     }
+
 
     @Cacheable(value = "attach",key = "'attachs'+#loginUser")
     @Override

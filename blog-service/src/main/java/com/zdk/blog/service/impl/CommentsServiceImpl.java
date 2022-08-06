@@ -14,6 +14,7 @@ import com.zdk.blog.model.Article;
 import com.zdk.blog.model.Comments;
 import com.zdk.blog.model.User;
 import com.zdk.blog.service.ArticleService;
+import com.zdk.blog.service.UserService;
 import com.zdk.blog.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,13 +34,10 @@ import java.util.Objects;
  * @date 2021/8/12 22:35
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
 public class CommentsServiceImpl extends ServiceImpl<CommentsMapper, Comments> implements CommentsService, ParaValidator {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CommentsServiceImpl.class);
-    @Autowired
-    private CommentsMapper commentsMapper;
-    @Autowired
-    private UserMapper userMapper;
+
     @Autowired
     private ArticleService articleService;
 
@@ -77,6 +76,7 @@ public class CommentsServiceImpl extends ServiceImpl<CommentsMapper, Comments> i
         return new PageInfo<>(comments);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Throwable.class)
     @CachePut(value = "comments",key = "'comments'+#commentsDto.id+#user")
     @Override
     public ApiResponse comment(CommentsDTO commentsDto, HttpServletRequest request, User user) {

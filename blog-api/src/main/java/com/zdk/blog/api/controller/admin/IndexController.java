@@ -36,20 +36,27 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/admin")
 public class IndexController extends CommonController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
+
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private UserService userService;
+
     @Autowired
     private ArticleService articleService;
+
     @Autowired
     private CommentsService commentsService;
+
     @Autowired
     private AttachService attachService;
+
     @Autowired
     private LogsService logsService;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     @Autowired
     private RedisUtil redisUtil;
 

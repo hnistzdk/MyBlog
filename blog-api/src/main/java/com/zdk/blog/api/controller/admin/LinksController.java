@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping(value = "/admin/links")
 public class LinksController extends CommonController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(LinksController.class);
+
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private MetasService metasService;
 

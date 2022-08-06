@@ -8,10 +8,12 @@ import com.zdk.blog.service.OptionsService;
 import com.zdk.blog.utils.ApiResponse;
 import com.zdk.blog.utils.ParaValidator;
 import com.zdk.blog.mapper.OptionsMapper;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
@@ -21,11 +23,10 @@ import java.util.Map;
  * @date 2021/8/12 22:37
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
 public class OptionsServiceImpl extends ServiceImpl<OptionsMapper, Options> implements OptionsService, ParaValidator {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(OptionsServiceImpl.class);
-    @Autowired
-    private OptionsMapper optionsMapper;
+
 
     @Override
     public PageInfo<Options> getOptionsPage(Integer pageNumber, Integer pageSize, String keywords){
@@ -33,6 +34,7 @@ public class OptionsServiceImpl extends ServiceImpl<OptionsMapper, Options> impl
         return new PageInfo<>(lambdaQuery().list());
     }
 
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Throwable.class)
     @Override
     public ApiResponse updateGlobalAndIndividualSetting(Map<String, String> map) {
         try {

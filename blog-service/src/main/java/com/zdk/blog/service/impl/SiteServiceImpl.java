@@ -1,5 +1,6 @@
 package com.zdk.blog.service.impl;
 
+import com.zdk.blog.service.CommentsService;
 import com.zdk.blog.service.SiteService;
 import com.zdk.blog.utils.ParaValidator;
 import com.zdk.blog.mapper.ArticleMapper;
@@ -25,10 +26,11 @@ import java.util.List;
  */
 @Service
 public class SiteServiceImpl implements SiteService, ParaValidator {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(SiteServiceImpl.class);
 
     @Autowired
-    private CommentsMapper commentsMapper;
+    private CommentsService commentsService;
 
     @Autowired
     private ArticleMapper articleMapper;

@@ -12,9 +12,13 @@ import com.zdk.blog.utils.ParaValidator;
  * Controller层基础封装 基于CommonController
  */
 public abstract class BaseController implements ParaValidator {
+
     protected SearchCondition searchCondition = new SearchCondition();
+
     protected BaseResponse baseResponse = new BaseResponse();
+
     protected DataResponse dataResponse = new DataResponse();
+
     protected PageResponse pageResponse = new PageResponse();
 
     public SearchCondition getSearchCondition() {

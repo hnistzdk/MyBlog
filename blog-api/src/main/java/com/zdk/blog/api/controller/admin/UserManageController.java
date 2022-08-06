@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping(value = "/admin/userManage")
 public class UserManageController extends CommonController {
+
     @Autowired
     private UserService userService;
+
 
     @ApiOperation("用户管理页")
     @GetMapping(value = "")
