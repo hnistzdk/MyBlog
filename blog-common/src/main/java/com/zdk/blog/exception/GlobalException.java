@@ -1,6 +1,6 @@
 package com.zdk.blog.exception;
 
-import com.zdk.blog.utils.ApiResponse;
+import com.zdk.blog.response.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.zdk.blog.dto.CommentsDTO;
 import com.zdk.blog.model.Comments;
 import com.zdk.blog.model.User;
-import com.zdk.blog.utils.ApiResponse;
+import com.zdk.blog.response.ApiResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

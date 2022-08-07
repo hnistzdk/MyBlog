@@ -7,7 +7,7 @@ import com.zdk.blog.dto.MetaDTO;
 import com.zdk.blog.dto.cond.MetaCond;
 import com.zdk.blog.model.Metas;
 import com.zdk.blog.service.MetasService;
-import com.zdk.blog.utils.ApiResponse;
+import com.zdk.blog.response.ApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

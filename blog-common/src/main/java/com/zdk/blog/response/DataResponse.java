@@ -1,5 +1,6 @@
-package com.zdk.blog.utils;
+package com.zdk.blog.response;
 
+import com.zdk.blog.response.BaseResponse;
 import com.zdk.blog.vo.BaseVO;
 
 /**

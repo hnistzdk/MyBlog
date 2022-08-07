@@ -6,7 +6,7 @@ import com.zdk.blog.constant.ErrorConstant;
 import com.zdk.blog.constant.SuccessConstant;
 import com.zdk.blog.model.User;
 import com.zdk.blog.service.UserService;
-import com.zdk.blog.utils.ApiResponse;
+import com.zdk.blog.response.ApiResponse;
 import com.zdk.blog.vo.UserInfoVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,9 +1,9 @@
 package com.zdk.blog.api.controller;
 
 import com.zdk.blog.request.common.SearchCondition;
-import com.zdk.blog.utils.BaseResponse;
-import com.zdk.blog.utils.DataResponse;
-import com.zdk.blog.utils.PageResponse;
+import com.zdk.blog.response.BaseResponse;
+import com.zdk.blog.response.DataResponse;
+import com.zdk.blog.response.PageResponse;
 import com.zdk.blog.utils.ParaValidator;
 
 /**

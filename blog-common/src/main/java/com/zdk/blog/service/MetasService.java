@@ -6,7 +6,7 @@ import com.zdk.blog.dto.LinkDTO;
 import com.zdk.blog.dto.MetaDTO;
 import com.zdk.blog.dto.cond.MetaCond;
 import com.zdk.blog.model.Metas;
-import com.zdk.blog.utils.ApiResponse;
+import com.zdk.blog.response.ApiResponse;
 
 import java.util.List;
 

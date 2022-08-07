@@ -1,6 +1,6 @@
 package com.zdk.blog.exception;
 
-import com.zdk.blog.utils.BaseResponse;
+import com.zdk.blog.response.BaseResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

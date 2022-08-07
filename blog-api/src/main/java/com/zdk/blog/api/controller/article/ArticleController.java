@@ -17,7 +17,7 @@ import com.zdk.blog.model.User;
 import com.zdk.blog.service.ArticleService;
 import com.zdk.blog.service.CommentsService;
 import com.zdk.blog.service.MetasService;
-import com.zdk.blog.utils.ApiResponse;
+import com.zdk.blog.response.ApiResponse;
 import com.zdk.blog.utils.IpKit;
 import com.zdk.blog.utils.RedisUtil;
 import com.zdk.blog.utils.UpYunUtil;
@@ -31,7 +31,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.net.URISyntaxException;

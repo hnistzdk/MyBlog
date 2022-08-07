@@ -7,7 +7,7 @@ import com.github.pagehelper.PageInfo;
 import com.zdk.blog.constant.ErrorConstant;
 import com.zdk.blog.model.auth.Role;
 import com.zdk.blog.service.auth.RoleService;
-import com.zdk.blog.utils.ApiResponse;
+import com.zdk.blog.response.ApiResponse;
 import com.zdk.blog.utils.ParaValidator;
 import com.zdk.blog.mapper.auth.RoleMapper;
 import org.springframework.stereotype.Service;

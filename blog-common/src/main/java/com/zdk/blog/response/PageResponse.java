@@ -1,7 +1,8 @@
-package com.zdk.blog.utils;
+package com.zdk.blog.response;
 
 import com.github.pagehelper.PageInfo;
 import com.zdk.blog.model.BaseModel;
+import com.zdk.blog.response.BaseResponse;
 import com.zdk.blog.vo.BaseVO;
 
 import java.util.List;

@@ -5,7 +5,7 @@ import com.zdk.blog.api.controller.CommonController;
 import com.zdk.blog.dto.LinkDTO;
 import com.zdk.blog.model.Metas;
 import com.zdk.blog.service.MetasService;
-import com.zdk.blog.utils.ApiResponse;
+import com.zdk.blog.response.ApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;

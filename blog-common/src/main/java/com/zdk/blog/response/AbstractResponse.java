@@ -1,4 +1,4 @@
-package com.zdk.blog.utils;
+package com.zdk.blog.response;
 
 import java.io.Serializable;
 
