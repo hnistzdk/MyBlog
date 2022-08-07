@@ -51,6 +51,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value = "/article")
 @Validated
+@Uncheck
 public class ArticleController extends CommonController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());

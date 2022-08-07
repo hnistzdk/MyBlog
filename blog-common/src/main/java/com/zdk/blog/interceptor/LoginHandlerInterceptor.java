@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,6 +34,22 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         logger.info("UserAgent: {}",request.getHeader(USER_AGENT));
         logger.info("用户访问地址: {}, 来路地址: {}",uri, IpKit.getIpAddressByRequest(request));
 
+        if (handler instanceof HandlerMethod){
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            //先检查类上有没有Uncheck注解 如果有 放行
+            Class<?> beanType = handlerMethod.getBeanType();
+            Uncheck classAnnotation = beanType.getAnnotation(Uncheck.class);
+            if (classAnnotation != null){
+                return true;
+            }
+
+            //再检查方法上有没有 如果有 放行
+            Uncheck uncheck = handlerMethod.getMethodAnnotation(Uncheck.class);
+            if (uncheck != null){
+                return true;
+            }
+        }
+
         //如果是查看博客详情 直接过
         if (uri.startsWith("/article/toPost") || uri.startsWith("/user/toIndex")){
             return true;
@@ -43,6 +60,16 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         }
         //用于测试接口时
         if (request.getParameter("token")!=null){
+            return true;
+        }
+        //用于api文档
+        if (uri.startsWith("/swagger-resources") || uri.startsWith("/v2/api-docs")|| uri.startsWith("/favicon.ico")){
+            logger.info("api文档,放行");
+            return true;
+        }
+        //用于error跳转
+        if (uri.startsWith("/error")){
+            logger.info("发生错误");
             return true;
         }
         //请求拦截处理
@@ -69,15 +96,5 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         }
         logger.debug("cookieValue: {}",cookieValue);
         return true;
-    }
-
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
-    }
-
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-
     }
 }
