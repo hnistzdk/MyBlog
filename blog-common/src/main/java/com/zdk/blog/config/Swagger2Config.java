@@ -40,5 +40,5 @@ public class Swagger2Config {
                 .build();
     }
 
-//    http://localhost:8090/swagger-ui.html
+//    http://localhost:8092/swagger-ui/index.html
 }
