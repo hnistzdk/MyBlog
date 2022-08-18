@@ -33,12 +33,12 @@ public interface ParaValidator {
     }
 
     /**
-     *
+     * 判断List参数是否无效
      * @param param
      * @return
      */
     default boolean isOk(List<?> param) {
-        return param != null && param.size() > 0;
+        return param != null && !param.isEmpty();
     }
 
     /**
@@ -47,7 +47,7 @@ public interface ParaValidator {
      * @return
      */
     default boolean notOk(List<?> param) {
-        return param == null || param.size() == 0;
+        return param == null || param.isEmpty();
     }
 
     /**

@@ -9,6 +9,8 @@ import com.zdk.blog.service.ArticleService;
 import com.zdk.blog.service.MetasService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,8 @@ import java.util.List;
 @Controller
 @RequestMapping(value ="/user")
 public class UserController extends CommonController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private ArticleService articleService;

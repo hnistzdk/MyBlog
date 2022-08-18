@@ -11,34 +11,39 @@ public class AbstractResponse implements Serializable {
     private String status = "0";
     private String msg = "成功";
 
-    public void error() {
+    public AbstractResponse error() {
         this.setStatus("1");
         this.setMsg("系统异常");
+        return this;
     }
 
-    public void error(String msg) {
+    public AbstractResponse error(String msg) {
         this.setStatus("1");
         this.setMsg(msg);
+        return this;
     }
 
-    public void error(String status, String msg) {
+    public AbstractResponse error(String status, String msg) {
         this.setStatus(status);
         this.setMsg(msg);
+        return this;
     }
 
     public String getStatus() {
         return this.status;
     }
 
-    public void setStatus(String status) {
+    public AbstractResponse setStatus(String status) {
         this.status = status;
+        return this;
     }
 
     public String getMsg() {
         return this.msg;
     }
 
-    public void setMsg(String msg) {
+    public AbstractResponse setMsg(String msg) {
         this.msg = msg;
+        return this;
     }
 }

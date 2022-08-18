@@ -1,6 +1,6 @@
 package com.zdk.blog.exception;
 
-import com.zdk.blog.response.BaseResponse;
+import com.zdk.blog.response.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -26,39 +26,39 @@ import java.util.List;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler({BusinessException.class})
-    public BaseResponse handleBusinessException(BusinessException e) {
-        BaseResponse<String> baseResponse = new BaseResponse();
-        this.logger.error("业务异常", e);
-        baseResponse.setData("");
-        baseResponse.error(e.getMessage());
+    public ApiResponse handleBusinessException(BusinessException e) {
+        ApiResponse<String> response = new ApiResponse();
+        logger.error("业务异常", e);
+        response.setData("");
+        response.error(e.getMessage());
         if (e.getErrorCode() != null) {
-            baseResponse.setStatus(e.getErrorCode());
+            response.setStatus(e.getErrorCode());
         }
 
-        return baseResponse;
+        return response;
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({BindException.class})
-    public BaseResponse handleValidationException(Exception e) {
+    public ApiResponse handleValidationException(Exception e) {
         System.out.println("进入参数绑定异常");
-        BaseResponse baseResponse = new BaseResponse();
-        this.logger.error("参数校验错误", e);
-        baseResponse.error(ErrorType.BAD_REQUEST, e.getMessage());
-        return baseResponse;
+        ApiResponse response = new ApiResponse();
+        logger.error("参数校验错误", e);
+        response.error(ErrorType.BAD_REQUEST, e.getMessage());
+        return response;
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class})
-    public BaseResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        BaseResponse baseResponse = new BaseResponse();
-        this.logger.error(e.getMessage(), e);
-        StringBuffer errorMsg = new StringBuffer();
+    public ApiResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        ApiResponse response = new ApiResponse();
+        logger.error(e.getMessage(), e);
+        StringBuilder errorMsg = new StringBuilder();
         BindingResult bindingResult = e.getBindingResult();
         List<ObjectError> allErrors = bindingResult.getAllErrors();
-        if (allErrors.size() > 0) {
+        if (!allErrors.isEmpty()) {
             for (ObjectError objectError : allErrors) {
                 if (objectError instanceof FieldError) {
                     FieldError fieldError = (FieldError) objectError;
@@ -68,56 +68,56 @@ public class GlobalExceptionHandler {
                 }
             }
 
-            baseResponse.error(errorMsg.toString());
+            response.error(errorMsg.toString());
         } else {
-            baseResponse.error(e.getMessage());
+            response.error(e.getMessage());
         }
 
-        return baseResponse;
+        return response;
     }
 
     @ExceptionHandler({NoHandlerFoundException.class})
-    public BaseResponse handlerNoFoundException(NoHandlerFoundException e) {
-        this.logger.error(e.getMessage(), e);
-        BaseResponse baseResponse = new BaseResponse();
-        baseResponse.error("404", "路径不存在，请检查路径是否正确");
-        return baseResponse;
+    public ApiResponse handlerNoFoundException(NoHandlerFoundException e) {
+        logger.error(e.getMessage(), e);
+        ApiResponse response = new ApiResponse();
+        response.error("404", "路径不存在，请检查路径是否正确");
+        return response;
     }
 
     @ExceptionHandler({DuplicateKeyException.class})
-    public BaseResponse handleDuplicateKeyException(DuplicateKeyException e) {
-        this.logger.error(e.getMessage(), e);
-        BaseResponse baseResponse = new BaseResponse();
-        baseResponse.error("数据库中已存在该记录");
-        return baseResponse;
+    public ApiResponse handleDuplicateKeyException(DuplicateKeyException e) {
+        logger.error(e.getMessage(), e);
+        ApiResponse response = new ApiResponse();
+        response.error("数据库中已存在该记录");
+        return response;
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({MissingServletRequestParameterException.class})
-    public BaseResponse handleMissingServletRequestParameterException(Exception e) {
-        BaseResponse baseResponse = new BaseResponse();
-        this.logger.error("参数解析失败", e);
-        baseResponse.error(ErrorType.BAD_REQUEST, "参数解析失败");
-        return baseResponse;
+    public ApiResponse handleMissingServletRequestParameterException(Exception e) {
+        ApiResponse response = new ApiResponse();
+        logger.error("参数解析失败", e);
+        response.error(ErrorType.BAD_REQUEST, "参数解析失败");
+        return response;
     }
 
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     @ExceptionHandler({HttpRequestMethodNotSupportedException.class})
-    public BaseResponse handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
-        BaseResponse baseResponse = new BaseResponse();
-        this.logger.error("不支持当前请求方法", e);
-        baseResponse.error(ErrorType.METHOD_NOT_ALLOWED, "不支持当前请求方法");
-        return baseResponse;
+    public ApiResponse handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+        ApiResponse response = new ApiResponse();
+        logger.error("不支持当前请求方法", e);
+        response.error(ErrorType.METHOD_NOT_ALLOWED, "不支持当前请求方法");
+        return response;
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler({Exception.class})
-    public BaseResponse handleException(Exception e) {
+    public ApiResponse handleException(Exception e) {
         System.out.println("进入普通异常");
-        BaseResponse baseResponse = new BaseResponse();
-        this.logger.error("系统异常", e);
-        baseResponse.error(ErrorType.SYSTEM_ERROR, "系统异常");
-        return baseResponse;
+        ApiResponse response = new ApiResponse();
+        logger.error("系统异常", e);
+        response.error(ErrorType.SYSTEM_ERROR, "系统异常");
+        return response;
     }
 
 }

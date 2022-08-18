@@ -28,7 +28,7 @@ import java.util.List;
 @RequestMapping(value = "/admin/article")
 public class AdminArticleController extends CommonController {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdminArticleController.class);
 
     @Autowired
     private RedisUtil redisUtil;

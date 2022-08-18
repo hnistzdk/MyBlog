@@ -7,10 +7,10 @@ import java.io.Serializable;
  * @date 2021/7/20 18:40
  * 统一响应结果类
  */
-public class ApiResponse<T> implements Serializable {
+public class ApiResponse<T> extends BaseResponse<T> implements Serializable {
 
-    private static final Integer CODE_SUCCESS = 200;
-    private static final Integer CODE_FAIL = 201;
+    private static final int CODE_SUCCESS = 0;
+    private static final int CODE_FAIL = 1;
     private static final String MSG_SUCCESS = "成功";
     private static final String MSG_FAIL = "失败";
 
@@ -55,16 +55,16 @@ public class ApiResponse<T> implements Serializable {
         return new ApiResponse<>();
     }
     public static <T> ApiResponse <T> result(Boolean success){
-        return success ? new ApiResponse<>() : fail(MSG_FAIL);
+        return Boolean.TRUE.equals(success) ? new ApiResponse<>() : fail(MSG_FAIL);
     }
     public static <T> ApiResponse <T> result(Boolean success,T data){
-        return success ? success(data) : fail(MSG_FAIL);
+        return Boolean.TRUE.equals(success) ? success(data) : fail(MSG_FAIL);
     }
     public static <T> ApiResponse <T> result(Boolean success,String failMsg){
-        return success ? new ApiResponse<>() : fail(failMsg);
+        return Boolean.TRUE.equals(success) ? new ApiResponse<>() : fail(failMsg);
     }
     public static <T> ApiResponse <T> result(Boolean success,String successMsg,String failMsg){
-        return success ? success(successMsg) : fail(failMsg);
+        return Boolean.TRUE.equals(success) ? success(successMsg) : fail(failMsg);
     }
 
     public static <T> ApiResponse <T> success(T data){
@@ -86,6 +86,7 @@ public class ApiResponse<T> implements Serializable {
         return new ApiResponse<>(errorCode);
     }
 
+
     public String getMsg() {
         return msg;
     }
@@ -104,10 +105,12 @@ public class ApiResponse<T> implements Serializable {
         return this;
     }
 
+    @Override
     public T getData() {
         return data;
     }
 
+    @Override
     public ApiResponse<T> setData(T data) {
         this.data = data;
         return this;

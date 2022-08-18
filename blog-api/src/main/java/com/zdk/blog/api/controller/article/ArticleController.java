@@ -53,7 +53,7 @@ import java.util.UUID;
 @Uncheck
 public class ArticleController extends CommonController {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(ArticleController.class);
 
     private static final String URL_PREFIX = "http://zdk-blog-image.test.upcdn.net";
 

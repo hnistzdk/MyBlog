@@ -3,11 +3,14 @@ package com.zdk.blog.api.controller.auth;
 
 import com.github.pagehelper.PageInfo;
 import com.zdk.blog.api.controller.CommonController;
+import com.zdk.blog.api.controller.article.ArticleController;
 import com.zdk.blog.model.auth.Permission;
 import com.zdk.blog.service.auth.PermissionService;
 import com.zdk.blog.service.auth.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +28,8 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping(value = "/admin/permissionManage")
 public class PermissionController extends CommonController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PermissionController.class);
 
     @Autowired
     private RoleService roleService;

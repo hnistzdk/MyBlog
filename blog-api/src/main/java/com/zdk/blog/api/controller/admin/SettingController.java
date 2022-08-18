@@ -27,7 +27,7 @@ import java.util.Map;
 @RequestMapping(value = "/admin/setting")
 public class SettingController extends CommonController {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(SettingController.class);
 
     @Autowired
     private OptionsService optionsService;

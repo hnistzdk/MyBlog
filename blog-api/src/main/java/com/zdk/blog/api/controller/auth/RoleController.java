@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/admin/roleManage")
 public class RoleController extends CommonController {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(RoleController.class);
 
     @Autowired
     private RoleService roleService;

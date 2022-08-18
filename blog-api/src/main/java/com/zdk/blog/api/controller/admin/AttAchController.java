@@ -40,7 +40,7 @@ public class AttAchController extends CommonController {
 
     public static final String CLASSPATH = TaleUtils.getUplodFilePath();
 
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(AttAchController.class);
 
     private static final String URL_PREFIX = "http://zdk-blog-image.test.upcdn.net";
 

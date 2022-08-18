@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/admin/comments")
 public class CommentsController extends CommonController {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommentsController.class);
 
     @Autowired
     private CommentsService commentsService;

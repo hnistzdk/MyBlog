@@ -29,7 +29,7 @@ import java.util.List;
 @RequestMapping(value = "/admin/category")
 public class CategoryController extends CommonController {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
 
     @Autowired
     private MetasService metasService;

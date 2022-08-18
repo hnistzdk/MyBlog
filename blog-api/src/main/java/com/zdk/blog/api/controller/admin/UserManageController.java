@@ -10,6 +10,8 @@ import com.zdk.blog.response.ApiResponse;
 import com.zdk.blog.vo.UserInfoVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,8 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping(value = "/admin/userManage")
 public class UserManageController extends CommonController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserManageController.class);
 
     @Autowired
     private UserService userService;

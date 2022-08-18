@@ -11,13 +11,27 @@ import java.util.List;
  * @author zhangdikai
  * @date 2022-07-28 14:46
  */
-public class PageResponse<T> extends BaseResponse {
+public class PageResponse<T> extends ApiResponse {
     private static final long serialVersionUID = 1L;
     private Integer currPage;
     private Integer pageSize;
     private Integer totalCount;
     private Integer totalPage;
     private List<? extends BaseVO> data;
+
+    public static <T> PageResponse<T> pageResponse(List<? extends BaseVO> data, PageInfo<? extends BaseModel> pageInfo){
+        PageResponse<T> response = new PageResponse<>();
+        response.setTotalCount((int) pageInfo.getTotal(), pageInfo.getPageNum(), pageInfo.getPageSize());
+        response.data = data;
+        return response;
+    }
+
+    public static <T> PageResponse<T> pageResponse(List<? extends BaseVO> data){
+        PageResponse<T> response = new PageResponse<>();
+        response.data = data;
+        return response;
+    }
+
 
     public void setTotalCount(Integer totalCount, Integer currPage, Integer pageSize) {
         this.totalCount = totalCount;

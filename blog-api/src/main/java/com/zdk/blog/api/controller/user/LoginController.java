@@ -3,6 +3,7 @@ package com.zdk.blog.api.controller.user;
 import cn.hutool.core.date.DateUtil;
 
 import com.zdk.blog.api.controller.CommonController;
+import com.zdk.blog.api.controller.auth.RolePermissionController;
 import com.zdk.blog.constant.LogActions;
 import com.zdk.blog.constant.WebConst;
 import com.zdk.blog.model.Logs;
@@ -33,6 +34,10 @@ import javax.servlet.http.Cookie;
 @RequestMapping(value = "/user")
 public class LoginController extends CommonController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
+
+    private static final Integer ERROR_NUMBER = 4;
+
     @Autowired
     private RedisUtil redisUtil;
 
@@ -46,9 +51,6 @@ public class LoginController extends CommonController {
     private PasswordEncoder passwordEncoder;
 
 
-    private static final Integer ERROR_NUMBER = 4;
-
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
 
     @PostMapping(value = "/login")

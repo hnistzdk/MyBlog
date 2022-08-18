@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/admin/onlineUser")
 public class OnlineUserController extends CommonController {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(OnlineUserController.class);
 
     @Autowired
     private OnlineUserService onlineUserService;

@@ -16,7 +16,7 @@ public class BaseResponse<T> extends AbstractResponse {
     private T data;
     private List<Error> errors;
 
-    public void error() {
+    public BaseResponse error() {
         super.error();
         Error error = new Error("1", "系统异常");
 
@@ -29,9 +29,10 @@ public class BaseResponse<T> extends AbstractResponse {
         }
 
         this.getErrors().add(error);
+        return this;
     }
 
-    public void error(String message) {
+    public BaseResponse error(String message) {
         super.error(message);
         Error error = new Error("1", message);
 
@@ -44,9 +45,10 @@ public class BaseResponse<T> extends AbstractResponse {
         }
 
         this.getErrors().add(error);
+        return this;
     }
 
-    public void error(ErrorType type) {
+    public BaseResponse error(ErrorType type) {
         super.error(type.getCode(), type.getMsg());
         Error error = new Error(type.getCode(), type.getMsg());
 
@@ -59,9 +61,10 @@ public class BaseResponse<T> extends AbstractResponse {
         }
 
         this.getErrors().add(error);
+        return this;
     }
 
-    public void error(String code, String message) {
+    public BaseResponse error(String code, String message) {
         super.error(code, message);
         Error error = new Error(code, message);
         this.setStatus(code);
@@ -76,9 +79,10 @@ public class BaseResponse<T> extends AbstractResponse {
         }
 
         this.getErrors().add(error);
+        return this;
     }
 
-    public void error(ErrorType type, String message) {
+    public BaseResponse error(ErrorType type, String message) {
         super.error(type.getCode(), message);
         Error error = new Error(type, message);
 
@@ -91,19 +95,22 @@ public class BaseResponse<T> extends AbstractResponse {
         }
 
         this.getErrors().add(error);
+        return this;
     }
 
-    public void addError(Error error) {
+    public BaseResponse addError(Error error) {
         this.getErrors().add(error);
+        return this;
     }
 
-    public void addErrors(List<Error> errors) {
+    public BaseResponse addErrors(List<Error> errors) {
         Iterator var2 = errors.iterator();
 
         while(var2.hasNext()) {
             Error error = (Error)var2.next();
             this.addError(error);
         }
+        return this;
 
     }
 
@@ -130,7 +137,8 @@ public class BaseResponse<T> extends AbstractResponse {
         return this.data;
     }
 
-    public void setData(T data) {
+    public BaseResponse setData(T data) {
         this.data = data;
+        return this;
     }
 }
