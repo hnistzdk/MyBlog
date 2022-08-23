@@ -2,7 +2,6 @@ package com.zdk.blog.api.controller.admin;
 
 import com.zdk.blog.api.controller.CommonController;
 import com.zdk.blog.constant.Types;
-import com.zdk.blog.exception.GlobalException;
 import com.zdk.blog.dto.MetaDTO;
 import com.zdk.blog.dto.cond.MetaCond;
 import com.zdk.blog.model.Metas;
@@ -56,16 +55,7 @@ public class CategoryController extends CommonController {
             @RequestParam(name = "mid", required = false)
                     Integer mid
     ){
-        try {
             metasService.saveMeta(Types.CATEGORY.getType(), cname, mid);
-        }catch (Exception e){
-            String msg = "分类保存失败";
-            if (e instanceof GlobalException){
-                GlobalException ex = (GlobalException)e;
-                msg = ex.getMessage();
-            }
-            return ApiResponse.fail(msg);
-        }
         return ApiResponse.success("分类保存成功");
     }
 
@@ -77,17 +67,8 @@ public class CategoryController extends CommonController {
             @RequestParam(name = "mid", required = false)
                     Integer mid
     ){
-        try {
-            Metas metas = metasService.getMetas(new MetaCond().setId(mid)).get(0);
-            metasService.deleteMeta(metas.getType(), metas.getName(), mid);
-        }catch (Exception e){
-            String msg = "分类删除失败";
-            if (e instanceof GlobalException){
-                GlobalException ex = (GlobalException)e;
-                msg = ex.getMessage();
-            }
-            return ApiResponse.fail(msg);
-        }
+        Metas metas = metasService.getMetas(new MetaCond().setId(mid)).get(0);
+        metasService.deleteMeta(metas.getType(), metas.getName(), mid);
         return ApiResponse.success("分类删除成功");
     }
 }

@@ -3,6 +3,8 @@ package com.zdk.blog.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
 import com.zdk.blog.model.User;
+import com.zdk.blog.request.login.LoginRequest;
+import com.zdk.blog.response.ApiResponse;
 import com.zdk.blog.vo.UserInfoVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,7 +18,7 @@ public interface UserService extends IService<User> {
      * @param username
      * @return
      */
-    User login(@Param("username") String username);
+    ApiResponse login(LoginRequest loginRequest);
 
     /**
      * 更新用户信息

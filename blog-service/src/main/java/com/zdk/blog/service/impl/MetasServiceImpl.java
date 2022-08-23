@@ -135,7 +135,7 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
         Metas metas = baseMapper.selectById(mid);
         if (metas!=null){
             //将meta表中相关数据删除
-            int delete = baseMapper.deleteById(mid);
+            baseMapper.deleteById(mid);
             List<Relationships> relationshipsList = relationshipsService.getByMetaId(mid);
             for (Relationships relationships : relationshipsList) {
                 Article article = articleService.getArticleById(relationships.getArticleId());
@@ -143,7 +143,6 @@ public class MetasServiceImpl extends ServiceImpl<MetasMapper, Metas> implements
                 if (type.equals(Types.CATEGORY.getType())){
                     update.setCategories(reMeta(name, article.getCategories()));
                 }else {
-                    System.out.println("type = " + type);
                     update.setTags(reMeta(name, article.getTags()));
                 }
                 articleService.updateById(update);

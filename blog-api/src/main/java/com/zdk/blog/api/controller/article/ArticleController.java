@@ -153,7 +153,7 @@ public class ArticleController extends CommonController {
         return ApiResponse.result(result,ErrorConstant.Common.DELETE_FAIL);
     }
 
-    @ApiOperation("删除文章")
+    @ApiOperation("文章详情")
     @GetMapping(value = "/detail")
     @Uncheck
     public ApiResponse detail(@NotNull(message = "id不能为空") Integer id){
@@ -193,7 +193,7 @@ public class ArticleController extends CommonController {
         User loginUser = getLoginUser();
         //当前用户未登录 跳转或弹出登录界面
         if (notOk(loginUser.getId())){
-            return ApiResponse.failWidthDiyCode(1001);
+            return ApiResponse.failWidthDiyCode("1001");
         }
         String key = WebConst.COMMENT_INTERVAL+":"+IpKit.getIpAddressByRequest(request)+":"+getLoginUser().getUsername();
         //如果存在上次评论记录 证明两次评论间隔时间小于一分钟,拒绝再次评论

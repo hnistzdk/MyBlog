@@ -12,7 +12,7 @@ import java.text.MessageFormat;
 public class GlobalException extends RuntimeException {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalException.class);
-    protected Integer errorCode;
+    protected String errorCode;
     protected String[] errorMessageArguments;
     protected ApiResponse apiResponse;
 
@@ -22,21 +22,21 @@ public class GlobalException extends RuntimeException {
 
     public GlobalException(String message) {
         super(message);
-        this.errorCode = 201;
+        this.errorCode = "1";
         this.errorMessageArguments = new String[0];
     }
 
     public GlobalException(String message, Throwable cause) {
         super(message, cause);
-        this.errorCode = 201;
+        this.errorCode = "1";
         this.errorMessageArguments = new String[0];
     }
 
-    public Integer getErrorCode() {
+    public String getErrorCode() {
         return this.errorCode;
     }
 
-    public void setErrorCode(Integer errorCode) {
+    public void setErrorCode(String errorCode) {
         this.errorCode = errorCode;
     }
 
@@ -48,7 +48,7 @@ public class GlobalException extends RuntimeException {
         this.errorMessageArguments = errorMessageArguments;
     }
 
-    public static GlobalException withErrorCode(Integer errorCode) {
+    public static GlobalException withErrorCode(String errorCode) {
         GlobalException globalException = new GlobalException();
         globalException.errorCode = errorCode;
         return globalException;

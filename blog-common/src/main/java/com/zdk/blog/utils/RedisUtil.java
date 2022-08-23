@@ -2,6 +2,7 @@ package com.zdk.blog.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,7 @@ import java.util.concurrent.TimeUnit;
  * @author zdk
  * @date 2021/7/19 9:56
  */
+@Lazy
 @Component
 public class RedisUtil {
     @Autowired

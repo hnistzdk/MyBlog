@@ -9,12 +9,12 @@ import java.io.Serializable;
  */
 public class ApiResponse<T> extends BaseResponse<T> implements Serializable {
 
-    private static final int CODE_SUCCESS = 0;
-    private static final int CODE_FAIL = 1;
+    private static final String CODE_SUCCESS = "0";
+    private static final String CODE_FAIL = "1";
     private static final String MSG_SUCCESS = "成功";
     private static final String MSG_FAIL = "失败";
 
-    private Integer code;
+    private String code;
     private T data;
     private String msg;
 
@@ -23,18 +23,18 @@ public class ApiResponse<T> extends BaseResponse<T> implements Serializable {
         this.msg=MSG_SUCCESS;
     }
 
-    public ApiResponse(Integer code){
+    public ApiResponse(String code){
         this.code = code;
         this.msg=MSG_SUCCESS;
     }
 
-    public ApiResponse(Integer code, T data){
+    public ApiResponse(String code, T data){
         this.code = code;
         this.data = data;
         this.msg=MSG_SUCCESS;
     }
 
-    public ApiResponse(Integer code, String msg){
+    public ApiResponse(String code, String msg){
         this.code = code;
         this.msg = msg;
     }
@@ -45,7 +45,7 @@ public class ApiResponse<T> extends BaseResponse<T> implements Serializable {
         this.data=data;
     }
 
-    public ApiResponse(Integer code, T data, String msg) {
+    public ApiResponse(String code, T data, String msg) {
         this.code = code;
         this.data = data;
         this.msg = msg;
@@ -82,7 +82,7 @@ public class ApiResponse<T> extends BaseResponse<T> implements Serializable {
     public static <T> ApiResponse <T> fail(String msg){
         return new ApiResponse<>(CODE_FAIL, msg);
     }
-    public static <T> ApiResponse <T> failWidthDiyCode(Integer errorCode) {
+    public static <T> ApiResponse <T> failWidthDiyCode(String errorCode) {
         return new ApiResponse<>(errorCode);
     }
 
@@ -96,11 +96,11 @@ public class ApiResponse<T> extends BaseResponse<T> implements Serializable {
         return this;
     }
 
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
-    public ApiResponse setCode(Integer code) {
+    public ApiResponse setCode(String code) {
         this.code = code;
         return this;
     }

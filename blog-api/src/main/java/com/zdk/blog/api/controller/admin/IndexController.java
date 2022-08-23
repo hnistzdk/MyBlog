@@ -37,7 +37,7 @@ import java.util.List;
 @RequestMapping(value = "/admin")
 public class IndexController extends CommonController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(IndexController);
+    private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
 
     @Autowired
     private UserService userService;

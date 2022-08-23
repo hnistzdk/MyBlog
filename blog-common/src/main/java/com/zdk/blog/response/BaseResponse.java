@@ -20,13 +20,10 @@ public class BaseResponse<T> extends AbstractResponse {
         super.error();
         Error error = new Error("1", "系统异常");
 
-        try {
-            StackTraceElement ste = (new Throwable()).getStackTrace()[1];
-            error.setClazz(ste.getClassName());
-            error.setMethod(ste.getMethodName());
-            error.setLineNumber(ste.getLineNumber());
-        } catch (Exception var3) {
-        }
+        StackTraceElement ste = (new Throwable()).getStackTrace()[1];
+        error.setClazz(ste.getClassName());
+        error.setMethod(ste.getMethodName());
+        error.setLineNumber(ste.getLineNumber());
 
         this.getErrors().add(error);
         return this;
@@ -36,13 +33,10 @@ public class BaseResponse<T> extends AbstractResponse {
         super.error(message);
         Error error = new Error("1", message);
 
-        try {
-            StackTraceElement ste = (new Throwable()).getStackTrace()[1];
-            error.setClazz(ste.getClassName());
-            error.setMethod(ste.getMethodName());
-            error.setLineNumber(ste.getLineNumber());
-        } catch (Exception var4) {
-        }
+        StackTraceElement ste = (new Throwable()).getStackTrace()[1];
+        error.setClazz(ste.getClassName());
+        error.setMethod(ste.getMethodName());
+        error.setLineNumber(ste.getLineNumber());
 
         this.getErrors().add(error);
         return this;
@@ -52,13 +46,10 @@ public class BaseResponse<T> extends AbstractResponse {
         super.error(type.getCode(), type.getMsg());
         Error error = new Error(type.getCode(), type.getMsg());
 
-        try {
-            StackTraceElement ste = (new Throwable()).getStackTrace()[1];
-            error.setClazz(ste.getClassName());
-            error.setMethod(ste.getMethodName());
-            error.setLineNumber(ste.getLineNumber());
-        } catch (Exception var4) {
-        }
+        StackTraceElement ste = (new Throwable()).getStackTrace()[1];
+        error.setClazz(ste.getClassName());
+        error.setMethod(ste.getMethodName());
+        error.setLineNumber(ste.getLineNumber());
 
         this.getErrors().add(error);
         return this;
@@ -67,16 +58,13 @@ public class BaseResponse<T> extends AbstractResponse {
     public BaseResponse error(String code, String message) {
         super.error(code, message);
         Error error = new Error(code, message);
-        this.setStatus(code);
+        this.setCode(code);
         this.setMsg(message);
 
-        try {
-            StackTraceElement ste = (new Throwable()).getStackTrace()[1];
-            error.setClazz(ste.getClassName());
-            error.setMethod(ste.getMethodName());
-            error.setLineNumber(ste.getLineNumber());
-        } catch (Exception var5) {
-        }
+        StackTraceElement ste = (new Throwable()).getStackTrace()[1];
+        error.setClazz(ste.getClassName());
+        error.setMethod(ste.getMethodName());
+        error.setLineNumber(ste.getLineNumber());
 
         this.getErrors().add(error);
         return this;
@@ -86,13 +74,10 @@ public class BaseResponse<T> extends AbstractResponse {
         super.error(type.getCode(), message);
         Error error = new Error(type, message);
 
-        try {
-            StackTraceElement ste = (new Throwable()).getStackTrace()[1];
-            error.setClazz(ste.getClassName());
-            error.setMethod(ste.getMethodName());
-            error.setLineNumber(ste.getLineNumber());
-        } catch (Exception var5) {
-        }
+        StackTraceElement ste = (new Throwable()).getStackTrace()[1];
+        error.setClazz(ste.getClassName());
+        error.setMethod(ste.getMethodName());
+        error.setLineNumber(ste.getLineNumber());
 
         this.getErrors().add(error);
         return this;
@@ -127,7 +112,7 @@ public class BaseResponse<T> extends AbstractResponse {
     }
 
     public BaseResponse ok(T data) {
-        this.setStatus("0");
+        this.setCode("0");
         this.setMsg("成功");
         this.data = data;
         return this;

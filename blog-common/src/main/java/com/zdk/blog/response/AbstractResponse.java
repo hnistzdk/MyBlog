@@ -8,33 +8,33 @@ import java.io.Serializable;
  */
 public class AbstractResponse implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String status = "0";
+    private String code = "0";
     private String msg = "成功";
 
     public AbstractResponse error() {
-        this.setStatus("1");
+        this.setCode("1");
         this.setMsg("系统异常");
         return this;
     }
 
     public AbstractResponse error(String msg) {
-        this.setStatus("1");
+        this.setCode("1");
         this.setMsg(msg);
         return this;
     }
 
-    public AbstractResponse error(String status, String msg) {
-        this.setStatus(status);
+    public AbstractResponse error(String code, String msg) {
+        this.setCode(code);
         this.setMsg(msg);
         return this;
     }
 
-    public String getStatus() {
-        return this.status;
+    public String getCode() {
+        return this.code;
     }
 
-    public AbstractResponse setStatus(String status) {
-        this.status = status;
+    public AbstractResponse setCode(String code) {
+        this.code = code;
         return this;
     }
 
