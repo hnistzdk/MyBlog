@@ -1,19 +1,14 @@
 package com.zdk.blog.utils;
 
-import com.zdk.blog.constant.WebConst;
 import com.zdk.blog.exception.GlobalException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
-import java.awt.*;
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -41,15 +36,13 @@ public class TaleUtils {
      */
     private static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
     private static final Pattern SLUG_REGEX = Pattern.compile("^[A-Za-z0-9_-]{5,100}$", Pattern.CASE_INSENSITIVE);
     /**
      * 使用双重检查锁的单例方式需要添加 volatile 关键字
      */
     private static volatile DataSource newDataSource;
-    /**
-     * markdown解析器
-     */
-//    private static Parser parser = Parser.builder().build();
+
     /**
      * 获取文件所在目录
      */
@@ -143,12 +136,12 @@ public class TaleUtils {
      * @param request 请求
      * @return cookie
      */
-    public static Cookie cookieRaw(String name, HttpServletRequest request) {
-        javax.servlet.http.Cookie[] servletCookies = request.getCookies();
+    public static Cookie getCookie(String name, HttpServletRequest request) {
+        Cookie[] servletCookies = request.getCookies();
         if (servletCookies == null) {
             return null;
         }
-        for (javax.servlet.http.Cookie c : servletCookies) {
+        for (Cookie c : servletCookies) {
             if (c.getName().equals(name)) {
                 return c;
             }
@@ -164,7 +157,7 @@ public class TaleUtils {
      * @return cookie
      */
     public static String getCookieValue(String name, HttpServletRequest request) {
-        javax.servlet.http.Cookie[] servletCookies = request.getCookies();
+        Cookie[] servletCookies = request.getCookies();
         if (servletCookies == null) {
             return null;
         }
@@ -190,42 +183,6 @@ public class TaleUtils {
         return "";
     }
 
-    /**
-     * markdown转换为html
-     *
-     * @param markdown
-     * @return
-     */
-//    public static String mdToHtml(String markdown) {
-//        if (StringUtils.isBlank(markdown)) {
-//            return "";
-//        }
-//        java.util.List<Extension> extensions = Arrays.asList(TablesExtension.create());
-//        Parser parser = Parser.builder().extensions(extensions).build();
-//        Node document = parser.parse(markdown);
-//        HtmlRenderer renderer = HtmlRenderer.builder().extensions(extensions).build();
-//        String content = renderer.render(document);
-//        content = Commons.emoji(content);
-//        return content;
-//    }
-
-    /**
-     * 退出登录状态
-     *
-     * @param session
-     * @param response
-     */
-    public static void logout(HttpSession session, HttpServletResponse response) {
-        session.removeAttribute(WebConst.LOGIN_SESSION_KEY);
-        Cookie cookie = new Cookie(WebConst.USER_IN_COOKIE, "");
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
-        try {
-            response.sendRedirect("/");
-        } catch (IOException e) {
-            LOGGER.error(e.getMessage(), e);
-        }
-    }
 
     /**
      * 替换HTML脚本
@@ -298,62 +255,6 @@ public class TaleUtils {
             cleanValue = scriptPattern.matcher(cleanValue).replaceAll("");
         }
         return cleanValue;
-    }
-
-    /**
-     * 判断是否是合法路径
-     *
-     * @param slug
-     * @return
-     */
-    public static boolean isPath(String slug) {
-        if (StringUtils.isNotBlank(slug)) {
-            if (slug.contains("/") || slug.contains(" ") || slug.contains(".")) {
-                return false;
-            }
-            Matcher matcher = SLUG_REGEX.matcher(slug);
-            return matcher.find();
-        }
-        return false;
-    }
-
-
-
-    /**
-     * 判断文件是否是图片类型
-     *
-     * @param imageFile
-     * @return
-     */
-    public static boolean isImage(InputStream imageFile) {
-        try {
-            Image img = ImageIO.read(imageFile);
-            if (img == null || img.getWidth(null) <= 0 || img.getHeight(null) <= 0) {
-                return false;
-            }
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    /**
-     * 随机数
-     *
-     * @param size
-     * @return
-     */
-    public static String getRandomNumber(int size) {
-        String num = "";
-
-        for (int i = 0; i < size; ++i) {
-            double a = Math.random() * 9.0D;
-            a = Math.ceil(a);
-            int randomNum = (new Double(a)).intValue();
-            num = num + randomNum;
-        }
-
-        return num;
     }
 
     /**

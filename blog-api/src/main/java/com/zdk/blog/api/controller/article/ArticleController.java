@@ -50,7 +50,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value = "/article")
 @Validated
-@Uncheck
+//@Uncheck
 public class ArticleController extends CommonController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ArticleController.class);
@@ -155,7 +155,7 @@ public class ArticleController extends CommonController {
 
     @ApiOperation("文章详情")
     @GetMapping(value = "/detail")
-    @Uncheck
+//    @Uncheck
     public ApiResponse detail(@NotNull(message = "id不能为空") Integer id){
         Article article = articleService.getArticleById(id);
         return ApiResponse.success(article);

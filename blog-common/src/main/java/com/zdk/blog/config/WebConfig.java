@@ -1,6 +1,7 @@
 package com.zdk.blog.config;
 
 import com.zdk.blog.interceptor.AuthInterceptor;
+import com.zdk.blog.interceptor.JwtInterceptor;
 import com.zdk.blog.interceptor.LoginHandlerInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,15 +21,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
     /**
-     * 添加视图控制器
-     */
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addRedirectViewController("/","/user/toIndex");
-        registry.addRedirectViewController("/admin","/admin/login");
-    }
-
-    /**
      * 提前实例化拦截器
      * @return
      */
@@ -40,6 +32,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public AuthInterceptor getAuthInterceptor(){
         return new AuthInterceptor();
+    }
+
+    @Bean
+    public JwtInterceptor jwtInterceptor(){
+        return new JwtInterceptor();
     }
 
     /**
@@ -58,6 +55,13 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         //登录拦截器
         registry.addInterceptor(getLoginHandlerInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/login.html","/","/user/login","/user/toLogin","/user/toIndex","/user/links")
+                .excludePathPatterns("/admin/login","/admin")
+                .excludePathPatterns("/**/*.html", "/**/*.js", "/**/*.css", "/**/*.json", "/**/*.icon","/**/*.jpg","/**/*.png")
+                .excludePathPatterns("/swagger-resources/**");
+        //登录拦截器
+        registry.addInterceptor(jwtInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns("/login.html","/","/user/login","/user/toLogin","/user/toIndex","/user/links")
                 .excludePathPatterns("/admin/login","/admin")
