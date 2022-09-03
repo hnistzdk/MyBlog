@@ -13,7 +13,7 @@ import java.util.Date;
  * @author zhangdikai
  * @date 2022-07-28 14:47
  */
-public abstract class BaseModel<T extends Model<?>> extends Model<T> implements Serializable {
+public abstract class BaseModel<T> implements Serializable {
     private static final long serialVersionUID = 1L;
     private String createBy;
     @JSONField(
