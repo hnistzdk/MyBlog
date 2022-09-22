@@ -10,7 +10,6 @@ import com.zdk.blog.constant.Types;
 import com.zdk.blog.constant.WebConst;
 import com.zdk.blog.dto.CommentsDTO;
 import com.zdk.blog.dto.MetaDTO;
-import com.zdk.blog.interceptor.Uncheck;
 import com.zdk.blog.model.Article;
 import com.zdk.blog.model.Comments;
 import com.zdk.blog.model.User;
@@ -20,7 +19,7 @@ import com.zdk.blog.service.MetasService;
 import com.zdk.blog.response.ApiResponse;
 import com.zdk.blog.utils.IpKit;
 import com.zdk.blog.utils.RedisUtil;
-import com.zdk.blog.utils.UpYunUtil;
+import com.zdk.starter.service.UpYunOssService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -67,7 +66,7 @@ public class ArticleController extends CommonController {
     private CommentsService commentsService;
 
     @Autowired
-    private UpYunUtil upYunUtil;
+    private UpYunOssService upYunOssService;
 
     @Autowired
     private RedisUtil redisUtil;
@@ -174,7 +173,7 @@ public class ArticleController extends CommonController {
         filename=UUID.randomUUID()+suffixName;
 
         //上传又拍云
-        Result uploadResult = upYunUtil.uploadImage(file.getBytes(), filename);
+        Result uploadResult = upYunOssService.uploadFile(filename, null, file.getBytes());
         JSONObject photoMsg = JSONUtil.parseObj(uploadResult.getMsg());
         String url=URL_PREFIX+photoMsg.getStr("url");
 

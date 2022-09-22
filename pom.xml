@@ -236,6 +236,13 @@
 				<artifactId>httpclient</artifactId>
 				<version>4.5.13</version>
 			</dependency>
+			<!-- 又拍云SDK封装starter	-->
+			<dependency>
+				<groupId>io.github.hnistzdk</groupId>
+				<artifactId>upyun-spring-boot-starter</artifactId>
+				<version>1.0.2</version>
+			</dependency>
+
 
 		</dependencies>
 	</dependencyManagement>

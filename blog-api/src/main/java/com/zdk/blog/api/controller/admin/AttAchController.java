@@ -12,6 +12,7 @@ import com.zdk.blog.model.Attach;
 import com.zdk.blog.response.ApiResponse;
 import com.zdk.blog.service.AttachService;
 import com.zdk.blog.utils.*;
+import com.zdk.starter.service.UpYunOssService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -48,7 +49,7 @@ public class AttAchController extends CommonController {
     private AttachService attachService;
 
     @Autowired
-    private UpYunUtil upYunUtil;
+    private UpYunOssService upYunOssService;
 
     @ApiOperation("附件管理首页")
     @GetMapping(value = "")
@@ -73,7 +74,7 @@ public class AttAchController extends CommonController {
             uploadFiles.add(file.getBytes());
             uploadFilesName.add(fileName);
         }
-        List<Result> results = upYunUtil.uploadFiles(uploadFiles, uploadFilesName);
+        List<Result> results = upYunOssService.uploadFiles(uploadFilesName, uploadFiles);
         List<Attach> attaches = new ArrayList<>();
         Attach attach = new Attach();
         for (Result result : results) {

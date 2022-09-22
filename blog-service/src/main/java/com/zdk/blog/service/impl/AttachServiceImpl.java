@@ -10,8 +10,8 @@ import com.zdk.blog.model.Attach;
 import com.zdk.blog.model.User;
 import com.zdk.blog.service.AttachService;
 import com.zdk.blog.utils.ParaValidator;
-import com.zdk.blog.utils.UpYunUtil;
 import com.zdk.blog.mapper.AttachMapper;
+import com.zdk.starter.service.UpYunOssService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class AttachServiceImpl extends ServiceImpl<AttachMapper, Attach> impleme
     private static final Logger LOGGER = LoggerFactory.getLogger(AttachServiceImpl.class);
 
     @Autowired
-    private UpYunUtil upYunUtil;
+    private UpYunOssService upYunOssService;
 
     @Cacheable(value = "attach",key = "'attachPage'+#pageNum+#pageSize+#loginUser")
     @Override
@@ -58,7 +58,7 @@ public class AttachServiceImpl extends ServiceImpl<AttachMapper, Attach> impleme
     @Override
     public Boolean deleteAttachById(Integer id) throws UpException, IOException {
         Attach attach = getById(id);
-        Boolean result = upYunUtil.deleteFile(attach.getFileKey());
+        Boolean result = upYunOssService.deleteFile(attach.getFileKey());
         Boolean result1 = remove(new QueryWrapper<Attach>().eq("id", id));
         return result&&result1;
     }

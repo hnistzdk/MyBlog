@@ -125,5 +125,11 @@
         </dependency>
         <!-- 参数校验 end-->
 
+        <!-- 又拍云封装starter -->
+        <dependency>
+            <groupId>io.github.hnistzdk</groupId>
+            <artifactId>upyun-spring-boot-starter</artifactId>
+        </dependency>
+
     </dependencies>
 </project>
