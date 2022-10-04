@@ -1,12 +1,14 @@
 package com.zdk.blog.interceptor;
 
 import com.zdk.blog.config.JwtConfig;
+import com.zdk.blog.constant.AuthConstant;
 import com.zdk.blog.exception.BusinessException;
 import com.zdk.blog.model.User;
 import com.zdk.blog.security.Payload;
 import com.zdk.blog.utils.JwtUtils;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +27,11 @@ public class JwtInterceptor implements HandlerInterceptor {
     @Autowired
     private JwtConfig jwtConfig;
 
-    private static final String AUTHORIZATION = "Authorization";
-
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtInterceptor.class);
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token = request.getHeader(AUTHORIZATION);
+    public boolean preHandle(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
+        String token = request.getHeader(AuthConstant.HEADER_AUTHORIZATION);
         if (token == null) {
             throw new BusinessException("token为空");
         }

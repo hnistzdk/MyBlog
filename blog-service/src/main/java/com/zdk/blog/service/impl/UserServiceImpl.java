@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zdk.blog.config.JwtConfig;
+import com.zdk.blog.constant.AuthConstant;
 import com.zdk.blog.constant.LogActions;
 import com.zdk.blog.constant.WebConst;
 import com.zdk.blog.model.Logs;
@@ -38,13 +39,8 @@ import java.util.List;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService,ParaValidator {
 
-    private static final Integer ERROR_NUMBER = 4;
-
-    private static final String USER_INFO_CACHE_KEY_PREFIX = "user:";
-
     @Autowired
     private JwtConfig jwtConfig;
-
 
     @Autowired
     private HttpServletRequest request;
@@ -70,7 +66,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String userCountKey = WebConst.LOGIN_ERROR_COUNT+":" + ip +":" + username;
         Integer loginErrorCount = redisUtil.getNumber(userCountKey);
         //检查密码错误次数
-        if (isOk(loginErrorCount) && loginErrorCount >= ERROR_NUMBER) {
+        if (isOk(loginErrorCount) && loginErrorCount >= AuthConstant.ERROR_NUMBER) {
             return ApiResponse.fail("您输入密码已经错误超过4次，请10分钟后尝试");
         }
         User user = getOne(Wrappers.<User>lambdaQuery().eq(User::getUsername, username));
@@ -91,7 +87,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 }
                 // 构造token返回
                 String token = JwtUtils.generateToken(user, jwtConfig.getRsaPrivateKey(), expireTime, jwtConfig.getTimeUnit());
-                redisUtil.hset(WebConst.USERINFO, USER_INFO_CACHE_KEY_PREFIX+token, user, expireTime);
+                redisUtil.hset(WebConst.USERINFO, AuthConstant.USER_INFO_CACHE_KEY_PREFIX+token, user, expireTime);
                 return ApiResponse.success(token,"登录成功");
             } else {
                 loginErrorCount = redisUtil.getNumber(userCountKey);
@@ -99,11 +95,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                     redisUtil.setNumber(userCountKey, 1, 600);
                 } else {
                     redisUtil.incr(userCountKey, 1);
-                    if (redisUtil.getNumber(userCountKey) >= ERROR_NUMBER) {
+                    if (redisUtil.getNumber(userCountKey) >= AuthConstant.ERROR_NUMBER) {
                         redisUtil.expire(userCountKey, 600);
                     }
                 }
-                return ApiResponse.fail("账号或密码错误,您还有" + (ERROR_NUMBER - redisUtil.getNumber(userCountKey)) + "次机会");
+                return ApiResponse.fail("账号或密码错误,您还有" + (AuthConstant.ERROR_NUMBER - redisUtil.getNumber(userCountKey)) + "次机会");
             }
         } else {
             return ApiResponse.fail("该用户不存在");

@@ -1,5 +1,6 @@
 package com.zdk.blog.utils;
 
+import com.zdk.blog.constant.AuthConstant;
 import com.zdk.blog.exception.BusinessException;
 import com.zdk.blog.security.Passport;
 import com.zdk.blog.security.Payload;
@@ -12,7 +13,6 @@ import java.security.PublicKey;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.Base64;
 import java.util.Date;
 import java.util.UUID;
@@ -26,12 +26,6 @@ public class JwtUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtUtils.class);
 
-    private static final String JWT_PAYLOAD_USER_KEY = "user";
-    /**
-     * 允许的过期校验的时钟偏差秒(实际的过期时间=当前过期时间+这个变量)
-     */
-    private static final long ALLOWED_CLOCK_SKEW_SECONDS = 1L;
-
     /**
      * 生成token 过期时间单位默认为 分钟
      * @param userInfo
@@ -44,7 +38,7 @@ public class JwtUtils {
         LocalDateTime localDateTime = LocalDateTime.now().plusMinutes(expire);
         Date expireDate = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
         return Jwts.builder()
-                .claim(JWT_PAYLOAD_USER_KEY, JsonUtils.toString(userInfo))
+                .claim(AuthConstant.JWT_PAYLOAD_USER_KEY, JsonUtils.toString(userInfo))
                 .setId(createJti())
                 .setExpiration(expireDate)
                 .signWith(SignatureAlgorithm.RS256,privateKeyObj)
@@ -63,7 +57,7 @@ public class JwtUtils {
         PrivateKey privateKeyObj = RsaUtils.getPrivateKey(privateKey);
         LocalDateTime localDateTime = LocalDateTime.now().plus(expire,unit);
         Date expireDate = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-        return Jwts.builder().claim(JWT_PAYLOAD_USER_KEY, JsonUtils.toString(userInfo)).setId(createJti()).setExpiration(expireDate).signWith(SignatureAlgorithm.RS256,privateKeyObj).compact();
+        return Jwts.builder().claim(AuthConstant.JWT_PAYLOAD_USER_KEY, JsonUtils.toString(userInfo)).setId(createJti()).setExpiration(expireDate).signWith(SignatureAlgorithm.RS256,privateKeyObj).compact();
     }
 
     /**
@@ -83,7 +77,7 @@ public class JwtUtils {
      */
     private static Jws<Claims> parserToken(String token, String publicKey) throws ExpiredJwtException {
         PublicKey publicKeyObj = RsaUtils.getPublicKey(publicKey);
-        return Jwts.parser().setSigningKey(publicKeyObj).setAllowedClockSkewSeconds(ALLOWED_CLOCK_SKEW_SECONDS).parseClaimsJws(token);
+        return Jwts.parser().setSigningKey(publicKeyObj).setAllowedClockSkewSeconds(AuthConstant.ALLOWED_CLOCK_SKEW_SECONDS).parseClaimsJws(token);
     }
 
     /**
@@ -95,7 +89,7 @@ public class JwtUtils {
      */
     public static void checkToken(String token, String publicKey) {
         PublicKey publicKeyObj = RsaUtils.getPublicKey(publicKey);
-        Jwts.parser().setSigningKey(publicKeyObj).setAllowedClockSkewSeconds(ALLOWED_CLOCK_SKEW_SECONDS).parseClaimsJws(token);
+        Jwts.parser().setSigningKey(publicKeyObj).setAllowedClockSkewSeconds(AuthConstant.ALLOWED_CLOCK_SKEW_SECONDS).parseClaimsJws(token);
     }
 
     /**
@@ -109,10 +103,10 @@ public class JwtUtils {
      */
     public static <T> Payload<T> getInfoFromToken(String token, String publicKey, Class<T> userType) throws ExpiredJwtException {
         Jws<Claims> claimsJws = parserToken(token, publicKey);
-        Claims body = (Claims)claimsJws.getBody();
+        Claims body = claimsJws.getBody();
         Payload<T> claims = new Payload<>();
         claims.setId(body.getId());
-        claims.setUserInfo(JsonUtils.toBean(body.get(JWT_PAYLOAD_USER_KEY).toString(), userType));
+        claims.setUserInfo(JsonUtils.toBean(body.get(AuthConstant.JWT_PAYLOAD_USER_KEY).toString(), userType));
         claims.setExpiration(body.getExpiration());
         return claims;
     }
