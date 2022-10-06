@@ -3,9 +3,7 @@ package com.zdk.blog.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
@@ -18,7 +16,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
  * @Date 2022/7/23 13:50
  */
 @Configuration
-@EnableOpenApi
+@EnableSwagger2WebMvc
 @SuppressWarnings("all")
 public class Swagger2Config {
     @Bean
@@ -40,5 +38,6 @@ public class Swagger2Config {
                 .build();
     }
 
-//    http://localhost:8092/swagger-ui/index.html
+//    http://localhost:8092/swagger-ui/index.html swagger3
+//    http://localhost:8080/doc.html  knife4j
 }

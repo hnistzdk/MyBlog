@@ -174,10 +174,26 @@
         </dependency>
 
         <!--  swagger3-->
+<!--        <dependency>-->
+<!--            <groupId>io.springfox</groupId>-->
+<!--            <artifactId>springfox-boot-starter</artifactId>-->
+<!--        </dependency>-->
+
+        <!--Knife4j start-->
+        <!--引入Knife4j的官方start包,Swagger2基于Springfox2.10.5项目-->
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
+            <groupId>com.github.xiaoymin</groupId>
+            <!--使用Swagger2-->
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>2.0.9</version>
         </dependency>
+        <!--引入Knife4j的官方ui包,OpenAPI3建议使用springdoc-openapi项目-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-springdoc-ui</artifactId>
+            <version>3.0.3</version>
+        </dependency>
+        <!--Knife4j end-->
 
     </dependencies>
 

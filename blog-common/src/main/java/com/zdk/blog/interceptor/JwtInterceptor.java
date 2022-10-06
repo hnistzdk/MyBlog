@@ -31,6 +31,9 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
+        if (request.getRequestURI().startsWith("/favicon.ico") || request.getRequestURI().startsWith("/error")){
+            return true;
+        }
         String token = request.getHeader(AuthConstant.HEADER_AUTHORIZATION);
         if (token == null) {
             throw new BusinessException("token为空");

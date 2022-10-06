@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.zdk.blog.dto.cond.ArticleCond;
 import com.zdk.blog.model.Article;
 import com.zdk.blog.model.User;
+import com.zdk.blog.request.article.ArticleCreateRequest;
 
 
 import java.util.List;
@@ -35,11 +36,11 @@ public interface ArticleService extends IService<Article> {
     List<Article> getArticleByAuthorId(User loginUser);
 
     /**
-     * 添加文章
-     * @param article
-     * @return
+     *
+     * @param createRequest
+     * @param loginUser
      */
-    Boolean addArticle(Article article);
+    void add(ArticleCreateRequest createRequest,User loginUser);
 
     /**
      * 通过id删除文章

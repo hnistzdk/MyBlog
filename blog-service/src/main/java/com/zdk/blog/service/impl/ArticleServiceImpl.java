@@ -8,11 +8,13 @@ import com.zdk.blog.constant.Types;
 import com.zdk.blog.dto.cond.ArticleCond;
 import com.zdk.blog.model.Article;
 import com.zdk.blog.model.User;
+import com.zdk.blog.request.article.ArticleCreateRequest;
 import com.zdk.blog.service.ArticleService;
 import com.zdk.blog.utils.ParaValidator;
 import com.zdk.blog.mapper.ArticleMapper;
 import com.zdk.blog.service.MetasService;
 import com.zdk.blog.service.RelationshipsService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -73,8 +75,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Throwable.class)
     @CachePut(cacheNames="article",key="#article.id")
     @Override
-    public Boolean addArticle(Article article) {
-        return saveOrUpdate(article);
+    public void add(ArticleCreateRequest createRequest,User loginUser){
+        Article article = new Article();
+        BeanUtils.copyProperties(createRequest, article);
+        save(article);
+        article.setAuthorId(loginUser.getId()).setAuthorName(loginUser.getNickname());
+        //去除文章储存时的多余逗号
+        article.setContent(article.getContent().replaceAll("^,", ""));
+        article.setCategories(article.getCategories().replaceAll("^,", ""));
+        metasService.addMetas(article.getId(),article.getCategories(), Types.CATEGORY.getType());
+        metasService.addMetas(article.getId(),article.getTags(), Types.TAG.getType());
     }
 
 
